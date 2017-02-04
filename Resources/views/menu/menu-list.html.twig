@@ -1,0 +1,21 @@
+{%extends "SKCMSAdminBundle:Element/Template:admin-list.html.twig"%}
+{%block header2 %}Menu{%endblock%}
+{%block createLink %}{{path('sk_admin_menuedit')}}{%endblock%}
+{%block th %}
+    <th>Name</th>
+    {{parent()}}
+{%endblock%}
+{%block tr %}
+    <td>{{entity.name}}</td>
+    <td class="center">
+        <a class="btn btn-info" href="{{path('sk_admin_menuedit',{id:entity.id})}}">
+                <i class="icon-edit icon-white"></i>  
+                Edit                                            
+        </a>
+        <a class="btn btn-danger btn-setting" data-content="Voulez vous vraiment supprimer cette entité ?" data-title="Confirmation de suppression" data-confirm="Oui" href="{{path('sk_admin_menudelete',{id:entity.id})}}">
+                <i class="icon-trash icon-white"></i> 
+                Delete
+        </a>
+
+    </td>
+{%endblock%}

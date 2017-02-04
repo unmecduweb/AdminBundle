@@ -1,0 +1,78 @@
+{% extends "MwebAdminBundle::base.html.twig" %}
+
+{% block head %}
+
+    <title>{% block headTitle %}{{ 'admin.title'|trans }}{% endblock %}</title>
+
+    {% block meta %}
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="description" content="{% block metaDescription %}{% endblock metaDescription %}" />
+    {% endblock %}
+
+    <link rel="icon" type="image/png" href="{{ asset('files/image/favicon.png') }}" />
+
+    {% block lexik_stylesheets %}{% endblock %}
+    {% block stylesheets %}
+
+        <link rel="stylesheet" href="{{ asset('bundles/mwebadmin/css/bootstrap.min.css') }}"  type="text/css" />
+        <link rel="stylesheet" href="{{ asset('bundles/mwebadmin/css/bootstrap-datepicker.css') }}" type="text/css" />
+        <link rel="stylesheet" href="{{ asset('bundles/mwebadmin/css/forms.css') }}" type="text/css" />
+        <link rel="stylesheet" href="{{ asset('bundles/mwebadmin/css/jquery.dataTables.min.css') }}" type="text/css" />
+        <link rel="stylesheet" href="{{ asset('bundles/mwebadmin/css/jquery.dataTables_themeroller.css') }}" type="text/css" />
+        <link rel="stylesheet" href="{{ asset('bundles/mwebadmin/css/jquery-ui.min.css') }}" type="text/css" />
+        <link rel="stylesheet" href="{{ asset('bundles/mwebadmin/css/mweb.css') }}" type="text/css" />
+
+
+
+    {% endblock %}        
+
+
+{% endblock %}        
+
+{% block body %}
+    <body>
+        {% block container %}
+            <div class="container-fluid">
+                <h1>{%block pageH1 %}{%endblock%}<span class="pink">.</span> </h1>
+                {% block admin_container %}
+
+                {% endblock %}
+                {% block lexik_content %}{% endblock %}
+                {% block fos_user_content %}{% endblock %}
+            </div>
+        {% endblock %}
+
+    {% block footer %}{% endblock %}
+
+{% block modal %}{% endblock %}
+
+{# Container des modal chargé en ajax #}
+<div id="modal-container"></div>
+
+<div id="loading-wrap">
+    <img src="{{ asset('bundles/mwebadmin/img/loader.gif') }}" alt="loader" />
+</div>
+
+{% block js %}
+    <script  type="text/javascript">
+            var DOMAIN = " {{  app.request.getSchemeAndHttpHost() ~ asset('') }}";
+    </script>
+
+    <script type="text/javascript" src="{{ asset('bundles/mwebadmin/js/plugin/a_jquery-3.1.1.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/mwebadmin/js/plugin/a_mw-library.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/mwebadmin/js/plugin/bootstrap.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/mwebadmin/js/plugin/jquery.dataTables.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/mwebadmin/js/plugin/jquery.mjs.nestedSortable.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/mwebadmin/js/plugin/jquery-ui.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/mwebadmin/js/plugin/tinymce/tinymce.min.js') }}"></script>
+    {#<script type="text/javascript" charset="UTF-8" src="{{ asset('bundles/mwebadmin/js/locales/bootstrap-datepicker.'~ app.request.getLocale() ~'.min.js' ) }}"></script>#}
+
+    <script type="text/javascript" src="{{ asset('bundles/mwebadmin/js/script/list.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/mwebadmin/js/script/script.js') }}"></script>
+
+{% endblock %}
+    {% block lexik_javascript_footer %}{% endblock %}
+
+</body>
+
+{% endblock %}

@@ -1,0 +1,83 @@
+{%extends "LEAdminBundle::layout-admin.html.twig"%}
+    
+{%block pageH1 %}Edition de menu{%endblock%}
+
+{%block admin_container %}
+    <form action="" method="post">
+
+    {% form_theme form 'Form/main-form-layout.html.twig' %}
+    
+    {{ form_errors(form) }}
+
+    
+    <div class="control-group row">
+        <div class="formLabel col-md-1 col-lg-1 col-sm-1 col-xs-12 align_right">
+            <label for="name" class="control-label">Name</label>
+{#        {{form_label(input,null,{label_attr:{class:'control-label'} })}}#}
+        </div>
+
+      <div class="controls col-md-11 col-lg-11 col-sm-11 col-xs-12">
+          <input type="text" id="name" value="{{form.name.vars.value}}" name="name" required="required" placeholder="name of the menu" class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-control" />
+{#          {{form_widget(input,{attr:{class:'col-md-12 col-lg-12 col-sm-12 col-xs-12  form-control' }})}}#}
+      </div>
+    </div>
+    <div class="control-group row">
+        <div class="formLabel col-md-1 col-lg-1 col-sm-1 col-xs-12 align_right">
+            <label for="name" class="control-label">Name ID</label>
+{#        {{form_label(input,null,{label_attr:{class:'control-label'} })}}#}
+        </div>
+
+      <div class="controls col-md-11 col-lg-11 col-sm-11 col-xs-12">
+          <input type="text" id="name" value="{{form.textId.vars.value}}" name="textId" required="required" placeholder="name of the menu" class="col-md-12 col-lg-12 col-sm-12 col-xs-12  form-control" />
+{#          {{form_widget(input,{attr:{class:'col-md-12 col-lg-12 col-sm-12 col-xs-12  form-control' }})}}#}
+      </div>
+    </div>
+      <div class="control-group row">
+        <div class="formLabel col-md-1 col-lg-1 col-sm-1 col-xs-12 align_right">
+            <label for="" class="control-label">Tree</label>
+        </div>
+
+                
+        
+        <div class="controls col-md-11 col-lg-11 col-sm-11 col-xs-12">
+            <div class="col-md-4 col-lg-4 col-sm-4 col-xs-4">
+                <h3>Pages Disponibles</h3>
+                <ul class="connectedSortable" id="menu-dispo">
+                    
+                {%for entityGroupName, entityGroup in entities%}
+                    <div>{{entityGroupName}} </div>
+{#                        <ul>#}
+                    {%for entity in entityGroup%}
+                        {% if menu.children.contains(entity) == false%}
+                            <li target-id="{{entity.id}}" data-name="{{entity}}" data-entityClass="{{entity|getClass(true)}}" contenteditable='true' id="menu-li-{{loop.index}}" data-title="menu displayed label" data-content="<p>page name : {{entity}}</p><form action='' class='menu_form' data-target='menu-li-{{loop.index}}'><input type='text' id='menuElementName_{{loop.index}}' value='{{entity}}'/><br /><br /><button type='submit' value='Submit' class='btn pink-btn'>Submit</button>
+         <button class='btn menu_form_closer' type='button' value='Cancel'>Cancel</button></form>">{{entity}} <br /> </li>
+                        {%endif%}
+                    {% endfor %}
+{#                    </ul>#}
+                   
+                {%endfor%}
+                </ul>
+            </div>
+            <div class="col-md-4 col-lg-4 col-sm-4 col-xs-4">
+                <h3>Arborescence</h3>
+                <div id="liPrototype" class="hidden">
+                    <li target-id="" data-name="" contenteditable='true' data-entityClass='' id="" data-title="menu displayed label" data-content="<p>page name : %_pageName_%</p><form action='' class='menu_form' data-target='menu-li-%_index_%'><input type='text' id='menuElementName_%_index_%' value='%_pageName_%'/><br /><br /><button type='submit' value='Submit' class='btn pink-btn'>Submit</button>
+                        <button class='btn menu_form_closer' type='button' value='Cancel'>Cancel</button></form>"><span class='entityName'></span>  </li>
+                </div>
+                <ul class="connectedSortable" id="menu-reel" data-children="{{currentMenuArray|json_encode()}}"></ul>
+            </div>
+        </div>
+    </div>
+    
+    <input type="hidden" name="jsonmenu" id="json_menu" />
+    <input type="hidden" name="{{form._token.vars.full_name}}" value="{{form._token.vars.value}}" />
+    
+    <div class="hidden">
+{#    {{ form_rest(form) }}#}
+    </div>
+    <input type="submit" />
+    </form>
+{#    {{form_widget(form)}}#}
+
+{% endblock %}
+

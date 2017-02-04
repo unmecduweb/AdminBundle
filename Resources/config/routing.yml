@@ -1,0 +1,33 @@
+
+
+mweb_admin:
+    path: /
+    defaults: {_controller: MwebAdminBundle:Manage:index}
+
+
+mweb_admin_list_entity:
+    path: /list/{entityAlias}
+    defaults: {_controller: MwebAdminBundle:Manage:list}
+
+mweb_admin_edit_entity:
+    path: /edit/{_locale}/{entityAlias}/{id}
+    defaults: {_controller: MwebAdminBundle:Manage:edit}
+
+mweb_admin_view_entity:
+    path: /view/{entityAlias}/{id}
+    defaults: {_controller: MwebAdminBundle:Manage:view}
+
+        
+mweb_admin_delete_entity:
+    path: /delete/{entityAlias}/{id}
+    defaults: {_controller: MwebAdminBundle:Manage:delete}
+
+mweb_admin_tinymce_browser:
+    path:  /tinymceBrowser/{file}
+    defaults: { _controller: MwebAdminBundle:Tinymce:browser, file: null }
+    requirements:
+        file: .+
+
+lexik_translation_edition:
+    resource: "@LexikTranslationBundle/Resources/config/routing.yml"
+    prefix:   /trans

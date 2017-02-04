@@ -1,0 +1,17 @@
+
+
+{% macro product_prototype(productQuantity) %}
+     <li>
+        {{ form_errors(productQuantity) }}
+        <div class="col-xs-6 form-group ">
+            {{ form_label(productQuantity.product) }}
+            {{ form_widget(productQuantity.product, {"attr":{'class':'select'}} ) }}
+        </div>
+        <div class="col-xs-6 form-group">
+            {{ form_label(productQuantity.quantity) }}
+            {{ form_widget(productQuantity.quantity, {"attr":{'class':'form-control field-quantity'}} ) }}
+            <span class="product-unity"></span>
+        </div>
+        <div class="clear"></div>
+    </li>
+{% endmacro %}

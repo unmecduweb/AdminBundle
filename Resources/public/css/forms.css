@@ -1,0 +1,28 @@
+body {padding-top:90px;}
+/*
+label {display:inline-block;width:10%;font-size:16px;}
+input[type=text],input[type=email],input[type=password],textarea{display:block;width:85%;margin-left:5%;}
+input[type=submit],button{width:50%;margin: auto;display: block;font-size:30px;padding:10px;text-align:center;}
+
+footer{display:none;}
+
+.connectedSortable {padding:10px 10px 30px;;border:1px solid #d8d8d8;}
+.connectedSortable li{padding:5px 10px;border:1px solid #333;margin:10px 0;background:#eee;}*/
+
+.status-circle{border-radius: 10px; width: 18px; height: 18px; border: 3px solid #797979; display: inline-block; }
+.status-circle.active{border-color: #A8C813;}
+.status-circle.desactive{border-color: #E52242;}
+.center {text-align: center;}
+
+#checkBeforeValidation .help-block{display: inline-block; color: #a94442}
+
+.table-mode{text-align: center; font-size: 22px;}
+.table-host-id{font-weight: 600; font-size: 16px; text-align: center; vertical-align: middle;}
+.table-host-button{font-size: 14px; font-weight: 600; background-color: #E52242; display: block; color: #fff; margin: 3px 0; padding: 2px;}
+
+.currency{background: #9b1740 none repeat scroll 0% 0%; height: 25px; display: inline-block; width: 7%; color: #FFF; line-height: 25px !important; font-weight: 600; font-size: 17px; text-align: center; vertical-align: top;} 
+.field.field-currency{width: 93%;}
+
+
+#products-quantity-fields-list{list-style: none; padding: 0; margin: 0;}
+#products-quantity-fields-list .product-unity{position: absolute; bottom: 0px; right: 0px; text-transform: uppercase; background: #d8d8d8; padding: 6px; border-radius: 0px 4px 4px 0px;}

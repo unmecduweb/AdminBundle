@@ -1,0 +1,35 @@
+{% extends "MwebAdminBundle::layout.html.twig" %}
+{% trans_default_domain "httpException" %}
+
+{% block main_cover %}
+    <div id="main-cover-small" style="background-image: url({{ asset(getWallpaper()) }}) "></div>
+{% endblock %}
+
+{% block content %}
+    <section id="page-wrap">
+
+        <div id="page-content" class="container-fixed no-padding">
+            <div class="col-xs-2"></div>
+
+            <div class="box col-xs-8 register-hotelier">
+                <p id="content-error">
+                    {% block error_content %}
+                        {{ 'error.content'|trans }}
+                    {% endblock %}
+                </p>
+                <div id="box-error">
+                    <h1 class="width-60 left align-center">
+                        {% block error_title %}                            
+                            {{ 'error.title'|trans }}
+                        {% endblock %}
+                    </h1>
+                    <img class="width-40 right" src="{% block error_img %}{{ asset('files/image/error/error.png') }}{% endblock %}" alt="" />
+                </div>
+                <div class="clear"></div>
+                <a class="right button-light" href="{{ path('le_home')}}">{{'backHome'|trans}}</a>
+            </div>
+            <div class="col-xs-2"></div>
+            <div class="clear"></div>
+        </div>
+    </section>
+{% endblock %}

@@ -1,0 +1,59 @@
+{% extends "MwebAdminBundle::layout.html.twig" %}
+
+{%block pageH1 %}
+    Edition de {{ entityAlias }} en {{ lang|trans }}
+{%endblock%}
+{% block admin_container %}
+
+
+
+    {% set fieldToExclude = ['status', 'metaDesc', 'goTo'] %}
+
+
+    <form action="" method="post" enctype="multipart/form-data">
+
+        {% form_theme form 'MwebAdminBundle:Form:main-form-layout.html.twig' %}
+        <fieldset class="mweb-fieldset">
+            <legend>
+                <span class="glyphicon glyphicon-bookmark pink"></span>{{ "admin.edit.mainLegend"|trans({}, "mweb") }}
+
+            </legend>
+            <div class="content">
+                {% for key,field in form %}
+                    {% if  key not in fieldToExclude %}
+                        {{ form_errors(field) }}
+                        {{ form_row(field) }}
+                    {% endif %}
+                {% endfor %}
+            </div>
+
+        </fieldset>
+
+        <fieldset class="mweb-fieldset">
+            <legend><span class="glyphicon glyphicon-signal pink"></span>{{ "admin.edit.metaLegend"|trans({}, "mweb") }} </legend>
+
+            <div class="content">
+
+            {{ form_errors(form.status) }}
+            {{ form_row(form.status) }}
+            {% if form.metaDesc is defined %}
+                {{ form_errors(form.metaDesc) }}
+                {{ form_row(form.metaDesc) }}
+            {%  endif %}
+            </div>
+
+        </fieldset>
+
+        <fieldset class="mweb-fieldset" id="mweb-goto-fieldset">
+            <legend><span class="glyphicon glyphicon-record pink"></span>{{ "admin.edit.saveLegend"|trans({}, "mweb") }} </legend>
+
+            <div class="col-xs-8">
+                {{ form_widget(form.goTo) }}
+            </div>
+            <div class="col-xs-4">
+                <button type="submit" class="button big"> {{ "admin.edit.save"|trans({}, "mweb") }}</button>
+            </div>
+            <div class="clear"></div>
+        </fieldset>
+    </form>
+{% endblock %}

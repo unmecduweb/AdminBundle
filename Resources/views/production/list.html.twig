@@ -1,0 +1,89 @@
+
+{% extends "MwebAdminBundle::layout.html.twig" %}
+
+{% block js %}
+    {{ parent() }}
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#table_hotel').dataTable({
+                "language": {
+                    "url": "{{asset("bundles/mwebadmin/js/locale/fr_Fr.json")}}"
+                },
+                "columnDefs": [{#                    {"searchable": false, "targets": [6, 7, 8, 9]}#}
+                ]
+            });
+        });
+    </script>
+{% endblock %}
+
+{% block pageH1 %}Liste des {{ entityParams.beautyName }}{% endblock %}
+
+{% block admin_container %}    
+    {#    <a href="{{path('le_admin_entity_edit',{entity: entityName is defined ? entityName : app.request.get('_route_params').entity}) }}" class="btn btn-default">Créer</a>#}
+    
+    
+    <a class="edit-entity btn btn-default" href="{{ path('mweb_admin_edit_entity', {"entityAlias" :entityAlias, 'id':'new'}) }}"  >Créer</a>
+    {% if entities is not empty %}
+        <table id="table_hotel" class="table table-bordered tableau_liste display">
+            <thead>
+                <tr>
+                    <th>Identifiant</th>
+                        {%for params in entityParams.listProperties%}
+                        <th>{{params.beautyName}}</th>
+                        {%endfor%}
+                    <th>Voir</th>
+                    <th>Modifier</th>
+                    <th>Supprimer</th>
+                        {% if entities[0].statusTrans is defined %}
+                        <th>Status</th>
+                        {% endif %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for entity in entities %}
+                    <tr>
+                        <td>{{ entity.id }}</td>
+                        {%for params in entityParams.listProperties%}
+                            <td>
+                                {%if params.type == "datetime"%}
+                                    {{ attribute(entity,params.dataName)|date('Y-m-d H:i:s') }}
+                                {% elseif params.type == "time"%}
+                                    {{ attribute(entity,params.dataName)|date('H:i') }}
+                                {%else%}
+                                    {{ attribute(entity,params.dataName) }}
+                                {%endif%}
+                            </td>
+                        {%endfor%}
+                        
+                        
+                        <td class="center">
+                            <a class="view-entity btn small" href="{{ path('mweb_admin_view_entity', { "entityAlias" : entityAlias, "id" : entity.id}) }}" title="Voir">
+                                <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+                            </a>
+                        </td>
+                        
+                        <td class="center">
+                            <a class="edit-entity btn small left" href="{{ path('mweb_admin_edit_entity', { "entityAlias" : entityAlias, "id" : entity.id}) }}" title="Modifier">
+                                <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                            </a>
+                        </td>
+
+                        <td class="center">
+                            <a href="javascript:if(confirm('Êtes vous sur ?')) document.location.href='{{ path('mweb_admin_delete_entity', {'id': entity.id,'entityAlias': entityAlias}) }}'" title="Valider"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+                        </td>
+
+                        {% if entity.statusTrans is defined %}
+                            <td class="center">
+                                {#{% if entity.statusTrans == false %}
+                                    <a class="status-trans" data-url="{{path('le_admin_entity_status_trans')}}" data-entity="{{entityName is defined ? entityName : app.request.get('_route_params').entity}}" data-id="{{entity.id}}" href="#" ><span class="status-circle desactive"></span></a>
+                                    {% else %}
+                                    <a class="status-trans" data-url="{{path('le_admin_entity_status_trans')}}" data-entity="{{entityName is defined ? entityName : app.request.get('_route_params').entity}}" data-id="{{entity.id}}" href="#" ><span class="status-circle active"></span></a>
+                                    {% endif %}#}
+                            </td>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+{% endblock %}

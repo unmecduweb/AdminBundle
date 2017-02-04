@@ -1,0 +1,116 @@
+
+
+{% extends "form_div_layout.html.twig" %} 
+
+    
+{# Affichage d'un groupe de champ ou d'un champ de son label et des erreurs#}
+{% block form_row %}
+    {% spaceless %}
+
+        {# Class du champ #}
+        {% set field_class='' %}
+        {% if attr.field_class is defined %}
+            {% set field_class = attr.field_class %}
+        {% endif %}
+
+        {# Class de la div qui entoure le champ #}
+        {% set class='' %}
+        {% if attr.class is defined %}
+            {% set class = attr.class %}
+        {% endif %}
+
+        <div class="form-group">
+           {{ form_label(form) }}
+            {{ form_widget(form, {"attr":{'class': class ~ ' form-control'}} ) }}
+        </div>
+    {% endspaceless %}
+{% endblock form_row %}
+
+
+{%- block time_widget -%}
+    {%- if widget == 'single_text' -%}
+        {{ block('form_widget_simple') }}
+    {%- else -%}
+        {%- set vars = widget == 'text' ? { 'attr': { 'size': 1 , 'class' : 'form-cntrol col-xs-5'}} : {} -%}
+        <div class="form-goup" {{ block('widget_container_attributes') }}>
+            {{ form_widget(form.hour, vars) }}H
+            {% if with_minutes %}:{{ form_widget(form.minute, vars) }}M{% endif %}
+            {% if with_seconds %}:{{ form_widget(form.second, vars) }}S{% endif %}
+        </div>
+    {%- endif -%}
+{%- endblock time_widget -%}
+
+{% block vich_file_row -%}
+    {% set force_error = true %}
+    {{- block('form_row') }}
+{%- endblock %}
+
+{% block vich_file_widget %}
+    {% spaceless %}
+        <div class="vich-file">
+            {{ form_widget(form.file) }}
+            {% if download_uri is defined and download_uri %}
+                <img width="200" src="{{ asset(download_uri) }}" alt=""  class="mweb-vich-illu" />
+            {% endif %}
+            {% if form.delete is defined %}
+                <br />
+                {{ form_widget(form.delete) }}
+                <label for="{{ form.delete.vars.id }}">{{ "admin.edit.deleteImg"|trans({}, 'mweb') }}</label>
+
+            {% endif %}
+        </div>
+    {% endspaceless %}
+{% endblock %}
+
+{% block vich_image_row -%}
+    {% set force_error = true %}
+    {{- block('form_row') }}
+{%- endblock %}
+
+{% block vich_image_widget %}
+    {% spaceless %}
+        <div class="vich-image">
+            {{ form_widget(form.file) }}
+            {% if form.delete is defined %}
+                {{ form_row(form.delete) }}
+            {% endif %}
+
+            {% if download_uri is defined and download_uri %}
+                <a href="{{ download_uri }}"><img src="{{ download_uri }}" alt="" /></a>
+            {% endif %}
+            {% if show_download_link and download_uri is defined and download_uri%}
+                <a href="{{ download_uri }}">{{ 'download'|trans({}, 'VichUploaderBundle') }}</a>
+            {% endif %}
+        </div>
+    {% endspaceless %}
+{% endblock %}
+
+
+{%- block form_label -%}
+    {% if label is not same as(false) -%}
+        {% if not compound -%}
+            {% set label_attr = label_attr|merge({'for': id}) %}
+        {%- endif -%}
+        {% if required -%}
+            {% set label_attr = label_attr|merge({'class': (label_attr.class|default('') ~ ' required')|trim}) %}
+        {%- endif -%}
+        {% if label is empty -%}
+            {%- if label_format is not empty -%}
+                {% set label = label_format|replace({
+                '%name%': name,
+                '%id%': id,
+                }) %}
+            {%- else -%}
+                {% set label = name|humanize %}
+            {%- endif -%}
+        {%- endif -%}
+        <label{% for attrname, attrvalue in label_attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}>{{ translation_domain is same as(false) ? label : label|trans({}, translation_domain) }}</label>
+        {% set transHelp = label~"Help" %}
+
+        {%  if transHelp|trans({}, 'mweb') != transHelp %}
+            <span class="glyphicon glyphicon-info-sign info-tooltip" data-toggle="tooltip" data-position="bottom" title="{{ transHelp|trans({}, 'mweb') }}"></span>
+        {% endif %}
+
+
+    {%- endif -%}
+{%- endblock form_label -%}

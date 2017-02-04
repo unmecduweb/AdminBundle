@@ -1,0 +1,13 @@
+services:
+    app.twig_extension:
+        class: Mweb\AdminBundle\Twig\TwigExtension
+        arguments: ["@service_container"]
+        public: false
+        tags:
+            - { name: twig.extension }
+
+    mweb.admin.adminMenu:
+        class: Mweb\AdminBundle\Listener\AdminMenu
+        arguments: ["@security.token_storage" ,"@twig","%mweb_admin.entities%","%mweb_admin.menus%"]
+        tags:
+            - { name: kernel.event_listener, event: kernel.response, method: showMenu }

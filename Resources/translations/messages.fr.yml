@@ -1,0 +1,18 @@
+en: Anglais
+fr: Français
+admin:
+  title: Administration
+  content:
+    title: Titre de la section
+    subTitle: Titre court
+    menuTitle: Titre du menu
+    illu: Illustration
+    content: Contenu
+  news:
+    title: Titre de l'actualité
+    menuTitle: Titre du menu
+    illu: Illustration
+    content: Contenu
+  paralax:
+    title: Titre de l'illustration
+    illu: Illustration

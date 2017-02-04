@@ -1,0 +1,27 @@
+{% trans_default_domain 'FOSUserBundle' %}
+
+{{ form_start(form, { 'action': path('fos_user_profile_edit'), 'attr': { 'class': 'fos_user_profile_edit' } }) }}
+
+    {% form_theme form 'MwebAdminBundle:Form:main-form-layout.html.twig' %}
+    <fieldset class="mweb-fieldset">
+        <legend>
+            <span class="glyphicon glyphicon-user pink"></span>{{ "admin.edit.user"|trans({}, "mweb") }}
+
+        </legend>
+        <div class="content">
+            {% for key,field in form %}
+                    {{ form_errors(field) }}
+                    {{ form_row(field) }}
+
+            {% endfor %}
+        </div>
+        <div class="col-xs-8">
+
+        </div>
+        <div class="col-xs-4">
+            <a href="{{ path('fos_user_change_password') }}" class="button big gray left"> {{ "admin.edit.userPass"|trans({}, "mweb") }}</a>
+            <button type="submit" class="button big right"> {{ "admin.edit.save"|trans({}, "mweb") }}</button>
+        </div>
+
+    </fieldset>
+{{ form_end(form) }}
