@@ -34,12 +34,16 @@
 
             <div class="content">
 
-            {{ form_errors(form.status) }}
-            {{ form_row(form.status) }}
-            {% if form.metaDesc is defined %}
-                {{ form_errors(form.metaDesc) }}
-                {{ form_row(form.metaDesc) }}
-            {%  endif %}
+                {{ form_errors(form.status) }}
+                {{ form_row(form.status) }}
+                {% if form.showInMenu is defined %}
+                    {{ form_errors(form.showInMenu) }}
+                    {{ form_row(form.showInMenu) }}
+                {% endif %}
+                {% if form.metaDesc is defined %}
+                    {{ form_errors(form.metaDesc) }}
+                    {{ form_row(form.metaDesc) }}
+                {% endif %}
             </div>
 
         </fieldset>

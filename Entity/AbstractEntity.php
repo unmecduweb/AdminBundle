@@ -31,6 +31,14 @@ class AbstractEntity implements Translatable
         
         
         /**
+         * @var integer
+         * @Gedmo\Translatable
+         * @ORM\Column(name="show_in_menu", type="smallint", options={"default" = 1})
+         */
+        private $showInMenu = 1;
+        
+        
+        /**
          * @var \DateTime
          * @ORM\Column(name="inserted", type="datetime", nullable=false)
          * @Gedmo\Timestampable(on="create")
@@ -64,8 +72,6 @@ class AbstractEntity implements Translatable
          * @Gedmo\Translatable
          */
         private $metaDesc;
-        
-        
         
         
         public function __construct()
@@ -204,28 +210,52 @@ class AbstractEntity implements Translatable
         {
                 return $this->devAlias;
         }
-
-    /**
-     * Set metaDesc
-     *
-     * @param string $metaDesc
-     *
-     * @return AbstractEntity
-     */
-    public function setMetaDesc($metaDesc)
-    {
-        $this->metaDesc = $metaDesc;
-
-        return $this;
-    }
-
-    /**
-     * Get metaDesc
-     *
-     * @return string
-     */
-    public function getMetaDesc()
-    {
-        return $this->metaDesc;
-    }
+        
+        /**
+         * Set metaDesc
+         *
+         * @param string $metaDesc
+         *
+         * @return AbstractEntity
+         */
+        public function setMetaDesc($metaDesc)
+        {
+                $this->metaDesc = $metaDesc;
+                
+                return $this;
+        }
+        
+        /**
+         * Get metaDesc
+         *
+         * @return string
+         */
+        public function getMetaDesc()
+        {
+                return $this->metaDesc;
+        }
+        
+        /**
+         * Set showInMenu
+         *
+         * @param integer $showInMenu
+         *
+         * @return AbstractEntity
+         */
+        public function setShowInMenu($showInMenu)
+        {
+                $this->showInMenu = $showInMenu;
+                
+                return $this;
+        }
+        
+        /**
+         * Get showInMenu
+         *
+         * @return integer
+         */
+        public function getShowInMenu()
+        {
+                return $this->showInMenu;
+        }
 }

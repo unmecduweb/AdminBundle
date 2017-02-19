@@ -55,7 +55,7 @@ class TwigExtension extends \Twig_Extension
                 $ret = array();
                 $langs = explode('|',$this->container->getParameter('locales'));
                 $currentRoute = $this->request->attributes->get('_route');
-                $params = array_merge($this->request->attributes->get('_route_params'), $_GET);
+                $params = array_merge((array)$this->request->attributes->get('_route_params'), $_GET);
 
 //                $curLocale = $this->getLocale();
                 if ($currentRoute) {

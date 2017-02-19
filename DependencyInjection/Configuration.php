@@ -21,7 +21,7 @@ class Configuration implements ConfigurationInterface
         $rootNode = $treeBuilder->root('mweb_admin');
 
         $rootNode->children()
-                ->scalarNode('noIllu')->end()
+                ->scalarNode('noIllu')->defaultValue('mwebadminbundle/img/noIllu.jpg')->end()
                 ->arrayNode('menus')
                     ->useAttributeAsKey('alias')
                     ->prototype('array')
