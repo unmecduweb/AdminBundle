@@ -34,7 +34,10 @@ class TwigExtension extends \Twig_Extension
 
         public function getFilters()
         {
-                return array();
+                return array(
+                        new \Twig_SimpleFilter('stripAccents', [$this, 'stripAccents']),
+                );
+        
         }
 
         public function getFunctions()
@@ -153,5 +156,19 @@ class TwigExtension extends \Twig_Extension
 
                 return $array;
         }
-
+        
+        /**
+         * Remove accent
+         *
+         * @param $str
+         *
+         * @return string
+         */
+        
+        public function stripAccents($str){
+                return iconv('UTF-8', 'US-ASCII//TRANSLIT', $str);
+                
+        }
+        
+        
 }
