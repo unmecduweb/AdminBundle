@@ -18,7 +18,7 @@ class TwigExtension extends \Twig_Extension
         public function __construct($container)
         {
                 $this->container = $container;
-                $this->request = $this->container->get('request_stack')->getCurrentRequest();;
+                $this->request = $this->container->get('request');
                 $this->vichHelper = $this->container->get('vich_uploader.templating.helper.uploader_helper');
                 $this->liipCacheHelper = $this->container->get('liip_imagine.cache.manager');
 //                if ($this->container->get('router.request_context')->get('_route') !== null) {
@@ -43,7 +43,7 @@ class TwigExtension extends \Twig_Extension
         public function getFunctions()
         {
                 return array(
-                        new \Twig_SimpleFunction('getTranslatedUrls', [$this, 'getTranslatedUrls']),
+                        new \Twig_SimpleFunction('getMwebTranslatedUrls', [$this, 'getMwebTranslatedUrls']),
                         new \Twig_SimpleFunction('liip', [$this, 'liip']),
                         new \Twig_SimpleFunction('getLocales', [$this, 'getLocales']),
                         new \Twig_SimpleFunction('isSelected', [$this, 'isSelected']),
@@ -53,7 +53,7 @@ class TwigExtension extends \Twig_Extension
         }
 
 
-        function getTranslatedUrls()
+        function getMwebTranslatedUrls()
         {
                 $ret = array();
                 $langs = explode('|',$this->container->getParameter('locales'));
