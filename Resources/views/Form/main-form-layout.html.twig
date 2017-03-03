@@ -104,7 +104,7 @@
                 {% set label = name|humanize %}
             {%- endif -%}
         {%- endif -%}
-        <label{% for attrname, attrvalue in label_attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}>{{ label : label|trans({}, 'mweb') }}</label>
+        <label{% for attrname, attrvalue in label_attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}>{{ label|trans({}, 'mweb') }}</label>
         {% set transHelp = label~"Help" %}
 
         {%  if transHelp|trans({}, 'mweb') != transHelp %}

@@ -2,6 +2,9 @@
 
 namespace Mweb\AdminBundle\Twig;
 
+use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\HttpKernel\Kernel;
+
 /**
  * Description of MwebADminBundle\TiwgExtension
  *
