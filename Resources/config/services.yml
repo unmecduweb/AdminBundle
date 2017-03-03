@@ -1,7 +1,7 @@
 services:
     app.twig_extension:
         class: Mweb\AdminBundle\Twig\TwigExtension
-        arguments: ["@service_container"]
+        arguments: ["@service_container", "@request_stack"]
         public: false
         tags:
             - { name: twig.extension }
