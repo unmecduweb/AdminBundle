@@ -100,7 +100,7 @@ class ManageController extends Controller
                 $entityRepo = $em->getRepository($entityParams['class']);
 
                 if ($id != "undefined" && $id !== null && $id !== 'new') {
-                        $entityEdit = $entityRepo->findOneBy(array('id' => $id, 'status' => 1));
+                        $entityEdit = $entityRepo->find($id);
                         $entityEdit->setTranslatableLocale($_locale);
                         $em->refresh($entityEdit);
                 } else {

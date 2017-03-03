@@ -9,22 +9,30 @@ namespace Mweb\AdminBundle\Twig;
  */
 class TwigExtension extends \Twig_Extension
 {
-
+        
+        
         private $container;
-        private $request;
+        private $request =false;
         private $vichHelper;
         private $liipCacheHelper;
-
-        public function __construct($container)
+        private $requestStack = false;
+        
+        
+        public function __construct($container, RequestStack $requestStack)
         {
                 $this->container = $container;
-                $this->request = $this->container->get('request');
+                
+                if (preg_match('#^2#', Kernel::VERSION)) {
+                        $this->request = $this->container->get('request');
+                }else{
+                        $this->requestStack = $requestStack->getCurrentRequest();
+                }
                 $this->vichHelper = $this->container->get('vich_uploader.templating.helper.uploader_helper');
                 $this->liipCacheHelper = $this->container->get('liip_imagine.cache.manager');
 //                if ($this->container->get('router.request_context')->get('_route') !== null) {
 //                        $this->locale = $this->container->get('request')->getLocale();
 //                }
-
+                
         }
 
         public function getName()
