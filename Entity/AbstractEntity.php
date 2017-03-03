@@ -32,7 +32,6 @@ class AbstractEntity implements Translatable
         
         /**
          * @var integer
-         * @Gedmo\Translatable
          * @ORM\Column(name="show_in_menu", type="smallint", options={"default" = 1})
          */
         private $showInMenu = 1;
