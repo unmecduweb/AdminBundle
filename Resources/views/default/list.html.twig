@@ -21,9 +21,9 @@
     {#    <a href="{{path('le_admin_entity_edit',{entity: entityName is defined ? entityName : app.request.get('_route_params').entity}) }}" class="btn btn-default">Créer</a>#}
 
     <a class="edit-entity button"
-       href="{{ path('mweb_admin_edit_entity', {'lang': 'fr',"entityAlias" :entityAlias, 'id':'new'}) }}">Ajouter {{ entityParams.beautyName}}</a>
+       href="{{ path('mweb_admin_edit_entity', {'_locale': 'fr',"entityAlias" :entityAlias, 'id':'new'}) }}">Ajouter {{ entityParams.beautyName}}</a>
     {#<button class="edit-entity btn btn-default" type="link"#}
-            {#data-url="{{ path('mweb_admin_edit_entity', {'lang': 'fr',"entityAlias" :entityAlias, 'id':'new'}) }}">Créer#}
+            {#data-url="{{ path('mweb_admin_edit_entity', {'_locale': 'fr',"entityAlias" :entityAlias, 'id':'new'}) }}">Créer#}
     {#</button>#}
     {% if entities is not empty %}
         <table id="table_list_entity" class="table table-bordered tableau_liste display">
@@ -67,7 +67,7 @@
                         {#Edit#}
                             {#no ajax</a>#}
                         {%  for lang in langs %}
-                            <a href="{{ path('mweb_admin_edit_entity', { "lang":lang, "entityAlias" : entityAlias, "id" : entity.id}) }}">
+                            <a href="{{ path('mweb_admin_edit_entity', { "_locale":lang, "entityAlias" : entityAlias, "id" : entity.id}) }}">
                                 {{ lang }}
                                 <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
                             </a>
