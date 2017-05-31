@@ -6,6 +6,7 @@ namespace Mweb\AdminBundle\Entity;
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
  * @ORM\Entity
@@ -30,18 +31,19 @@ class User extends BaseUser
         protected $email;
         
         
-        /**
-         * @var string
-         * @Assert\Regex(
-         *  pattern="/(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]).{7,}/",
-         *  message="Mot de passe doit contenir au minimum 7 caractères et contenir au mois un chiffre, une miniscule et une majuscule"
-         * )
-         */
-        protected $plainPassword;
-
         public function __construct()
         {
                 parent::__construct();
                 // your own logic
+        }
+        
+        /**
+         * @Assert\Callback
+         */
+        public function validate(ExecutionContextInterface $context)
+        {
+                if (!preg_match("/(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]).{7,}/", $this->getPlainPassword())) {
+                        $context->addViolation('Mot de passe doit contenir au minimum 7 caractères et contenir au mois un chiffre, une miniscule et une majuscule');
+                }
         }
 }
