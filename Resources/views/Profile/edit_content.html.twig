@@ -9,6 +9,7 @@
 
         </legend>
         <div class="content col-xs-12">
+            {{ form_errors(form) }}
             {% for key,field in form %}
                     {{ form_errors(field) }}
                     {{ form_row(field) }}
