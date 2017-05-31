@@ -1,0 +1,94 @@
+form:
+  email: Email
+  username: Nom d'utilisateur
+  current_password: Mot de passe actuel
+  password: Mot de passe
+  password_confirmation: Confirmation du mot de passe
+  new_password: Nouveau mot de passe
+  new_password_confirmation: Confirmation du nouveau mot de passe
+admin:
+  title: MWEB - Administration
+  user:
+    username: Nom d'utilisateur
+    email: Adresse Email
+    successCreation: L'utilisateur a bien été créé
+    list:
+      title: Liste des utilisateurs
+  main:
+    hello: Bonjour %name%, et bienvenue sur l'espace d'administration du projet
+    madeBy: Système d'administration développé par
+    company: SkinSoft
+    companyLink: http://skinsoft.org
+  menu:
+    logout: Déconnexion
+    gotoWebsite: Afficher le portail
+    trad: Traductions
+    users: Utilisateurs
+    addUser: Ajouter un utilisateur
+    listUsers: Liste des utilisateurs
+    myAccount: Mon compte
+  edit:
+    editions: Editer
+    actions: Actions
+    delete: Archiver
+    user: Modification de votre compte utilisateur
+    userPass: Modifier votre mot de passe
+    showInMenu: Afficher dans le menu
+    showInMenuOn: Oui
+    showInMenuOff: Non
+    deleteImg: Cochez cette case pour supprimer l'image
+    mainLegend: Informations générales
+    metaLegend: Informations complémentaires
+    saveLegend: Poursuivre vers
+    save: Enregistrer
+    status: Plublier le document
+    statusOn: Oui
+    statusOff: Non
+    metaDesc: Meta Description
+    metaDescHelp: La balise meta description permet d’ajouter une description d'une page affichée, ainsi que des mots-clés pour lesquels on souhaite optimiser une page.
+    goto:
+      seeList: Retour à liste
+      stayHere: Rester sur cette page
+      otherLanguages:
+        fr: Editer cette page en français
+        en: Editer cette page en anglais
+        de: Editer cette page en allemand
+        es: Editer cette page en espagnol
+    deleteConfirm: Cochez la case pour confirmer la suppresion de cet élément
+    deleteConfirmMiss: Merci de cocher la case
+    deleteElm: Supprimer un élément
+    successDelete: L'élément a été supprimé
+    success: L'élément a bien été modifié
+  page:
+    title: Titre de la page
+    subTitle: Sous-titre de la page
+    theme: Thème (couleur dominante)
+    themeChoice:
+      purple: Theme violet
+      red: Theme rouge
+      green: Theme vert
+    themeHelp: Couleur du titre et des liens sur la page
+    illu: Illustration de la page
+    content: Contenu de la page
+  news:
+    title: Titre de l'actualité
+    subTitle: Sous-titre de l'actualité
+    dateStart: Date de début de l'actu
+    dateEnd: Date de fin de l'actu
+    type: Type de l'actualité
+    link: Type d'exposition
+    illu: Illustration de l'actu
+    olympe: Actualité d'olympe
+    partner: Actualité des partenaires
+  expo:
+    title: Titre de l'exposition
+    subTitle: Sous-titre de l'exposition
+    date: Date de l'exposition
+    type: Type d'exposition
+    illu: Illustration de l'exposition
+    content: Contenu de l'exposition
+    olympe: Expo d'olympe
+    partner: Expo des partenaires
+  homeBlock:
+    title: Titre du slide
+    illu: Illustration du slide

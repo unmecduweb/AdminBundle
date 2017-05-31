@@ -9,9 +9,14 @@
 {% block pageH1 %}Administration du site {{ 'admin.project'|trans({}, "mweb") }}{% endblock %}
 
 {% block admin_container %}
-    <h3>Bienvenue sur l'espace d'administration du portail {{ 'admin.project'|trans({}, "mweb") }}.</h3>
+
+
+    <div class="col-xs-12">
+    <h3>{{ 'admin.main.hello'|trans({'%name%':  app.user.username}, "mweb") }} {{ 'admin.project'|trans({}, "mweb") }}.</h3>
 
     <p>Pour toute précision et demande d'information, vous pouvez contacter l'équipe SKINsoft aux numéros suivants :<br />
         Hotline fonctionnelle : 09 72 13 27 61<br />
         Hotline technique : 01 83 62 07 60</p>
+
+    </div>
 {% endblock %}

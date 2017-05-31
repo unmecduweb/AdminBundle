@@ -114,3 +114,30 @@
 
     {%- endif -%}
 {%- endblock form_label -%}
+
+
+{% block field_errors %}
+    {% spaceless %}
+        {% if errors|length > 0 %}
+
+                {% set lastError = null %}
+                {% for error in errors %}
+                    {% if lastError != error %}
+                        <p class="form-error"> <span class="glyphicon glyphicon-info-sign"></span> {{ error.messageTemplate|trans(error.messageParameters, 'validators') }}</p>
+                    {% endif %}
+                    {% set lastError = error %}
+                {% endfor %}
+
+        {% endif %}
+    {% endspaceless %}
+{% endblock field_errors %}
+
+{% block form_errors -%}
+    {% if errors|length > 0 -%}
+
+            {%- for error in errors -%}
+                <p class="form-error"> <span class="glyphicon glyphicon-info-sign"></span> {{ error.messageTemplate|trans(error.messageParameters, 'validators') }}</p>
+            {%- endfor -%}
+
+    {%- endif %}
+{%- endblock form_errors %}

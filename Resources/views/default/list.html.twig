@@ -1,4 +1,6 @@
 {% extends "MwebAdminBundle::layout.html.twig" %}
+{% trans_default_domain 'mweb' %}
+
 
 {% block js %}
     {{ parent() }}
@@ -19,79 +21,81 @@
 
 {% block admin_container %}
     {#    <a href="{{path('le_admin_entity_edit',{entity: entityName is defined ? entityName : app.request.get('_route_params').entity}) }}" class="btn btn-default">Créer</a>#}
-
-    <a class="edit-entity button"
-       href="{{ path('mweb_admin_edit_entity', {'_locale': 'fr',"entityAlias" :entityAlias, 'id':'new'}) }}">Ajouter {{ entityParams.beautyName}}</a>
-    {#<button class="edit-entity btn btn-default" type="link"#}
-            {#data-url="{{ path('mweb_admin_edit_entity', {'_locale': 'fr',"entityAlias" :entityAlias, 'id':'new'}) }}">Créer#}
-    {#</button>#}
-    {% if entities is not empty %}
-        <table id="table_list_entity" class="table table-bordered tableau_liste display">
-            <thead>
-            <tr>
-                <th>Identifiant <span class="glyphicon glyphicon-sort"></span></th>
-                {% for params in entityParams.listProperties %}
-                    <th>{{ params.beautyName }} <span class="glyphicon glyphicon-sort"></span> </th>
-                {% endfor %}
-                <th>Modifier</th>
-                <th>Supprimer</th>
-
-            </tr>
-            </thead>
-            <tbody>
-            {% for entity in entities %}
+    <div class="col-xs-12">
+        <a class="edit-entity button"
+           href="{{ path('mweb_admin_edit_entity', {'_locale': 'fr',"entityAlias" :entityAlias, 'id':'new'}) }}">Ajouter {{ entityParams.beautyName }}</a>
+        {#<button class="edit-entity btn btn-default" type="link"#}
+        {#data-url="{{ path('mweb_admin_edit_entity', {'_locale': 'fr',"entityAlias" :entityAlias, 'id':'new'}) }}">Créer#}
+        {#</button>#}
+        {% if entities is not empty %}
+            <table id="table_list_entity" class="mw-table table-bordered tableau_liste display">
+                <thead>
                 <tr>
-                    <td>{{ entity.id }}</td>
+                    <th>Identifiant <span class="glyphicon glyphicon-menu-down"></span></th>
                     {% for params in entityParams.listProperties %}
-                        <td>
-                            {% if params.type == "datetime" %}
-                                {{ attribute(entity,params.dataName)|date('Y-m-d H:i:s') }}
-                            {% elseif params.type == "date" %}
-                                {{ attribute(entity,params.dataName)|date('d/m/Y') }}
-                            {% elseif params.type == "time" %}
-                                {{ attribute(entity,params.dataName)|date('H:i') }}
-                            {% elseif params.type == "string" %}
-                                {{ attribute(entity,params.dataName) }}
-                            {% elseif params.type == "money" %}
-                                {{ attribute(entity,params.dataName) }}€
-                            {% elseif params.type == "boolean" %}
-                                {% if attribute(entity,params.dataName) >= 1 %}
-                                    <span class="glyphicon glyphicon-ok"></span>
-                                {% else %}
-                                    <span class="glyphicon glyphicon-remove"></span>
-                                {% endif %}
-                            {% endif %}
-                        </td>
+                        <th>{{ params.beautyName }} <span class="glyphicon glyphicon-menu-down"></span></th>
                     {% endfor %}
-                    <td>
-                        {#Edit#}
-                            {#no ajax</a>#}
-                        {%  for lang in langs %}
-                            <a href="{{ path('mweb_admin_edit_entity', { "_locale":lang, "entityAlias" : entityAlias, "id" : entity.id}) }}">
-                                {{ lang }}
-                                <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
-                            </a>
-                        {%  endfor %}
+                    <th>{{ 'admin.edit.actions'|trans }}</th>
 
-                    </td>
 
-                    <td class="center">
-                        <a href="javascript:if(confirm('Êtes vous sur ?')) document.location.href='{{ path('mweb_admin_delete_entity', {'id': entity.id,'entityAlias': entityAlias}) }}'"
-                           title="Valider"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
-                    </td>
-
-                   {# {% if entity.statusTrans is defined %}
-                        <td class="center">
-                            #}{#{% if entity.statusTrans == false %}
-                                <a class="status-trans" data-url="{{path('le_admin_entity_status_trans')}}" data-entity="{{entityName is defined ? entityName : app.request.get('_route_params').entity}}" data-id="{{entity.id}}" href="#" ><span class="status-circle desactive"></span></a>
-                                {% else %}
-                                <a class="status-trans" data-url="{{path('le_admin_entity_status_trans')}}" data-entity="{{entityName is defined ? entityName : app.request.get('_route_params').entity}}" data-id="{{entity.id}}" href="#" ><span class="status-circle active"></span></a>
-                                {% endif %}#}{#
-                        </td>
-                    {% endif %}#}
                 </tr>
-            {% endfor %}
-            </tbody>
-        </table>
-    {% endif %}
+                </thead>
+                <tbody>
+                {% for entity in entities %}
+                    <tr>
+                        <td>{{ entity.id }}</td>
+                        {% for params in entityParams.listProperties %}
+                            <td>
+                                {% if params.type == "datetime" %}
+                                    {{ attribute(entity,params.dataName)|date('Y-m-d H:i:s') }}
+                                {% elseif params.type == "date" %}
+                                    {{ attribute(entity,params.dataName)|date('d/m/Y') }}
+                                {% elseif params.type == "time" %}
+                                    {{ attribute(entity,params.dataName)|date('H:i') }}
+                                {% elseif params.type == "string" %}
+                                    {{ attribute(entity,params.dataName) }}
+                                {% elseif params.type == "money" %}
+                                    {{ attribute(entity,params.dataName) }}€
+                                {% elseif params.type == "boolean" %}
+                                    {% if attribute(entity,params.dataName) >= 1 %}
+                                        <span class="glyphicon glyphicon-ok"></span>
+                                    {% else %}
+                                        <span class="glyphicon glyphicon-remove"></span>
+                                    {% endif %}
+                                {% endif %}
+                            </td>
+                        {% endfor %}
+                        <td>
+                            {#Edit#}
+                            {#no ajax</a>#}
+                            <a class="ajax edit-button"
+                               href="{{ path('mweb_admin_delete_entity', {'id': entity.id,'entityAlias': entityAlias}) }}"
+                               title="Valider"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+                            {% for lang in langs %}
+                                <a class="edit-button"
+                                   href="{{ path('mweb_admin_edit_entity', { "_locale":lang, "entityAlias" : entityAlias, "id" : entity.id}) }}">
+                                    {{ lang }}
+
+                                </a>
+                            {% endfor %}
+
+
+                        </td>
+
+
+                        {# {% if entity.statusTrans is defined %}
+                             <td class="center">
+                                 #}{#{% if entity.statusTrans == false %}
+                                     <a class="status-trans" data-url="{{path('le_admin_entity_status_trans')}}" data-entity="{{entityName is defined ? entityName : app.request.get('_route_params').entity}}" data-id="{{entity.id}}" href="#" ><span class="status-circle desactive"></span></a>
+                                     {% else %}
+                                     <a class="status-trans" data-url="{{path('le_admin_entity_status_trans')}}" data-entity="{{entityName is defined ? entityName : app.request.get('_route_params').entity}}" data-id="{{entity.id}}" href="#" ><span class="status-circle active"></span></a>
+                                     {% endif %}#}{#
+                             </td>
+                         {% endif %}#}
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+    </div>
 {% endblock %}

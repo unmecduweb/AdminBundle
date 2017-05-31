@@ -14,11 +14,11 @@
 
         {% form_theme form 'MwebAdminBundle:Form:main-form-layout.html.twig' %}
         <fieldset class="mweb-fieldset">
-            <legend>
+            <legend class="col-xs-12">
                 <span class="glyphicon glyphicon-bookmark pink"></span>{{ "admin.edit.mainLegend"|trans({}, "mweb") }}
 
             </legend>
-            <div class="content">
+            <div class="content col-xs-12">
                 {% for key,field in form %}
                     {% if  key not in fieldToExclude %}
                         {{ form_errors(field) }}
@@ -30,9 +30,9 @@
         </fieldset>
 
         <fieldset class="mweb-fieldset">
-            <legend><span class="glyphicon glyphicon-signal pink"></span>{{ "admin.edit.metaLegend"|trans({}, "mweb") }} </legend>
+            <legend class="col-xs-12"><span class="glyphicon glyphicon-signal pink"></span>{{ "admin.edit.metaLegend"|trans({}, "mweb") }} </legend>
 
-            <div class="content">
+            <div class="content col-xs-12">
 
                 {{ form_errors(form.status) }}
                 {{ form_row(form.status) }}
@@ -49,7 +49,7 @@
         </fieldset>
 
         <fieldset class="mweb-fieldset" id="mweb-goto-fieldset">
-            <legend><span class="glyphicon glyphicon-record pink"></span>{{ "admin.edit.saveLegend"|trans({}, "mweb") }} </legend>
+            <legend class="col-xs-12"><span class="glyphicon glyphicon-record pink"></span>{{ "admin.edit.saveLegend"|trans({}, "mweb") }} </legend>
 
             <div class="col-xs-8">
                 {{ form_widget(form.goTo) }}

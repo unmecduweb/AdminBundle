@@ -6,7 +6,55 @@ $(document).ready(function () {
     $('form').bind('form-pre-serialize', function (e) {
         tinymce.triggerSave();
     });
+
+
+    setPasswdStrengh();
+
+
+    //Affiche les notices en flashbag
+    $('.mweb-noty').each(function(){
+        generateNotice($(this).data('type'), $(this).html());
+    });
 });
+
+
+var canChangePassword = false;
+var limitScorePassword = 25;
+function setPasswdStrengh(){
+
+    if($('#mweb_user_form_change_password_plainPassword_first').length>0 || $('#mweb_user_change_password_plainPassword_first').length>0){
+
+        var options = {};
+        options.ui = {
+            showVerdictsInsideProgressBar: true,
+            progressBarExtraCssClasses: "progress-bar-striped active"
+        };
+        options.common = {
+
+            onKeyUp: function (evt, data) {
+                $("#length-help-text").text("Current length: " + $(evt.target).val().length + " and score: " + data.score);
+
+                if( data.score > limitScorePassword){
+                    canChangePassword=true;
+                    $('#password-error').slideUp();
+                }else{
+                    canChangePassword=false;
+                }
+            },
+
+        };
+        $('#mweb_user_form_change_password_plainPassword_first').pwstrength(options);
+        $('#mweb_user_change_password_plainPassword_first').pwstrength(options);
+
+        $('button[type="submit"]').click(function(){
+            if(canChangePassword)return true;
+            else{
+                $('#password-error').slideDown()
+                return false;
+            }
+        })
+    }
+}
 
 
 tinymce.init({

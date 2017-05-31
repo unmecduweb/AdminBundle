@@ -195,6 +195,22 @@ function userNotAllowToEdit() {
     return false;
 }
 
+function generateNotice(type, text) {
+    var n = noty({
+        text: text,
+        type: type,
+        dismissQueue: true,
+        layout: 'bottomRight',
+        closeWith: ['click'],
+        maxVisible: 10,
+        animation: {
+            open: 'animated bounceInDown',
+            close: 'animated bounceOutDown',
+            easing: 'swing',
+            speed: 500
+        }
+    });
+}
 
 ////////////////////////////////  FABULUS SLIDER ///////////////////////////////
 //set an .fabulus-slider class on your wrap slide, and use <ul> inside 

@@ -1,19 +1,30 @@
 {% trans_default_domain 'FOSUserBundle' %}
 
-{{ form_start(form, { 'action': path('fos_user_change_password'), 'attr': { 'class': 'fos_user_change_password' } }) }}
+{% extends "MwebAdminBundle::layout.html.twig" %}
 
+
+{%  block js %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset('bundles/mwebadmin/js/plugin/pwstrength-bootstrap.min.js') }}"></script>
+{% endblock %}
+
+{% block pageH1 %}Ajouter un utilisateur{% endblock %}
+
+{% block admin_container %}
+
+    {{ form_start(form) }}
 
     {% form_theme form 'MwebAdminBundle:Form:main-form-layout.html.twig' %}
+
     <fieldset class="mweb-fieldset">
         <legend class="col-xs-12">
             <span class="glyphicon glyphicon-user"></span>{{ "admin.edit.user"|trans({}, "mweb") }}
 
         </legend>
         <div class="content col-xs-12">
-
             <p class="form-error" style="display: none;" id="password-error"><span class="glyphicon glyphicon-info-sign"></span> Votre mot de passe est trop faible, il doit atteindre le niveau "medium"</p>
+
             {{ form_errors(form) }}
-            {{ form_errors(form.plainPassword) }}
             {% for key,field in form %}
                 {{ form_errors(field) }}
                 {{ form_row(field) }}
@@ -28,5 +39,9 @@
         </div>
 
     </fieldset>
-{{ form_end(form) }}
+    {{ form_end(form) }}
+
+
+
+{% endblock %}
 

@@ -11,3 +11,13 @@ services:
         arguments: ["@security.token_storage" ,"@twig","%mweb_admin.entities%","%mweb_admin.menus%"]
         tags:
             - { name: kernel.event_listener, event: kernel.response, method: showMenu }
+
+    mweb.brute_force_listener:
+          class: Mweb\AdminBundle\Listener\BruteForceAttemptListener
+          tags:
+              - { name: kernel.event_listener, event: security.brute_force_attempt, method: onBruteForceAttempt }
+
+    mweb.user.form.change_password:
+          class: Mweb\AdminBundle\Form\ChangePasswordType
+          tags:
+                - { name: form.type, alias: mweb_user_form_change_password }

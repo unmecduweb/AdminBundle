@@ -1,0 +1,78 @@
+{% trans_default_domain 'mweb' %}
+
+{% extends "MwebAdminBundle::layout.html.twig" %}
+
+{% block js %}
+    {{ parent() }}
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#table_list_entity').dataTable({
+                "language": {
+                    "url": "{{ asset("bundles/mwebadmin/js/locales/fr_Fr.json") }}"
+                },
+                "columnDefs": [{#                    {"searchable": false, "targets": [6, 7, 8, 9]}#}
+                ]
+            });
+        });
+    </script>
+{% endblock %}
+
+{% block pageH1 %}{{ "admin.user.list.title"|trans }}{% endblock %}
+
+{% block admin_container %}
+    {#    <a href="{{path('le_admin_entity_edit',{entity: entityName is defined ? entityName : app.request.get('_route_params').entity}) }}" class="btn btn-default">Créer</a>#}
+    <div class="col-xs-12">
+        <a class="edit-entity button" href="{{ path('mweb_admin_user_edit', { "userId" : 'new'}) }}">Ajouter un
+            utilisateur</a>
+        {#<button class="edit-entity btn btn-default" type="link"#}
+        {#data-url="{{ path('mweb_admin_edit_entity', {'_locale': 'fr',"entityAlias" :entityAlias, 'id':'new'}) }}">Créer#}
+        {#</button>#}
+        {% if entities is not empty %}
+
+            <table id="table_list_entity" class="mw-table table-bordered tableau_liste display">
+                <thead>
+                <tr>
+                    <th>Identifiant <span class="glyphicon glyphicon-menu-down"></span></th>
+                    <th>{{ 'admin.user.username'|trans }}<span class="glyphicon glyphicon-menu-down"></span></th>
+                    <th>{{ 'admin.user.email'|trans }}<span class="glyphicon glyphicon-menu-down"></span></th>
+                    {#<th>{{ 'admin.edit.actions'|trans }}</th>#}
+
+                </tr>
+                </thead>
+                <tbody>
+                {% for entity in entities %}
+                    <tr>
+                        <td>{{ entity.id }}</td>
+                        <td>{{ entity.username }}</td>
+                        <td>{{ entity.email }}</td>
+                       {# <td>
+                            Edit
+                            no ajax</a>
+                            <a href="{{ path('mweb_admin_user_edit', { "userId" : entity.id }) }}">
+
+                                <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                            </a>
+
+                        </td>#}
+
+                        {#<td class="center">
+                            <a href=" path('mweb_admin_delete_entity', {'id': entity.id,'entityAlias': entityAlias}) }}'"
+                               title="Valider"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+                        </td>#}
+
+                        {# {% if entity.statusTrans is defined %}
+                             <td class="center">
+                                 #}{#{% if entity.statusTrans == false %}
+                                     <a class="status-trans" data-url="{{path('le_admin_entity_status_trans')}}" data-entity="{{entityName is defined ? entityName : app.request.get('_route_params').entity}}" data-id="{{entity.id}}" href="#" ><span class="status-circle desactive"></span></a>
+                                     {% else %}
+                                     <a class="status-trans" data-url="{{path('le_admin_entity_status_trans')}}" data-entity="{{entityName is defined ? entityName : app.request.get('_route_params').entity}}" data-id="{{entity.id}}" href="#" ><span class="status-circle active"></span></a>
+                                     {% endif %}#}{#
+                             </td>
+                         {% endif %}#}
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+    </div>
+{% endblock %}

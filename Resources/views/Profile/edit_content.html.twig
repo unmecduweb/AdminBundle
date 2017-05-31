@@ -4,11 +4,11 @@
 
     {% form_theme form 'MwebAdminBundle:Form:main-form-layout.html.twig' %}
     <fieldset class="mweb-fieldset">
-        <legend>
-            <span class="glyphicon glyphicon-user pink"></span>{{ "admin.edit.user"|trans({}, "mweb") }}
+        <legend class="col-xs-12">
+            <span class="glyphicon glyphicon-user"></span>{{ "admin.edit.user"|trans({}, "mweb") }}
 
         </legend>
-        <div class="content">
+        <div class="content col-xs-12">
             {% for key,field in form %}
                     {{ form_errors(field) }}
                     {{ form_row(field) }}

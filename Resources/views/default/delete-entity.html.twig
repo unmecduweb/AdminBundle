@@ -1,0 +1,25 @@
+{% extends "MwebAdminBundle::layout.html.twig" %}
+
+{%block pageH1 %}
+    Supression de {{ entityAlias }}
+{%endblock%}
+{% block admin_container %}
+
+
+
+    <form action="" method="post" enctype="multipart/form-data">
+
+        {% form_theme form 'MwebAdminBundle:Form:main-form-layout.html.twig' %}
+        <fieldset class="mweb-fieldset">
+            <div class="content">
+                {% for key,field in form %}
+
+                        {{ form_errors(field) }}
+                        {{ form_row(field) }}
+
+                {% endfor %}
+            </div>
+
+        </fieldset>
+
+{% endblock %}
