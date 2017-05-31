@@ -42,8 +42,14 @@ class User extends BaseUser
          */
         public function validate(ExecutionContextInterface $context)
         {
-                if (!preg_match("/(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]).{7,}/", $this->getPlainPassword())) {
-                        $context->addViolation('Mot de passe doit contenir au minimum 7 caractères et contenir au mois un chiffre, une miniscule et une majuscule');
+                //Seulement si plainPassword est rempli dans le formulaire
+                if($context->getObject()->getPlainPassword()!=""){
+                        
+                        if (!preg_match("/(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]).{7,}/", $this->getPlainPassword())) {
+                                $context->addViolation('Mot de passe doit contenir au minimum 7 caractères et contenir au mois un chiffre, une miniscule et une majuscule');
+                        }
                 }
+                
+                
         }
 }
