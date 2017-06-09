@@ -6,13 +6,19 @@
     {{ parent() }}
     <script type="text/javascript">
         $(document).ready(function () {
-            $('#table_list_entity').dataTable({
+            orderBy = [];
+            if($('#orderFromHere').length>0){
+                orderBy = [$('.mw-table th').index($('#orderFromHere')), 'asc'];
+            }
+            var mwTable = $('#table_list_entity').dataTable({
                 "language": {
                     "url": "{{ asset("bundles/mwebadmin/js/locales/fr_Fr.json") }}"
                 },
                 "columnDefs": [{#                    {"searchable": false, "targets": [6, 7, 8, 9]}#}
-                ]
+                ],
+                'order': orderBy
             });
+
         });
     </script>
 {% endblock %}
@@ -20,10 +26,15 @@
 {% block pageH1 %}Liste des {{ entityParams.beautyName }}{% endblock %}
 
 {% block admin_container %}
+    <div class="list-head-button">
+        <a class="button right " href="{{ path('mweb_admin_edit_entity', {'_locale': 'fr',"entityAlias" :entityAlias, 'id':'new'}) }}">Ajouter {{ entityParams.beautyName }}</a>
+
+        {% if entityParams.orderBy == 'position' %}<a class="button right" href="{{ path('mweb_admin_edit_position_entity', {"entityAlias" :entityAlias}) }}">Gèrer l'ordre des {{ entityParams.beautyName }}</a>{% endif %}
+
+    </div>
+
     {#    <a href="{{path('le_admin_entity_edit',{entity: entityName is defined ? entityName : app.request.get('_route_params').entity}) }}" class="btn btn-default">Créer</a>#}
     <div class="col-xs-12">
-        <a class="edit-entity button"
-           href="{{ path('mweb_admin_edit_entity', {'_locale': 'fr',"entityAlias" :entityAlias, 'id':'new'}) }}">Ajouter {{ entityParams.beautyName }}</a>
         {#<button class="edit-entity btn btn-default" type="link"#}
         {#data-url="{{ path('mweb_admin_edit_entity', {'_locale': 'fr',"entityAlias" :entityAlias, 'id':'new'}) }}">Créer#}
         {#</button>#}
@@ -31,11 +42,12 @@
             <table id="table_list_entity" class="mw-table table-bordered tableau_liste display">
                 <thead>
                 <tr>
-                    <th>Identifiant <span class="glyphicon glyphicon-menu-down"></span></th>
+                    <th>ID <span class="glyphicon glyphicon-menu-down"></span></th>
+
                     {% for params in entityParams.listProperties %}
-                        <th>{{ params.beautyName }} <span class="glyphicon glyphicon-menu-down"></span></th>
+                        <th id="{{ params.dataName == entityParams.orderBy ? 'orderFromHere' :'' }}">{{ params.beautyName }} <span class="glyphicon glyphicon-menu-down"></span></th>
                     {% endfor %}
-                    <th>{{ 'admin.edit.actions'|trans }}</th>
+                    <th class="mw-table-action-col">{{ 'admin.edit.actions'|trans }}</th>
 
 
                 </tr>
@@ -65,16 +77,20 @@
                                 {% endif %}
                             </td>
                         {% endfor %}
-                        <td>
+                        <td class="mw-table-action-col">
                             {#Edit#}
                             {#no ajax</a>#}
+
                             <a class="ajax edit-button"
+                               data-url="{{ path('mweb_admin_delete_entity', {'id': entity.id,'entityAlias': entityAlias}) }}"
                                href="{{ path('mweb_admin_delete_entity', {'id': entity.id,'entityAlias': entityAlias}) }}"
                                title="Valider"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+
                             {% for lang in langs %}
-                                <a class="edit-button"
+                                <a class="edit-button edit-lang-style"
                                    href="{{ path('mweb_admin_edit_entity', { "_locale":lang, "entityAlias" : entityAlias, "id" : entity.id}) }}">
-                                    {{ lang }}
+                                    <span class="glyphicon glyphicon-pencil"></span>
+                                    <span class="lang"> {{ lang }}</span>
 
                                 </a>
                             {% endfor %}

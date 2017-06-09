@@ -1,13 +1,13 @@
 {% extends "MwebAdminBundle::layout.html.twig" %}
 
-{%block pageH1 %}
+{% block pageH1 %}
     Edition de {{ entityAlias }} en {{ lang|trans }}
-{%endblock%}
+{% endblock %}
 {% block admin_container %}
 
 
 
-    {% set fieldToExclude = ['status', 'metaDesc', 'goTo'] %}
+    {% set fieldToExclude = ['status', 'metaDesc', 'goTo', 'position'] %}
 
 
     <form action="" method="post" enctype="multipart/form-data">
@@ -30,12 +30,18 @@
         </fieldset>
 
         <fieldset class="mweb-fieldset">
-            <legend class="col-xs-12"><span class="glyphicon glyphicon-signal pink"></span>{{ "admin.edit.metaLegend"|trans({}, "mweb") }} </legend>
+            <legend class="col-xs-12"><span
+                        class="glyphicon glyphicon-signal pink"></span>{{ "admin.edit.metaLegend"|trans({}, "mweb") }}
+            </legend>
 
             <div class="content col-xs-12">
 
                 {{ form_errors(form.status) }}
                 {{ form_row(form.status) }}
+                {% if form.position is defined %}
+                    {{ form_errors(form.position) }}
+                    {{ form_row(form.position) }}
+                {% endif %}
                 {% if form.showInMenu is defined %}
                     {{ form_errors(form.showInMenu) }}
                     {{ form_row(form.showInMenu) }}
@@ -49,7 +55,8 @@
         </fieldset>
 
         <fieldset class="mweb-fieldset" id="mweb-goto-fieldset">
-            <legend class="col-xs-12"><span class="glyphicon glyphicon-record pink"></span>{{ "admin.edit.saveLegend"|trans({}, "mweb") }} </legend>
+            <legend class="col-xs-12"><span class="glyphicon glyphicon-record pink"></span>{{ "admin.edit.saveLegend"|trans({}, "mweb") }}
+            </legend>
 
             <div class="col-xs-8">
                 {{ form_widget(form.goTo) }}
@@ -59,5 +66,6 @@
             </div>
             <div class="clear"></div>
         </fieldset>
+        <div class="clear"></div>
     </form>
 {% endblock %}

@@ -6,6 +6,7 @@ use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\Query;
+use Gedmo\Sortable\Entity\Repository\SortableRepository;
 use Gedmo\Translatable\TranslatableListener;
 
 
@@ -14,7 +15,7 @@ use Gedmo\Translatable\TranslatableListener;
  *
  * This is my translatable repository that offers methods to retrieve results with translations
  */
-class TranslatableRepository extends EntityRepository
+class TranslatableRepository extends SortableRepository
 {
         
         /**

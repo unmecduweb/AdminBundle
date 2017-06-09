@@ -9,6 +9,11 @@ mweb_admin_list_entity:
     path: /list/{entityAlias}
     defaults: {_controller: MwebAdminBundle:Manage:list}
 
+
+mweb_admin_edit_position_entity:
+    path: /edit/positions/{entityAlias}
+    defaults: {_controller: MwebAdminBundle:Manage:editPosition}
+
 mweb_admin_edit_entity:
     path: /edit/{_locale}/{entityAlias}/{id}
     defaults: {_controller: MwebAdminBundle:Manage:edit}

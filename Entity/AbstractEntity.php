@@ -53,6 +53,19 @@ class AbstractEntity implements Translatable
         
         
         /**
+         * @ORM\ManyToOne(targetEntity="Mweb\AdminBundle\Entity\User")
+         * @ORM\JoinColumn(name="created_by", referencedColumnName="id")
+         */
+        private $createdBy;
+        
+        /**
+         * @ORM\ManyToOne(targetEntity="Mweb\AdminBundle\Entity\User")
+         * @ORM\JoinColumn(name="updated_by", referencedColumnName="id")
+         */
+        private $updatedBy;
+        
+        
+        /**
          * @var string
          *
          * @ORM\Column(name="dev_alias", type="string", length=250, nullable=true)
@@ -72,6 +85,12 @@ class AbstractEntity implements Translatable
          */
         private $metaDesc;
         
+        /**
+         * @var integer
+         * @ORM\Column(name="position", type="smallint", nullable=true)
+         * @Gedmo\SortablePosition
+         */
+        private $position;
         
         public function __construct()
         {
@@ -256,5 +275,78 @@ class AbstractEntity implements Translatable
         public function getShowInMenu()
         {
                 return $this->showInMenu;
+        }
+        
+        
+        /**
+         * Set position
+         *
+         * @param integer $position
+         *
+         * @return AbstractEntity
+         */
+        public function setPosition($position)
+        {
+                $this->position = $position;
+                
+                return $this;
+        }
+        
+        /**
+         * Get position
+         *
+         * @return integer
+         */
+        public function getPosition()
+        {
+                return $this->position;
+        }
+        
+        /**
+         * Set createdBy
+         *
+         * @param \Mweb\AdminBundle\Entity\User $createdBy
+         *
+         * @return AbstractEntity
+         */
+        public function setCreatedBy(\Mweb\AdminBundle\Entity\User $createdBy = null)
+        {
+                $this->createdBy = $createdBy;
+                
+                return $this;
+        }
+        
+        /**
+         * Get createdBy
+         *
+         * @return \Mweb\AdminBundle\Entity\User
+         */
+        public function getCreatedBy()
+        {
+                return $this->createdBy;
+        }
+        
+        /**
+         * Set updatedBy
+         *
+         * @param \Mweb\AdminBundle\Entity\User $updatedBy
+         *
+         * @return AbstractEntity
+         */
+        public function setUpdatedBy(\Mweb\AdminBundle\Entity\User $updatedBy = null)
+        {
+                $this->updatedBy = $updatedBy;
+                
+                return $this;
+        }
+        
+        /**
+         * Get updatedBy
+         *
+         * @return \Mweb\AdminBundle\Entity\User
+         */
+        public function getUpdatedBy()
+        {
+                return $this->updatedBy;
         }
 }

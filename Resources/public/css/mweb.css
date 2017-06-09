@@ -113,9 +113,9 @@ a.button:focus{color: #fff; text-decoration: none; opacity: 1;  background-posit
 
 .left{float: left;}
 .right{float: right;}
-.align-left{text-align: left;}    
-.align-right{text-align: right;}    
-.align-center,.text-center{text-align: center;}    
+.align-left{text-align: left;}
+.align-right{text-align: right;}
+.align-center,.text-center{text-align: center;}
 .justify{text-align: justify;}
 
 
@@ -145,14 +145,17 @@ a.button:focus{color: #fff; text-decoration: none; opacity: 1;  background-posit
 
 #table_list_entity_paginate a, #table_list_entity_info, #table_list_entity_wrapper label{font-family: "open-sans-regular"; font-size: 13px; font-weight: normal}
 
-.edit-entity.button{position:absolute; top:-50px; right: 0px;}
+.list-head-button{position:absolute; top:-50px; right: 0px;}
+.list-head-button .button{margin: 0 0 0 15px;}
 .edit-button{float:right; font-size: 14px; font-family: "open-sans-semi-bold";  display: inline-block; text-transform: uppercase; padding: 0 5px; border-radius: 20px; background: #fff; color: #ff005a;
-    border:2px solid #ff005a; line-height:34px; width: 37px; height: 37px; text-align: center; margin: 0 7px; }
+    border:2px solid #ff005a; line-height:34px; width: 37px; height: 37px; text-align: center; margin: 0 4px; position: relative;}
 .edit-button:hover{background-color: #ff005a; color: #ffffff; text-decoration: none;}
 
+.edit-button.edit-lang-style .lang{position: absolute; top: 6px; left: 6px; font-size: 12px; line-height: 12px;}
+.edit-button.edit-lang-style .glyphicon{position: absolute; top: 15px; right: 5px; font-size: 12px; line-height: 12px;}
 #mweb-container .mw-table { border: 0; width: 100%; font-size: 17px; color: #4A4A49; border-bottom:none; }
 
-
+.mw-table-action-col{min-width: 140px;}
 
 .mw-table thead tr th{padding: 12px 15px; font-weight: 600; text-align: inherit; font-size: 14px; border: none; border-bottom: 3px solid #ddd;}
 .mw-table thead tr th .glyphicon{ }
@@ -173,23 +176,11 @@ a.button:focus{color: #fff; text-decoration: none; opacity: 1;  background-posit
 .mw-table.stripped tbody tr:nth-child(even){background:#DBDBDB;}
 input[type="search"]{border: 1px solid #222;}
 
-.form-control {
-    box-shadow: none;
-    border: 1px solid #e5e5e5;
-    padding: 10px 15px;
-    height: 45px;
-    line-height: 25px;
-    color: #6a6c6f;
-    background: white;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    -ms-appearance: none;
-    -o-appearance: none;
-    appearance: none;
-    -webkit-border-radius: 0px;
-    -moz-border-radius: 0px;
-    border-radius: 0px;
-}
+.form-control {box-shadow: none; border: 1px solid #e5e5e5; padding: 10px 15px; height: 45px; line-height: 25px; color: #6a6c6f; background: white; -webkit-appearance: none; -moz-appearance: none; -ms-appearance: none; -o-appearance: none; appearance: none; -webkit-border-radius: 0px; -moz-border-radius: 0px; border-radius: 0px;}
+
+#mw-sortable-list{margin-bottom: 20px;}
+#mw-sortable-list tr>div{display: none;}
+#mw-sortable-list tr:nth-child(2n +1) td{background: #fff;}
 
 /*----------------------------------- Notice -----------------------------------*/
 .flash-notice {background-color: #14CA82; position: fixed; right: 100px; bottom: 100px;  }
@@ -214,23 +205,11 @@ input[type="search"]{border: 1px solid #222;}
 .form-error:last-of-type{margin-bottom: 10px;}
 .form-error .glyphicon{display: none;}
 
-::-webkit-input-placeholder { /* WebKit browsers */
-    color:    #333;
-    opacity: 0.8;
-}
-:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
-    color:    #333;
-    opacity: 0.8
-}
-::-moz-placeholder { /* Mozilla Firefox 19+ */
-    color:    #333;
-    opacity: 0.8
-}
-:-ms-input-placeholder { /* Internet Explorer 10+ */
-    color:    #333;
-    opacity: 0.8;
-}
-        
+::-webkit-input-placeholder { /* WebKit browsers */  color:    #333;  opacity: 0.8;}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */  color:    #333;  opacity: 0.8}
+::-moz-placeholder { /* Mozilla Firefox 19+ */  color:    #333;  opacity: 0.8}
+:-ms-input-placeholder { /* Internet Explorer 10+ */ color:    #333;  opacity: 0.8;}
+
 .mweb-noty{display: none;}
 
 footer{position: absolute; bottom: 0px; width: 100%; height: 50px; }

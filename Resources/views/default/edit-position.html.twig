@@ -1,0 +1,71 @@
+{% extends "MwebAdminBundle::layout.html.twig" %}
+{% trans_default_domain 'mweb' %}
+
+{% block pageH1 %}Editions des positions des {{ entityParams.beautyName }}{% endblock %}
+
+{% block admin_container %}
+    {#    <a href="{{path('le_admin_entity_edit',{entity: entityName is defined ? entityName : app.request.get('_route_params').entity}) }}" class="btn btn-default">Créer</a>#}
+    <div class="col-xs-12">
+
+        <p>{{ 'admin.edit.helpPosition'|trans }}</p>
+        {% if entities is not empty %}
+            {{ form_start(positionForm) }}
+            <table id="mw-sortable-list" class="mw-table table-bordered tableau_liste">
+                <thead>
+                <tr>
+                    <th class="mw-list-th">Position</th>
+                    <th class="mw-list-th">Identifiants</th>
+                    {% for params in entityParams.listProperties %}
+                        <th class="mw-list-th">{{ params.beautyName }}</th>
+                    {% endfor %}
+                </tr>
+                </thead>
+                <tbody>
+                {% for i,entity in entities %}
+                    <tr class="position-form" data-id="{{ entity.id }}">
+
+                        <td class="mw-list-td"><span class="glyphicon glyphicon-sort"></span></td>
+                        <td class="mw-list-td">{{ entity.id }}</td>
+                        {% for params in entityParams.listProperties %}
+                            <td class="mw-list-td ">
+                                {% if params.type == "datetime" %}
+                                    {{ attribute(entity,params.dataName)|date('Y-m-d H:i:s') }}
+                                {% elseif params.type == "date" %}
+                                    {{ attribute(entity,params.dataName)|date('d/m/Y') }}
+                                {% elseif params.type == "time" %}
+                                    {{ attribute(entity,params.dataName)|date('H:i') }}
+                                {% elseif params.type == "string" %}
+                                    {{ attribute(entity,params.dataName) }}
+                                {% elseif params.type == "money" %}
+                                    {{ attribute(entity,params.dataName) }}€
+                                {% elseif params.type == "boolean" %}
+                                    {% if attribute(entity,params.dataName) >= 1 %}
+                                        <span class="glyphicon glyphicon-ok"></span>
+                                    {% else %}
+                                        <span class="glyphicon glyphicon-remove"></span>
+                                    {% endif %}
+                                {% endif %}
+                            </td>
+                        {% endfor %}
+
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+            <div class="none">
+                {{ form_row(positionForm.entities) }}
+
+                {{ form_rest(positionForm) }}
+
+            </div>
+
+            <div class="col-xs-8"></div>
+            <div class="col-xs-12">
+                <a href="{{ path('mweb_admin_list_entity', {'entityAlias': entityAlias}) }}"button type="submit" class="button big"> {{ "admin.edit.cancel"|trans({}, "mweb") }}</a>
+                <button type="submit" class="button big right"> {{ "admin.edit.save"|trans({}, "mweb") }}</button>
+            </div>
+            {{ form_end(positionForm) }}
+        {% endif %}
+    </div>
+{% endblock %}

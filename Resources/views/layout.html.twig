@@ -73,7 +73,7 @@
 
 
     {% block flashMessage %}
-        {% for label, messages in app.session.flashBag %}
+        {% for label, messages in app.session.flashBag.all %}
             {% for message in messages %}
                 <div class="mweb-noty" data-type="{{ label }}">
                     {{ message }}

@@ -3,10 +3,14 @@
 namespace Mweb\AdminBundle\Controller;
 
 use Mweb\AdminBundle\Form\ConfirmDeleteType;
+use Mweb\CoreBundle\Entity\Content;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Mweb\AdminBundle\Form\PositionType;
 
 class ManageController extends Controller
 {
@@ -69,14 +73,16 @@ class ManageController extends Controller
                 $entities = $entityRepo->findBy(array('status' => array(0, 1)));
                 
                 
-                if (null === $entities || !count($entities) && (isset($entityParams['unique']) && $entityParams['unique'] == true)) {
+                
+                //C'est quoi ça?????????????????????????
+               /* if (null === $entities || !count($entities) && (isset($entityParams['unique']) && $entityParams['unique'] == true)) {
                         $entity = new $entityParams['class'];
                         $em->persist($entity);
                         $em->flush();
                         
                         $entities = new \Doctrine\Common\Collections\ArrayCollection();
                         $entities->add($entity);
-                }
+                }*/
                 
                 return $this->render('MwebAdminBundle:' . $entityParams['views'] . ':list.html.twig', [
                         'entityAlias' => $entityAlias,
@@ -86,8 +92,64 @@ class ManageController extends Controller
                 ]);
         }
         
+        public function editPositionAction($entityAlias, Request $request)
+        {
+                
+                $langs = explode('|', $this->container->getParameter('locales'));
+                
+                //Appel les paramètes du bundle présent ds config.yml
+                $adminParams = $this->container->getParameter('mweb_admin.entities');
+                //Récupère le tableau de valeur correspondant à l'entité listé
+                $entityParams = $adminParams[$entityAlias];
+                
+                //Appel entityManager
+                $em = $this->getDoctrine()->getManager();
+                
+                //Appel le repository de l'entité visionné
+                $entityRepo = $em->getRepository($entityParams['class']);
+                //Appel la liste des items qui compose cette entité
+                $entities = $entityRepo->findBy(array('status' => array(0, 1)), array('position' => 'asc'));
+        
+                $positionForm =$this->createFormBuilder(array('entities', $entities))
+                        ->add('entities', CollectionType::class ,array(
+                                'required'       => true,
+                                'allow_add'      => true,
+                                'entry_type'  => PositionType::class,
+                        ))
+                        ->getForm();
+        
+        
+                $positionForm->handleRequest($request);
+        
+                if($positionForm->isValid()){
+                        
+                        foreach ($positionForm->get('entities')->getData() as $elm){
+                                $entity = $entityRepo->find($elm['id']);
+                                $entity->setPosition(intval($elm['position']));
+                                $em->persist($entity);
+                                
+                        }
+                        $em->flush();
+        
+                        $this->addFlash('success', $this->get('translator')->trans('admin.edit.positionSuccess', array(), 'mweb'));
+                        
+                        return $this->redirect($this->generateUrl('mweb_admin_list_entity', ['entityAlias' => $entityAlias]));
+                        
+                }
+                
+                return $this->render('MwebAdminBundle:' . $entityParams['views'] . ':edit-position.html.twig', [
+                        'entityAlias' => $entityAlias,
+                        'entities' => $entities,
+                        'entityParams' => $entityParams,
+                        'langs' => $langs,
+                        'positionForm' => $positionForm->createView()
+                ]);
+        }
+        
         public function editAction($entityAlias, $id, $_locale, Request $request)
         {
+        
+                $user = $this->get('security.token_storage')->getToken()->getUser();
                 
                 //Appel les paramètes du bundle présent ds config.yml
                 $adminParams = $this->container->getParameter('mweb_admin.entities');
@@ -106,15 +168,20 @@ class ManageController extends Controller
                         $em->refresh($entityEdit);
                 } else {
                         $entityEdit = new $entityParams['class'];
+                        $entityEdit->setCreatedBy($user);
                 }
                 
                 
                 $locales = explode('|', $this->getParameter('locales'));
                 unset($locales[$_locale]);
                 
+                $displayPositionField = false;
+                if($entityParams['orderBy'] == 'position')$displayPositionField = true;
+                
                 $form = $this->createForm($entityParams['form'], $entityEdit, array(
                         'action' => $this->generateUrl('mweb_admin_edit_entity', ['entityAlias' => $entityAlias, 'id' => $id, '_locale' => $_locale]),
-                        'attr' => array('locales' => $locales)
+                        'attr' => array('locales' => $locales, 'displayPosition'=> $displayPositionField)
+                        
                 ));
                 
                 $form->handleRequest($request);
@@ -124,6 +191,8 @@ class ManageController extends Controller
                         
                         
                         $entityEdit->setTranslatableLocale($_locale);
+        
+                        $entityEdit->setUpdatedBy($user);
                         
                         $em->persist($entityEdit);
                         $em->flush();

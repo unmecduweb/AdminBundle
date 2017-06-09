@@ -39,6 +39,7 @@ class Configuration implements ConfigurationInterface
                                 ->scalarNode('class')->end()
                                 ->scalarNode('form')->end()
                                 ->scalarNode('views')->defaultValue('default')->end()
+                                ->scalarNode('orderBy')->defaultValue('position')->end()
                                 ->scalarNode('menuIntegrable')->end()
                                 ->scalarNode('unique')
                                     ->defaultValue(false)

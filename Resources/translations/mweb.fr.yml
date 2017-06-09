@@ -28,8 +28,12 @@ admin:
     listUsers: Liste des utilisateurs
     myAccount: Mon compte
   edit:
+    helpPosition: Cliquez sur les flèches de position et déplacez le contenu à l'emplacement souhaité. N'oubliez pas d'enregistrer.
     editions: Editer
+    position: Position
     actions: Actions
+    cancel: Annuler
+    positionSuccess: L'ordre des éléments a bien été modifié
     delete: Archiver
     user: Modification de votre compte utilisateur
     userPass: Modifier votre mot de passe

@@ -10,6 +10,7 @@ $(document).ready(function () {
 
     setPasswdStrengh();
 
+    setSortableList();
 
     //Affiche les notices en flashbag
     $('.mweb-noty').each(function(){
@@ -57,6 +58,31 @@ function setPasswdStrengh(){
 }
 
 
+function setSortableList() {
+
+    $('#mw-sortable-list tbody').sortable();
+
+    $('#mw-sortable-list tbody').on( "sortupdate", function( event, ui ) {
+
+    prototype = $('#form_entities').data('prototype');
+
+        $('#mw-sortable-list tr.position-form').each(function(index,li){
+            // Replace '__name__' in the prototype's HTML to
+            // instead be a number based on how many items we have
+            var newForm = prototype.replace(/__name__/g, index);
+
+            $(li).find('div:last-child').remove();
+            $(li).append(newForm);
+            $(li).find('#form_entities_'+index+'_id').val($(li).data('id'));
+            $(li).find('#form_entities_'+index+'_position').val(index);
+
+
+        });
+
+    } );
+
+}
+
 tinymce.init({
     selector: '.tinymce',  // change this value according to your HTML
     plugins: [
@@ -84,7 +110,10 @@ tinymce.init({
     }
 });
 
+
+
 /*
+
 
 function manageCollectionProducts() {
     // garde une trace du nombre de champs email qui ont été affichés
@@ -148,3 +177,4 @@ function manageProductionPrices() {
 
     });
 }*/
+

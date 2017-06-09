@@ -3,6 +3,7 @@
 namespace Mweb\AdminBundle\Form;
 
 use Symfony\Component\Form\AbstractType as SfAbstractType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -46,6 +47,11 @@ class AbstractType extends SfAbstractType
                                         'mapped' => false,
                                         'choices' => $gotoChoices
                                 ]);
+                        if($options['attr']['displayPosition']){
+                                $builder->add('position', NumberType::class, [
+                                        'label' => 'admin.edit.position'
+                                ]);
+                        }
                         
                 } else {
                         $gotoChoices['seeList'] = "Retour à la liste";
@@ -53,6 +59,7 @@ class AbstractType extends SfAbstractType
                         foreach ($options['attr']['locales'] as $locale) {
                                 $gotoChoices['otherLanguages-' . $locale] = 'Editer le document en ' . $locale;
                         }
+                        
                         $builder
                                 ->add('status', ChoiceType::class, [
                                         'label' => 'admin.edit.status',
@@ -63,11 +70,18 @@ class AbstractType extends SfAbstractType
                                         )
                                 
                                 ])
+                                
                                 ->add('goTo', ChoiceType::class, [
                                         'label' => 'admin.edit.goto',
                                         'mapped' => false,
                                         'choices' => array_flip($gotoChoices)
                                 ]);
+        
+                        if($options['attr']['displayPosition']){
+                                $builder->add('position', NumberType::class, [
+                                        'label' => 'admin.edit.position'
+                                ]);
+                        }
                 }
         }
         
