@@ -26,7 +26,9 @@ class TwigExtension extends \Twig_Extension
                 $this->container = $container;
                 
                 if (preg_match('#^2#', Kernel::VERSION)) {
-                        $this->request = $this->container->get('request');
+                        if($this->container->isScopeActive('request')) {
+                                $this->request = $this->container->get('request');
+                        }
                 }else{
                         $this->requestStack = $requestStack->getCurrentRequest();
                 }
