@@ -1,8 +1,7 @@
+{% extends "form_div_layout.html.twig" %}
 
 
-{% extends "form_div_layout.html.twig" %} 
 
-    
 {# Affichage d'un groupe de champ ou d'un champ de son label et des erreurs#}
 {% block form_row %}
     {% spaceless %}
@@ -20,7 +19,7 @@
         {% endif %}
 
         <div class="form-group">
-           {{ form_label(form) }}
+            {{ form_label(form) }}
             {{ form_widget(form, {"attr":{'class': class ~ ' form-control'}} ) }}
         </div>
     {% endspaceless %}
@@ -50,10 +49,10 @@
         <div class="vich-file">
             {{ form_widget(form.file) }}
             {% if download_uri is defined and download_uri %}
-                <img width="200" src="{{ asset(download_uri) }}" alt=""  class="mweb-vich-illu" />
+                <img width="200" src="{{ asset(download_uri) }}" alt="" class="mweb-vich-illu"/>
             {% endif %}
             {% if form.delete is defined %}
-                <br />
+                <br/>
                 {{ form_widget(form.delete) }}
                 <label for="{{ form.delete.vars.id }}">{{ "admin.edit.deleteImg"|trans({}, 'mweb') }}</label>
 
@@ -76,9 +75,9 @@
             {% endif %}
 
             {% if download_uri is defined and download_uri %}
-                <a href="{{ download_uri }}"><img src="{{ download_uri }}" alt="" /></a>
+                <a href="{{ download_uri }}"><img src="{{ download_uri }}" alt=""/></a>
             {% endif %}
-            {% if show_download_link and download_uri is defined and download_uri%}
+            {% if show_download_link and download_uri is defined and download_uri %}
                 <a href="{{ download_uri }}">{{ 'download'|trans({}, 'VichUploaderBundle') }}</a>
             {% endif %}
         </div>
@@ -107,8 +106,9 @@
         <label{% for attrname, attrvalue in label_attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}>{{ label|trans({}, 'mweb') }}</label>
         {% set transHelp = label~"Help" %}
 
-        {%  if transHelp|trans({}, 'mweb') != transHelp %}
-            <span class="glyphicon glyphicon-info-sign info-tooltip" data-toggle="tooltip" data-position="bottom" title="{{ transHelp|trans({}, 'mweb') }}"></span>
+        {% if transHelp|trans({}, 'mweb') != transHelp %}
+            <span class="glyphicon glyphicon-info-sign info-tooltip" data-toggle="tooltip" data-position="bottom"
+                  title="{{ transHelp|trans({}, 'mweb') }}"></span>
         {% endif %}
 
 
@@ -120,13 +120,15 @@
     {% spaceless %}
         {% if errors|length > 0 %}
 
-                {% set lastError = null %}
-                {% for error in errors %}
-                    {% if lastError != error %}
-                        <p class="form-error"> <span class="glyphicon glyphicon-info-sign"></span> {{ error.messageTemplate|trans(error.messageParameters, 'validators') }}</p>
-                    {% endif %}
-                    {% set lastError = error %}
-                {% endfor %}
+            {% set lastError = null %}
+            {% for error in errors %}
+                {% if lastError != error %}
+                    <p class="form-error"><span
+                                class="glyphicon glyphicon-info-sign"></span> {{ error.messageTemplate|trans(error.messageParameters, 'validators') }}
+                    </p>
+                {% endif %}
+                {% set lastError = error %}
+            {% endfor %}
 
         {% endif %}
     {% endspaceless %}
@@ -135,9 +137,160 @@
 {% block form_errors -%}
     {% if errors|length > 0 -%}
 
-            {%- for error in errors -%}
-                <p class="form-error"> <span class="glyphicon glyphicon-info-sign"></span> {{ error.messageTemplate|trans(error.messageParameters, 'validators') }}</p>
-            {%- endfor -%}
+        {%- for error in errors -%}
+            <p class="form-error"><span
+                        class="glyphicon glyphicon-info-sign"></span> {{ error.messageTemplate|trans(error.messageParameters, 'validators') }}
+            </p>
+        {%- endfor -%}
 
     {%- endif %}
 {%- endblock form_errors %}
+
+{% block mw_gallery_row %}
+
+    <div class="form-group">
+        {{ form_label(form) }}
+
+        {{ form_errors(form) }}
+
+        {#Presence ou non des légendes dans la galerie#}
+        {% if form.vars.attr.captionField is defined %}
+            {% set captionFieldName =  form.vars.attr.captionField %}
+            {% set  captionField =  form.parent.children[captionFieldName] %}
+        {% endif %}
+        {# store the prototype on the data-prototype attribute#}
+        <ul class="mw-gallery-widget" data-lang="{{ app.request.locale }}" data-defaultlocale="{{ defaultLocale }}"
+                {% if form.vars.attr.fileType == "image" %}
+                    data-type="1"
+                {% elseif form.vars.attr.fileType == "file" %}
+                    data-type="2"
+                {% elseif form.vars.attr.fileType == "video" %}
+                    data-type="3"
+                {% endif %}
+            data-uploads-folder="/{{ getFileManagerFolder() }}"
+            data-filemanager="{{ path('mweb_admin_tinymce_browser', {file : "dialog.php"}) }}"
+            data-prototype="{{ form_widget(form.vars.prototype)|e }}"
+                {% if captionField is defined %}
+                    data-prototype-caption="{{ form_widget(captionField.vars.prototype)|e }}"
+                {% endif %}
+        >
+
+
+            {% for k, galleryField in form %}
+                <li class="mw-gallery-item col-xs-6 col-sm-3 col-lg-2">
+                    <div class="mw-gallery-item-wrap">
+
+                        {% if form.vars.attr.fileType == "image" %}
+                            <div class="illu"
+                                 style="background-image:url({{ asset(getFileManagerFolder()~galleryField.vars.value)|imagine_filter('mw_thumb') }})"></div>
+                        {% elseif form.vars.attr.fileType == "file" %}
+                            <div class="file">
+                                <span class="glyphicon glyphicon-file"></span>
+                                <span class="text">{{ galleryField.vars.value }}</span>
+                            </div>
+                        {% elseif form.vars.attr.fileType == "video" %}
+                            <div class="video">
+                                <span class="text">TO DO</span>
+                            </div>
+                        {% endif %}
+
+                        {{ form_errors(galleryField) }}
+                        {{ form_row(galleryField) }}
+
+                        {% if captionField is defined and captionField[k] is defined %}
+                            {{ form_errors(captionField[k]) }}
+                            {{ form_widget(captionField[k]) }}
+                        {% endif %}
+                    </div>
+                </li>
+            {% endfor %}
+            <li class="mw-gallery-item-add col-xs-6 col-sm-3 col-lg-2">
+                <div class="mw-gallery-item-wrap">
+                    <button type="button" class="mw-gallery-add">
+                        <span class="glyphicon glyphicon-plus"></span>
+                        <span class="text">{{ "admin.gallery.add"|trans }}</span>
+                    </button>
+                </div>
+            </li>
+            <li class="clear"></li>
+        </ul>
+
+    </div>
+    {% if captionField is defined %}
+        {% do captionField.setRendered %}
+    {% endif %}
+{% endblock %}
+
+
+{% block mw_file_row %}
+
+    <div class="form-group">
+        {{ form_label(form) }}
+        {#Presence ou non d'une légende#}
+        {% if form.vars.attr.captionField is defined %}
+            {% set captionFieldName =  form.vars.attr.captionField %}
+            {% set captionField =  form.parent.children[captionFieldName] %}
+        {% endif %}
+
+        {# store the prototype on the data-prototype attribute#}{#
+        <ul id="mw-gallery-list" data-lang="{{ app.request.locale }}" data-defaultlocale="{{ defaultLocale }}"
+
+            data-uploads-folder="/{{ getFileManagerFolder() }}"
+            data-filemanager="{{ path('mweb_admin_tinymce_browser', {file : "dialog.php"}) }}"
+            data-prototype="{{ form_widget(form.vars.prototype)|e }}"
+                {% if captionField is defined %}
+                    data-prototype-caption="{{ form_widget(captionField.vars.prototype)|e }}"
+                {% endif %}
+        >#}
+        <div class="clear"></div>
+        <div class="mw-file-widget col-xs-6 col-sm-3 col-lg-2"
+             data-uploads-folder="/{{ getFileManagerFolder() }}"
+             data-filemanager="{{ path('mweb_admin_tinymce_browser', {file : "dialog.php"}) }}"
+             data-lang="{{ app.request.locale }}"
+             data-defaultlocale="{{ defaultLocale }}"
+
+            {% if form.vars.attr.fileType == "image" %}
+                data-type="1"
+            {% elseif form.vars.attr.fileType == "file" %}
+                data-type="2"
+            {% elseif form.vars.attr.fileType == "video" %}
+                data-type="3"
+            {% endif %}>
+
+
+            <div class="mw-file-item">
+
+                {% if form.vars.attr.fileType == "image" %}
+                    <div class="illu"
+                         style="background-image:url({{ asset(getFileManagerFolder()~form.vars.value)|imagine_filter('mw_thumb') }})"></div>
+                {% elseif form.vars.attr.fileType == "file" %}
+                    <div class="file">
+                        <span class="glyphicon glyphicon-file"></span>
+                        <span class="text">{{ form.vars.value }}</span>
+                    </div>
+                {% elseif form.vars.attr.fileType == "video" %}
+                    <div class="video">
+                        <span class="text">TO DO</span>
+                    </div>
+                {% endif %}
+
+
+                {{ form_widget(form) }}
+
+                {% if captionField is defined %}
+                    {{ form_widget(captionField) }}
+                {% endif %}
+            </div>
+            <div class="mw-file-add">
+
+                <button type="button" id="mw-gallery-add">
+                    <span class="glyphicon glyphicon-plus"></span>
+                    <span class="text">{{ "admin.gallery.add"|trans }}</span>
+                </button>
+
+            </div>
+        </div>
+    </div>
+
+    {#{% do captionField.setRendered %}#}
+{% endblock %}
