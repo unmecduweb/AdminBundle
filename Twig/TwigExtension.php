@@ -58,10 +58,12 @@ class TwigExtension extends \Twig_Extension
                 return array(
                         new \Twig_SimpleFunction('getMwebTranslatedUrls', [$this, 'getMwebTranslatedUrls']),
                         new \Twig_SimpleFunction('liip', [$this, 'liip']),
+                        new \Twig_SimpleFunction('mw_liip', [$this, 'mw_liip']),
                         new \Twig_SimpleFunction('getLocales', [$this, 'getLocales']),
                         new \Twig_SimpleFunction('isSelected', [$this, 'isSelected']),
                         new \Twig_SimpleFunction('isAjax', [$this, 'isAjax']),
                         new \Twig_SimpleFunction('array_unset', array($this, 'arrayUnset')),
+                        new \Twig_SimpleFunction('getFileManagerFolder', array($this, 'getFileManagerFolder')),
                 );
         }
 
@@ -106,6 +108,20 @@ class TwigExtension extends \Twig_Extension
                 $path = $this->vichHelper->asset($entity, $field);
                 // Suppression du premier / erreur entre vich et liip
                 $path = trim(substr($path,1,strlen($path)));
+                
+                if($path) {
+                        
+                        return $this->liipCacheHelper->getBrowserPath($path, $thumb);
+                }else{
+                        
+                        if($this->container->getParameter('mweb_admin.noIllu'))return $this->liipCacheHelper->getBrowserPath($this->container->getParameter('mweb_admin.noIllu'), $thumb);
+                        return '';
+                }
+        }
+        
+        public function mw_liip($path, $thumb){
+                
+                $path = $this->getFileManagerFolder().$path;
                 
                 if($path) {
                         
@@ -181,6 +197,15 @@ class TwigExtension extends \Twig_Extension
         public function stripAccents($str){
                 return iconv('UTF-8', 'US-ASCII//TRANSLIT', $str);
                 
+        }
+        
+        /**
+         * Retourne le chemin vers le dossier d'uploads de responsiveFilemanager
+         *
+         * @return string
+         */
+        public function getFileManagerFolder(){
+                return $this->container->getParameter('mweb_admin.fileManagerFolder').'/';
         }
         
         

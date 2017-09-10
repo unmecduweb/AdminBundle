@@ -22,6 +22,7 @@ class Configuration implements ConfigurationInterface
 
         $rootNode->children()
                 ->scalarNode('noIllu')->defaultValue('mwebadminbundle/img/noIllu.jpg')->end()
+                ->scalarNode('fileManagerFolder')->defaultValue('uploads/tinymce')->end()
                 ->arrayNode('menus')
                     ->useAttributeAsKey('alias')
                     ->prototype('array')

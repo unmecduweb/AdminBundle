@@ -63,6 +63,9 @@ admin:
     deleteElm: Supprimer un élément
     successDelete: L'élément a été supprimé
     success: L'élément a bien été modifié
+  gallery:
+    label: Galerie
+    labelHelp: Pour ajouter une image cliquer sur le bouton ajouter.
   page:
     title: Titre de la page
     subTitle: Sous-titre de la page
@@ -96,3 +99,4 @@ admin:
   homeBlock:
     title: Titre du slide
     illu: Illustration du slide
+

@@ -24,6 +24,7 @@ class MwebAdminExtension extends Extension
         $container->setParameter('mweb_admin.entities', $config['entities']);
         $container->setParameter('mweb_admin.menus', $config['menus']);
         $container->setParameter('mweb_admin.noIllu', $config['noIllu']);
+        $container->setParameter('mweb_admin.fileManagerFolder', $config['fileManagerFolder']);
         
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');

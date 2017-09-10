@@ -2,6 +2,7 @@
 
 namespace Mweb\AdminBundle\Controller;
 
+use Doctrine\Common\Annotations\AnnotationReader;
 use Mweb\AdminBundle\Form\ConfirmDeleteType;
 use Mweb\CoreBundle\Entity\Content;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -166,6 +167,9 @@ class ManageController extends Controller
                         $entityEdit = $entityRepo->find($id);
                         $entityEdit->setTranslatableLocale($_locale);
                         $em->refresh($entityEdit);
+                        /*var_dump($entityEdit->getGalleryCaption());
+                        die();*/
+        
                 } else {
                         $entityEdit = new $entityParams['class'];
                         $entityEdit->setCreatedBy($user);
@@ -182,7 +186,29 @@ class ManageController extends Controller
                         'action' => $this->generateUrl('mweb_admin_edit_entity', ['entityAlias' => $entityAlias, 'id' => $id, '_locale' => $_locale]),
                         'attr' => array('locales' => $locales, 'displayPosition'=> $displayPositionField)
                         
+                        
                 ));
+                
+                //SI LE FORM EST POSTE
+                if($request->request->get($form->getName())) {
+                        $reflectionClass = new \ReflectionClass(get_class($entityEdit));
+        
+                        // Prepare doctrine annotation reader
+                        $reader = new AnnotationReader();
+                        
+                        // Lecture des annotations
+                        foreach ($reflectionClass->getProperties() as $reflectionProperty) {
+
+                                // Si ReindexField existe on reindex le champ ;)
+                                if ($annotation = $reader->getPropertyAnnotation($reflectionProperty, 'Mweb\AdminBundle\Mapping\Annotation\ReindexField')) {
+                                        
+                                        $requestData = $request->request->get($form->getName());
+                                        $requestData[$reflectionProperty->getName()] = array_values($requestData[$reflectionProperty->getName()]);
+                                        $request->request->set($form->getName(), $requestData);
+                                }
+                        }
+                        
+                }
                 
                 $form->handleRequest($request);
                 
@@ -193,6 +219,7 @@ class ManageController extends Controller
                         $entityEdit->setTranslatableLocale($_locale);
         
                         $entityEdit->setUpdatedBy($user);
+        
                         
                         $em->persist($entityEdit);
                         $em->flush();

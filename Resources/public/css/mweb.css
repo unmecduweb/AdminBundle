@@ -59,7 +59,7 @@ THE SOFTWARE.
 .hide {visibility: hidden; }
 
 html {height:101%;}
-body {font-family:'open-sans-semi-bold', Arial,sans-serif; font-size: 16px; background: #f1f1f1;}
+body {font-family:'open-sans-semi-bold', Arial,sans-serif; font-size: 16px; background: #f1f1f1; position: relative;}
 
 .container, .container-fluid{position: relative; z-index: 2;}
 .container-fluid{position: relative; z-index: 2; max-width: 1300px;}
@@ -123,23 +123,28 @@ a.button:focus{color: #fff; text-decoration: none; opacity: 1;  background-posit
 
 /*----------------------------------- NAVBAR  -----------------------------------*/
 .navbar{background-color: #292929;}
-.navbar-inverse .navbar-nav > li > a{color: #eee; font-size: 15px}
+.navbar-inverse .navbar-nav > li > a{color: #eee; font-size: 13px}
 .navbar-inverse .navbar-nav > li > a:hover{color:#ff005a;}
 
 .dropdown-menu{background-color: #292929;}
 .dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus{color: #ff005a; background: none;}
-.dropdown-menu > li > a{color: #efefef;}
+.dropdown-menu > li > a{color: #efefef; font-size: 13px;}
 /*----------------------------------- BOOTSTRAP MODAL -----------------------------------*/
 
 .mw-modal .modal-content{border-radius: 0;}
 .mw-modal .modal-header{background:#4A4A49; padding: 6px 15px;}
-.mw-modal .modal-header .close{background:url('../../../files/image/delete-icon.png'); opacity: 1; width: 18px; height: 18px; margin: 0;}
+.mw-modal .modal-header .close{background:url('../img/delete-icon.png'); opacity: 1; width: 18px; height: 18px; margin: 0;}
 .mw-modal .modal-title{color: #fff; font-size: 14px; text-transform: uppercase;}
 .mw-modal .modal-body{padding: 10px 40px;}
+
 .modal { text-align: center; padding: 0!important;}
 .modal:before { content: ''; display: inline-block; height: 100%; vertical-align: middle; margin-right: -4px;}
 .modal-dialog { display: inline-block; text-align: left; vertical-align: middle;}
-.modal-dialog.large { width: 70%;}
+
+.modal-dialog.large { width: 75%;}
+#modal-filemanager .modal-dialog { width: 75%; height: 70%;}
+#modal-filemanager .modal-dialog .modal-content{height: 100%;}
+
 
 /*----------------------------------- Table -----------------------------------*/
 
@@ -200,6 +205,37 @@ input[type="search"]{border: 1px solid #222;}
 .mweb-vich-illu{margin: 20px 0 10px;}
 #mweb-goto-fieldset select{width: 100%}
 #mweb-goto-fieldset .button{width: 150px; margin:auto; display: block}
+
+.mw-gallery-widget{margin: 0px -15px 20px; padding: 0; list-style: none; }
+.mw-gallery-item, .mw-gallery-item-add{margin: 15px 0;}
+.mw-gallery-item-wrap{padding:10px; position: relative; background: #dedede; border: 1px solid rgba(0,0,0,0.2); width: 100%; height: 200px;}
+.mw-gallery-item .illu{height: 80%; width: 100%; background-size: contain; background-repeat: no-repeat; background-position: center center; }
+.mw-gallery-item .file{height: 80%; width: 100%; background-size: contain; background-repeat: no-repeat; background-position: center center; text-align: center;}
+.mw-gallery-item .file .glyphicon{font-size: 60px; text-align: center; display: inline-block; margin: 20px 0;}
+.mw-gallery-item .file .text{font-size: 12px; display: block;  word-wrap: break-word;}
+.mw-gallery-item input[type="text"]{border-radius: 0; width: 100%; display: block; position: absolute; bottom: 0; border: 1px solid #e5e5e5; padding: 4px 5px; font-size: 12px; left: 0; }
+.mw-gallery-item button{position: absolute; top: -10px; right: 0px; width:30px; border-radius: 15px; height: 30px; background:#444; color: #fff; padding: 0; font-size: 12px; border: 0;}
+.mw-gallery-item-add .mw-gallery-add{position: absolute; top: 27%; margin: auto; left: 0; right: 0; border: 0; background: none;}
+.mw-gallery-item-add .mw-gallery-add .glyphicon{color: #ff1e7d; font-size: 60px; }
+.mw-gallery-item-add .mw-gallery-add .text{text-transform: uppercase; color: #ff1e7d; text-align: center; margin: 15px 0; display: inline-block;}
+
+
+.mw-file-widget{margin: 0px 0px 20px; padding: 0; list-style: none; }
+.mw-file-item{padding:10px; position: relative; background: #dedede; border: 1px solid rgba(0,0,0,0.2); width: 100%; height: 200px;}
+.mw-file-item .illu{height: 80%; width: 100%; background-size: contain; background-repeat: no-repeat; background-position: center center; }
+.mw-file-item .file{height: 80%; width: 100%; background-size: contain; background-repeat: no-repeat; background-position: center center; text-align: center;}
+.mw-file-item .file .glyphicon{font-size: 60px; text-align: center; display: inline-block; margin: 20px 0;}
+.mw-file-item .file .text{font-size: 12px; display: block;  word-wrap: break-word;}
+.mw-file-item input[type="text"]{border-radius: 0; width: 100%; display: block; position: absolute; bottom: 0; border: 1px solid #e5e5e5; padding: 4px 5px; font-size: 12px; left: 0; }
+.mw-file-item button{position: absolute; top: -10px; right: 0px; width:30px; border-radius: 15px; height: 30px; background:#444; color: #fff; padding: 0; font-size: 12px; border: 0;}
+.mw-file-add{position: absolute; top: 27%; margin: auto; left: 0; right: 0; border: 0; background: none;}
+.mw-file-add button{background: none; border: none;}
+.mw-file-add .glyphicon{color: #ff1e7d; font-size: 60px; }
+.mw-file-add .text{text-transform: uppercase; color: #ff1e7d; text-align: center; margin: 15px 0; display: inline-block;}
+
+
+
+
 
 .form-error{font-family: 'open-sans-regular'; font-size: 14px; margin: 10px 0; border-left: 4px solid #c9302c; padding: 0 0 0 10px; color: #c9302c}
 .form-error:last-of-type{margin-bottom: 10px;}

@@ -7,12 +7,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class TinymceController extends Controller
 {
-        public static function handleBrowserAction($container, Request $request, $file = null, $dirName = 'tinymce')
+        public static function handleBrowserAction($container, Request $request, $file = null)
         {
                 $fileManagerDir = dirname(dirname(__FILE__)) . '/Resources/views/filemanager/';
 
                 $path = $fileManagerDir . $file;
-
+        
+                $fileManagerUploadsFolder = $container->getParameter('mweb_admin.fileManagerFolder');
 //                die($fileManagerDir . '../../../../../../../../web/files/uploads/' . $dirName . '/');
 
                 if (strpos($file, '.php') !== false) {
@@ -33,7 +34,7 @@ class TinymceController extends Controller
                         }
                         set_include_path(get_include_path() . PATH_SEPARATOR . $fileManagerDir);
 
-                        $baseUrl = $request->getScheme() . '://' . $request->getHost() . $request->getBasePath();
+                        $baseUrl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
                         $webPath = $container->get('kernel')->getRootDir() . '/../web';
 
                         /*
@@ -100,7 +101,7 @@ class TinymceController extends Controller
                                 | with start and final /
                                 |
                                 */
-                                'upload_dir' => '/files/uploads/'.$dirName.'/',
+                                'upload_dir' => '/'.$fileManagerUploadsFolder.'/',
                                 /*
                                 |--------------------------------------------------------------------------
                                 | relative path from filemanager folder to upload folder
@@ -109,8 +110,8 @@ class TinymceController extends Controller
                                 | with final /
                                 |
                                 */
-                                'current_path' => $webPath.'/files/uploads/' . $dirName . '/',
-                                'current_path_url' => $baseUrl . '/files/uploads/' . $dirName . '/',
+                                'current_path' => $webPath.'/'.$fileManagerUploadsFolder.'/',
+                                'current_path_url' => $baseUrl .'/'.$fileManagerUploadsFolder.'/',
 
                                 /*
                                 |--------------------------------------------------------------------------
@@ -121,8 +122,8 @@ class TinymceController extends Controller
                                 | DO NOT put inside upload folder
                                 |
                                 */
-                                'thumbs_base_path' => $webPath.'/files/uploads/' . $dirName . 'Thumbs/',
-                                'thumbs_base_path_url' => $baseUrl . '/files/uploads/' . $dirName . 'Thumbs/',
+                                'thumbs_base_path' => $webPath.'/'.$fileManagerUploadsFolder.'Thumbs/',
+                                'thumbs_base_path_url' => $baseUrl .'/'.$fileManagerUploadsFolder.'Thumbs/',
 
 
                                 /*
@@ -552,8 +553,8 @@ class TinymceController extends Controller
 //                return $response;
 
 
-        public function browserAction(Request $request, $file = null, $dirName = 'tinymce')
+        public function browserAction(Request $request, $file = null)
         {
-                return self::handleBrowserAction($this->container, $request, $file, $dirName);
+                return self::handleBrowserAction($this->container, $request, $file);
         }
 }

@@ -23,6 +23,7 @@
                     {% if  key not in fieldToExclude %}
                         {{ form_errors(field) }}
                         {{ form_row(field) }}
+
                     {% endif %}
                 {% endfor %}
             </div>
@@ -55,7 +56,8 @@
         </fieldset>
 
         <fieldset class="mweb-fieldset" id="mweb-goto-fieldset">
-            <legend class="col-xs-12"><span class="glyphicon glyphicon-record pink"></span>{{ "admin.edit.saveLegend"|trans({}, "mweb") }}
+            <legend class="col-xs-12"><span
+                        class="glyphicon glyphicon-record pink"></span>{{ "admin.edit.saveLegend"|trans({}, "mweb") }}
             </legend>
 
             <div class="col-xs-8">
@@ -68,4 +70,17 @@
         </fieldset>
         <div class="clear"></div>
     </form>
+{% endblock %}
+
+
+{% block modal %}
+    <div class="modal mw-modal fade" id="modal-filemanager" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <iframe id="gallery-iframe" width="100%" height="100%"></iframe>
+            </div>
+        </div>
+    </div>
+
 {% endblock %}
