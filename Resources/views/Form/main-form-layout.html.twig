@@ -214,8 +214,9 @@
             </li>
             <li class="clear"></li>
         </ul>
-
+        <div class="clear"></div>
     </div>
+    <div class="clear"></div>
     {% if captionField is defined %}
         {% do captionField.setRendered %}
     {% endif %}
@@ -263,7 +264,7 @@
                 {% if form.vars.attr.fileType == "image" %}
                     <div class="illu"
                          style="background-image:url({{ asset(getFileManagerFolder()~form.vars.value)|imagine_filter('mw_thumb') }})"></div>
-                {% elseif form.vars.attr.fileType == "file" %}
+                {% elseif form.vars.attr.fileType == "file" and form.c.value is not empty %}
                     <div class="file">
                         <span class="glyphicon glyphicon-file"></span>
                         <span class="text">{{ form.vars.value }}</span>
@@ -290,7 +291,9 @@
 
             </div>
         </div>
+        <div class="clear"></div>
     </div>
+    <div class="clear"></div>
 
     {#{% do captionField.setRendered %}#}
 {% endblock %}
