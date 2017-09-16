@@ -56,7 +56,7 @@ if ( ! function_exists('trans'))
 		if(file_exists('lang/languages.php')){
 			$languages = include 'lang/languages.php';
 		}else{
-			$languages = include '../lang/languages.php';
+			$languages = include dirname(dirname(__FILE__)).'/lang/languages.php';
 		}
 
 		if(array_key_exists($_SESSION['RF']['language'],$languages)){
@@ -70,17 +70,15 @@ if ( ! function_exists('trans'))
 	if(file_exists('lang/' . $lang . '.php')){
 		$lang_vars = include 'lang/' . $lang . '.php';
 	}else{
-		$lang_vars = include (dirname(dirname(__FILE__)) . '/lang/' . $lang . '.php');
+		
+		$lang_vars = include dirname(dirname(__FILE__)).'/lang/' . $lang . '.php';
 	}
 
 	if ( ! is_array($lang_vars))
 	{
+		
 		$lang_vars = array();
 	}
-
-	$GLOBALS['lang_vars'] = $lang_vars;
-	$GLOBALS['default_language'] = $default_language;
-
 	/**
 	* Translate language variable
 	*
@@ -91,6 +89,7 @@ if ( ! function_exists('trans'))
 	function trans($var)
 	{
 		global $lang_vars;
+		if(count($lang_vars)==0)$lang_vars = include dirname(dirname(__FILE__)).'/lang/fr_FR.php';
 
 		return (array_key_exists($var, $lang_vars)) ? $lang_vars[ $var ] : $var;
 	}

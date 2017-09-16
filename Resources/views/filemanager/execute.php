@@ -13,36 +13,28 @@ if ($_SESSION['RF']["verify"] != "RESPONSIVEfilemanager")
 
 if (strpos($_POST['path'],'/')===0
 	|| strpos($_POST['path'],'../')!==FALSE
-	|| strpos($_POST['path'],'./')===0)
+	|| strpos($_POST['path'],'./')===0
+	|| strpos($_POST['path'],'..\\')!==FALSE
+	|| strpos($_POST['path'],'.\\')===0)
 {
 	response(trans('wrong path'.AddErrorLocation()))->send();
 	exit;
 }
 
-if (isset($_SESSION['RF']['language']) && file_exists('lang/' . basename($_SESSION['RF']['language']) . '.php'))
+if (isset($_SESSION['RF']['language']) && file_exists(__DIR__.'/lang/' . basename($_SESSION['RF']['language']) . '.php'))
 {
 	$languages = include 'lang/languages.php';
 	if(array_key_exists($_SESSION['RF']['language'],$languages)){
 		include 'lang/' . basename($_SESSION['RF']['language']) . '.php';
 	}else{
-                if(file_exists('lang/' .$default_language. '.php')) {
-                        include 'lang/' . $default_language . '.php';
-                }else {
-                        response(trans('Lang_Not_Found') . AddErrorLocation())->send();
-                        exit;
-                }
+		response(trans('Lang_Not_Found').AddErrorLocation())->send();
+		exit;
 	}
 }
 else
 {
-        // Update by unmecduweb
-//        die($default_language);
-//        if(file_exists('lang/' .$default_language. '.php')) {
-                include 'lang/' . $default_language . '.php';
-//        }else {
-//                response(trans('Lang_Not_Found') . AddErrorLocation())->send();
-//                exit;
-//        }
+	response(trans('Lang_Not_Found').AddErrorLocation())->send();
+	exit;
 }
 
 $ftp = ftp_con($config);
@@ -76,7 +68,7 @@ if($ftp){
 if (isset($_POST['name']))
 {
 	$name = fix_filename($_POST['name'],$config);
-	if (strpos($name,'../') !== FALSE)
+	if (strpos($name,'../') !== FALSE || strpos($name,'..\\') !== FALSE)
 	{
 		response(trans('wrong name').AddErrorLocation())->send();
 		exit;
@@ -253,7 +245,7 @@ if (isset($_GET['action']))
 					response(trans('Rename_existing_file').AddErrorLocation())->send();
 					exit;
 				}
-
+    
 				if (@file_put_contents($path.$name, $content) === FALSE) {
 					response(trans('File_Save_Error').AddErrorLocation())->send();
 					exit;
