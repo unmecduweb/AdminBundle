@@ -204,11 +204,11 @@ function responsive_filemanager_callback(field_id) {
         filemanagerFolder = $field.parents('.mw-gallery-widget').data('uploads-folder');
         //IMAGE
         if ($field.parents('.mw-gallery-widget').data('type') == '1') {
-            $field.parents('.mw-gallery-item-wrap').prepend('<div class="illu" style="background-image: url(' + filemanagerFolder + $field.val() + ');"></div>');
+            $field.parents('.mw-gallery-item-wrap').prepend('<div class="illu mw-gallery-item-row" style="background-image: url(' + filemanagerFolder + $field.val() + ');"></div>');
 
             //FILE
         } else if ($field.parents('.mw-gallery-widget').data('type') == '2') {
-            $field.parents('.mw-gallery-item-wrap').prepend('<div class="file"><span class="glyphicon glyphicon-file"></span><span class="text">' + $field.val() + '</span></div>');
+            $field.parents('.mw-gallery-item-wrap').prepend('<div class="file mw-gallery-item-row"><span class="glyphicon glyphicon-file"></span><span class="text">' + $field.val() + '</span></div>');
 
             //VIDEO
         } else if ($field.parents('.mw-gallery-widget').data('type') == '3') {
@@ -222,11 +222,11 @@ function responsive_filemanager_callback(field_id) {
         filemanagerFolder = $field.parents('.mw-file-widget').data('uploads-folder');
         //IMAGE
         if ($field.parents('.mw-file-widget').data('type') == '1') {
-            $field.parents('.mw-file-item').prepend('<div class="illu" style="background-image: url(' + filemanagerFolder + $field.val() + ');"></div>');
+            $field.parents('.mw-file-item').prepend('<div class="illu mw-file-item-row" style="background-image: url(' + filemanagerFolder + $field.val() + ');"></div>');
 
             //FILE
         } else if ($field.parents('.mw-file-widget').data('type') == '2') {
-            $field.parents('.mw-file-item').prepend('<div class="file"><span class="glyphicon glyphicon-file"></span><span class="text">' + $field.val() + '</span></div>');
+            $field.parents('.mw-file-item').prepend('<div class="file mw-file-item-row"><span class="glyphicon glyphicon-file"></span><span class="text">' + $field.val() + '</span></div>');
 
             //VIDEO
         } else if ($field.parents('.mw-file-widget').data('type') == '3') {
@@ -234,6 +234,8 @@ function responsive_filemanager_callback(field_id) {
         }
 
     }
+
+    $('#modal-filemanager').modal('toggle');
 }
 
 
@@ -258,7 +260,7 @@ function setMwFileWidgetDeleteItemButton($item) {
         // prevent the link from creating a "#" on the URL
         e.preventDefault();
         $item.parents('.mw-file-widget').find('.mw-file-add').show();
-        $item.parents('.mw-file-widget').find('.mw-file-item .illu').remove();
+        $item.parents('.mw-file-widget').find('.mw-file-item .mw-file-item-row').remove();
         $item.parents('.mw-file-widget').find('input:first').val('');
         // remove the li for the tag form
         $item.find('input:first').val('');

@@ -228,7 +228,7 @@ input[type="search"]{border: 1px solid #222;}
 .mw-file-item .file .text{font-size: 12px; display: block;  word-wrap: break-word;}
 .mw-file-item input[type="text"]{border-radius: 0; width: 100%; display: block; position: absolute; bottom: 0; border: 1px solid #e5e5e5; padding: 4px 5px; font-size: 12px; left: 0; }
 .mw-file-item button{position: absolute; top: -10px; right: 0px; width:30px; border-radius: 15px; height: 30px; background:#444; color: #fff; padding: 0; font-size: 12px; border: 0;}
-.mw-file-add{position: absolute; top: 27%; margin: auto; left: 0; right: 0; border: 0; background: none;}
+.mw-file-add{position: absolute; top: 27%; margin: auto; left: 0; right: 0; border: 0; background: none; text-align: center;    }
 .mw-file-add button{background: none; border: none;}
 .mw-file-add .glyphicon{color: #ff1e7d; font-size: 60px; }
 .mw-file-add .text{text-transform: uppercase; color: #ff1e7d; text-align: center; margin: 15px 0; display: inline-block;}

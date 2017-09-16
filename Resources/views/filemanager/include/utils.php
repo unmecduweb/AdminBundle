@@ -27,6 +27,7 @@ if ( ! function_exists('response'))
 
 if ( ! function_exists('trans'))
 {
+	global $lang_vars;
 	// language
 	if ( ! isset($_SESSION['RF']['language'])
 		|| file_exists('lang/' . basename($_SESSION['RF']['language']) . '.php') === false
@@ -89,7 +90,6 @@ if ( ! function_exists('trans'))
 	function trans($var)
 	{
 		global $lang_vars;
-		if(count($lang_vars)==0)$lang_vars = include dirname(dirname(__FILE__)).'/lang/fr_FR.php';
 
 		return (array_key_exists($var, $lang_vars)) ? $lang_vars[ $var ] : $var;
 	}

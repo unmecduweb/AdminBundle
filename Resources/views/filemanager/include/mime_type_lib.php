@@ -30,6 +30,8 @@ else
 	echo "Did not find mime_content_type function\n";
 REMOVE ME TO TEST */
 
+global $mime_types;
+
 $mime_types = array(
 	'ai'      => 'application/postscript',
 	'aif'     => 'audio/x-aiff',
