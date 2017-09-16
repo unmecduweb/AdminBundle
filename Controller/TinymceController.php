@@ -10,15 +10,15 @@ class TinymceController extends Controller
         public static function handleBrowserAction($container, Request $request, $file = null)
         {
                 $fileManagerDir = dirname(dirname(__FILE__)) . '/Resources/views/filemanager/';
-
+                
                 $path = $fileManagerDir . $file;
-        
+                
                 $fileManagerUploadsFolder = $container->getParameter('mweb_admin.fileManagerFolder');
 //                die($fileManagerDir . '../../../../../../../../web/files/uploads/' . $dirName . '/');
-
+                
                 if (strpos($file, '.php') !== false) {
                         ob_start();
-
+                        
                         if (isset($_GET['lang'])) {
                                 switch ($_GET['lang']) {
                                         case 'fr':
@@ -33,10 +33,20 @@ class TinymceController extends Controller
                                 }
                         }
                         set_include_path(get_include_path() . PATH_SEPARATOR . $fileManagerDir);
-
+        
+                        //((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] && !in_array(strtolower($_SERVER['HTTPS']), array('off', 'no'))) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST']
                         $baseUrl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
                         $webPath = $container->get('kernel')->getRootDir() . '/../web';
-
+                        
+                        
+                        /*mb_internal_encoding('UTF-8');
+                        mb_http_output('UTF-8');
+                        mb_http_input('UTF-8');
+                        mb_language('uni');
+                        mb_regex_encoding('UTF-8');
+                        ob_start('mb_output_handler');
+                        date_default_timezone_set('Europe/Rome');*/
+                        
                         /*
                         |--------------------------------------------------------------------------
                         | Optional security
@@ -54,17 +64,17 @@ class TinymceController extends Controller
                         | ...
                         |
                         */
-
+                        
                         define('USE_ACCESS_KEYS', false); // TRUE or FALSE
-
+                        
                         /*
                         |--------------------------------------------------------------------------
                         | DON'T COPY THIS VARIABLES IN FOLDERS config.php FILES
                         |--------------------------------------------------------------------------
                         */
-
+                        
                         define('DEBUG_ERROR_MESSAGE', true); // TRUE or FALSE
-
+                        
                         /*
                         |--------------------------------------------------------------------------
                         | Path configuration
@@ -80,9 +90,9 @@ class TinymceController extends Controller
                         |    |   |   |   |- responsivefilemanager
                         |    |   |   |   |   |- plugin.min.js
                         */
-
+                        
                         $mwebConfig = array(
-
+                                
                                 /*
                                 |--------------------------------------------------------------------------
                                 | DON'T TOUCH (base url (only domain) of site).
@@ -92,7 +102,7 @@ class TinymceController extends Controller
                                 |
                                 */
                                 'base_url' => $baseUrl,
-
+                                
                                 /*
                                 |--------------------------------------------------------------------------
                                 | path from base_url to base of upload folder
@@ -111,8 +121,8 @@ class TinymceController extends Controller
                                 |
                                 */
                                 'current_path' => $webPath.'/'.$fileManagerUploadsFolder.'/',
-                                'current_path_url' => $baseUrl .'/'.$fileManagerUploadsFolder.'/',
-
+                                'current_path_url' => $baseUrl.'/'.$fileManagerUploadsFolder.'/',
+                                
                                 /*
                                 |--------------------------------------------------------------------------
                                 | relative path from filemanager folder to thumbs folder
@@ -122,10 +132,9 @@ class TinymceController extends Controller
                                 | DO NOT put inside upload folder
                                 |
                                 */
-                                'thumbs_base_path' => $webPath.'/'.$fileManagerUploadsFolder.'Thumbs/',
-                                'thumbs_base_path_url' => $baseUrl .'/'.$fileManagerUploadsFolder.'Thumbs/',
-
-
+                                'thumbs_base_path' => $webPath.'/thumbs/',
+                                'thumbs_path_url' => $baseUrl.'/thumbs/',
+                                
                                 /*
                                 |--------------------------------------------------------------------------
                                 | FTP configuration BETA VERSION
@@ -147,14 +156,14 @@ class TinymceController extends Controller
                                 'ftp_thumbs_dir' => '/thumbs/',
                                 'ftp_ssl' => false,
                                 'ftp_port' => 21,
-
-
+                                
+                                
                                 // 'ftp_host'         => "s108707.gridserver.com",
                                 // 'ftp_user'         => "test@responsivefilemanager.com",
                                 // 'ftp_pass'         => "Test.1234",
                                 // 'ftp_base_folder'  => "/domains/responsivefilemanager.com/html",
-
-
+                                
+                                
                                 /*
                                 |--------------------------------------------------------------------------
                                 | Access keys
@@ -170,13 +179,13 @@ class TinymceController extends Controller
                                 | Keys are CASE SENSITIVE!
                                 |
                                 */
-
+                                
                                 'access_keys' => array(),
-
+                                
                                 //--------------------------------------------------------------------------------------------------------
                                 // YOU CAN COPY AND CHANGE THESE VARIABLES INTO FOLDERS config.php FILES TO CUSTOMIZE EACH FOLDER OPTIONS
                                 //--------------------------------------------------------------------------------------------------------
-
+                                
                                 /*
                                 |--------------------------------------------------------------------------
                                 | Maximum size of all files in source folder
@@ -186,7 +195,7 @@ class TinymceController extends Controller
                                 |
                                 */
                                 'MaxSizeTotal' => false,
-
+                                
                                 /*
                                 |--------------------------------------------------------------------------
                                 | Maximum upload size
@@ -196,7 +205,7 @@ class TinymceController extends Controller
                                 |
                                 */
                                 'MaxSizeUpload' => 8,
-
+                                
                                 /*
                                 |--------------------------------------------------------------------------
                                 | File and Folder permission
@@ -204,15 +213,15 @@ class TinymceController extends Controller
                                 |
                                 */
                                 'fileFolderPermission' => 0755,
-
-
+                                
+                                
                                 /*
                                 |--------------------------------------------------------------------------
                                 | default language file name
                                 |--------------------------------------------------------------------------
                                 */
                                 'default_language' => "fr_FR",
-
+                                
                                 /*
                                 |--------------------------------------------------------------------------
                                 | Icon theme
@@ -223,8 +232,8 @@ class TinymceController extends Controller
                                 |
                                 */
                                 'icon_theme' => "ico",
-
-
+                                
+                                
                                 //Show or not total size in filemanager (is possible to greatly increase the calculations)
                                 'show_total_size' => false,
                                 //Show or not show folder size in list view feature in filemanager (is possible, if there is a large folder, to greatly increase the calculations)
@@ -243,19 +252,19 @@ class TinymceController extends Controller
                                 'replace_with' => "_",
                                 //convert to lowercase the files and folders name
                                 'lower_case' => false,
-
+                                
                                 //Add ?484899493349 (time value) to returned images to prevent cache
                                 'add_time_to_img' => false,
-
+                                
                                 // -1: There is no lazy loading at all, 0: Always lazy-load images, 0+: The minimum number of the files in a directory
                                 // when lazy loading should be turned on.
                                 'lazy_loading_file_number_threshold' => 0,
-
-
+                                
+                                
                                 //*******************************************
                                 //Images limit and resizing configuration
                                 //*******************************************
-
+                                
                                 // set maximum pixel width and/or maximum pixel height for all images
                                 // If you set a maximum width or height, oversized images are converted to those limits. Images smaller than the limit(s) are unaffected
                                 // if you don't need a limit set both to 0
@@ -269,7 +278,7 @@ class TinymceController extends Controller
                                 #            3 / auto = auto;
                                 #            4 / crop= resize and crop;
                                 */
-
+                                
                                 //Automatic resizing //
                                 // If you set $image_resizing to TRUE the script converts all uploaded images exactly to image_resizing_width x image_resizing_height dimension
                                 // If you set width or height to 0 the script automatically calculates the other dimension
@@ -281,8 +290,8 @@ class TinymceController extends Controller
                                 'image_resizing_override' => false,
                                 // If set to TRUE then you can specify bigger images than $image_max_width & height otherwise if image_resizing is
                                 // bigger than $image_max_width or height then it will be converted to those values
-
-
+                                
+                                
                                 //******************
                                 //
                                 // WATERMARK IMAGE
@@ -305,7 +314,7 @@ class TinymceController extends Controller
                                 #         adjust the padding from the edges by passing an amount
                                 #         in pixels. If using co-ordinates, this value is ignored.
                                 'image_watermark_padding' => 0,
-
+                                
                                 //******************
                                 // Default layout setting
                                 //
@@ -316,10 +325,10 @@ class TinymceController extends Controller
                                 //
                                 //******************
                                 'default_view' => 0,
-
+                                
                                 //set if the filename is truncated when overflow first row
                                 'ellipsis_title_after_first_row' => true,
-
+                                
                                 //*************************
                                 //Permissions configuration
                                 //******************
@@ -337,25 +346,25 @@ class TinymceController extends Controller
                                 'preview_text_files' => true, // eg.: txt, log etc.
                                 'edit_text_files' => true, // eg.: txt, log etc.
                                 'create_text_files' => true, // only create files with exts. defined in $editable_text_file_exts
-
+                                
                                 // you can preview these type of files if $preview_text_files is true
-                                'previewable_text_file_exts' => array('txt', 'log', 'xml', 'html', 'css', 'htm', 'js'),
+                                'previewable_text_file_exts' => array("bsh", "c", "css", "cc", "cpp", "cs", "csh", "cyc", "cv", "htm", "html", "java", "js", "m", "mxml", "perl", "pl", "pm", "py", "rb", "sh", "xhtml", "xml", "xsl"),
                                 'previewable_text_file_exts_no_prettify' => array('txt', 'log'),
-
+                                
                                 // you can edit these type of files if $edit_text_files is true (only text based files)
                                 // you can create these type of files if $create_text_files is true (only text based files)
                                 // if you want you can add html,css etc.
                                 // but for security reasons it's NOT RECOMMENDED!
                                 'editable_text_file_exts' => array('txt', 'log', 'xml', 'html', 'css', 'htm', 'js'),
-
+                                
                                 // Preview with Google Documents
                                 'googledoc_enabled' => true,
                                 'googledoc_file_exts' => array('doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx'),
-
+                                
                                 // Preview with Viewer.js
                                 'viewerjs_enabled' => true,
                                 'viewerjs_file_exts' => array('pdf', 'odt', 'odp', 'ods'),
-
+                                
                                 // defines size limit for paste in MB / operation
                                 // set 'FALSE' for no limit
                                 'copy_cut_max_size' => 100,
@@ -363,16 +372,16 @@ class TinymceController extends Controller
                                 // set 'FALSE' for no limit
                                 'copy_cut_max_count' => 200,
                                 //IF any of these limits reached, operation won't start and generate warning
-
+                                
                                 //**********************
                                 //Allowed extensions (lowercase insert)
                                 //**********************
                                 'ext_img' => array('jpg', 'jpeg', 'png', 'gif', 'bmp', 'tiff', 'svg'), //Images
-                                'ext_file' => array('doc', 'docx', 'rtf', 'pdf', 'xls', 'xlsx', 'txt', 'csv', 'html', 'xhtml', 'psd', 'sql', 'log', 'fla', 'xml', 'ade', 'adp', 'mdb', 'accdb', 'ppt', 'pptx', 'odt', 'ots', 'ott', 'odb', 'odg', 'otp', 'otg', 'odf', 'ods', 'odp', 'css', 'ai', 'kmz'), //Files
+                                'ext_file' => array('doc', 'docx', 'rtf', 'pdf', 'xls', 'xlsx', 'txt', 'csv', 'html', 'xhtml', 'psd', 'sql', 'log', 'fla', 'xml', 'ade', 'adp', 'mdb', 'accdb', 'ppt', 'pptx', 'odt', 'ots', 'ott', 'odb', 'odg', 'otp', 'otg', 'odf', 'ods', 'odp', 'css', 'ai', 'kmz', 'dwg', 'dxf', 'hpgl', 'plt', 'spl', 'step', 'stp', 'iges', 'igs', 'sat', 'cgm'), //Files
                                 'ext_video' => array('mov', 'mpeg', 'm4v', 'mp4', 'avi', 'mpg', 'wma', "flv", "webm"), //Video
                                 'ext_music' => array('mp3', 'mpga', 'm4a', 'ac3', 'aiff', 'mid', 'ogg', 'wav'), //Audio
                                 'ext_misc' => array('zip', 'rar', 'gz', 'tar', 'iso', 'dmg'), //Archives
-
+                                
                                 /******************
                                  * AVIARY config
                                  *******************/
@@ -383,12 +392,12 @@ class TinymceController extends Controller
                                 'aviary_tools' => "all",
                                 'aviary_maxSize' => "1400",
                                 // Add or modify the Aviary options below as needed - they will be json encoded when added to the configuration so arrays can be utilized as needed
-
+                                
                                 //The filter and sorter are managed through both javascript and php scripts because if you have a lot of
                                 //file in a folder the javascript script can't sort all or filter all, so the filemanager switch to php script.
                                 //The plugin automatic swich javascript to php when the current folder exceeds the below limit of files number
                                 'file_number_limit_js' => 500,
-
+                                
                                 //**********************
                                 // Hidden files and folders
                                 //**********************
@@ -396,19 +405,24 @@ class TinymceController extends Controller
                                 'hidden_folders' => array(),
                                 // set the names of any files you want hidden. Remember these names will be hidden in all folders (eg "this_document.pdf", "that_image.jpg" )
                                 'hidden_files' => array('config.php'),
-
+                                
+                                /*******************
+                                 * URL upload
+                                 *******************/
+                                'url_upload' => true,
+                                
                                 /*******************
                                  * JAVA upload
                                  *******************/
                                 'java_upload' => true,
                                 'JAVAMaxSizeUpload' => 200, //Gb
-
-
+                                
+                                
                                 //************************************
                                 //Thumbnail for external use creation
                                 //************************************
-
-
+                                
+                                
                                 // New image resized creation with fixed path from filemanager folder after uploading (thumbnails in fixed mode)
                                 // If you want create images resized out of upload folder for use with external script you can choose this method,
                                 // You can create also more than one image at a time just simply add a value in the array
@@ -430,8 +444,8 @@ class TinymceController extends Controller
                                 #                          4 / crop= resize and crop;
                                 */
                                 'fixed_image_creation_option' => array('crop', 'auto'), //set the type of the crop
-
-
+                                
+                                
                                 // New image resized creation with relative path inside to upload folder after uploading (thumbnails in relative mode)
                                 // With Responsive filemanager you can create automatically resized image inside the upload folder, also more than one at a time
                                 // just simply add a value in the array
@@ -451,14 +465,15 @@ class TinymceController extends Controller
                                 #                          4 / crop= resize and crop;
                                 */
                                 'relative_image_creation_option' => array('crop', 'crop'), //set the type of the crop
-
-
+                                
+                                
                                 // Remember text filter after close filemanager for future session
                                 'remember_text_filter' => false,
-
+                        
                         );
-
-                        $mwebConfig =  array_merge(
+                        
+                        
+                        $mwebConfig = array_merge(
                                 $mwebConfig,
                                 array(
                                         'MaxSizeUpload' => ((int)(ini_get('post_max_size')) < $mwebConfig['MaxSizeUpload'])
@@ -480,7 +495,7 @@ class TinymceController extends Controller
                                         ),
                                 )
                         );
-
+                        
                         $fs = new \Symfony\Component\Filesystem\Filesystem();
                         if (!$fs->exists($mwebConfig['current_path'])) {
                                 $fs->mkdir($mwebConfig['current_path']);
@@ -490,23 +505,27 @@ class TinymceController extends Controller
                         }
 
 //                        $skinsoft = $container->get('skinsoft');
-
+                        
                         require $path;
                         $content = ob_get_contents();
                         ob_end_clean();
-
+                        
                         $response = new \Symfony\Component\HttpFoundation\Response();
                         $response->setContent($content);
-
-
-                }else{
+                        
+                        
+                } else {
                         $response = new \Symfony\Component\HttpFoundation\BinaryFileResponse($path);
-
+                        
                         switch ($response->getFile()->getExtension()) {
-                                case 'js': $response->headers->set('Content-Type', 'application/javascript'); break;
-                                case 'css': $response->headers->set('Content-Type', 'text/css'); break;
+                                case 'js':
+                                        $response->headers->set('Content-Type', 'application/javascript');
+                                        break;
+                                case 'css':
+                                        $response->headers->set('Content-Type', 'text/css');
+                                        break;
                         }
-
+                        
                         $response->setPublic();
                         $response->setSharedMaxAge(3600);
                         $response->setMaxAge(3600);
@@ -551,8 +570,8 @@ class TinymceController extends Controller
 //                }
 //
 //                return $response;
-
-
+        
+        
         public function browserAction(Request $request, $file = null)
         {
                 return self::handleBrowserAction($this->container, $request, $file);
