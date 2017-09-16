@@ -84,6 +84,7 @@ function setSortableList() {
 
 tinymce.init({
     selector: '.tinymce',  // change this value according to your HTML
+    height: 350,
     plugins: [
         "advlist autolink link image lists charmap print preview hr anchor pagebreak",
         "searchreplace wordcount visualblocks visualchars insertdatetime media nonbreaking",
@@ -94,10 +95,10 @@ tinymce.init({
     image_advtab: true,
     menubar: false,
     style_formats: [
-        {title: 'h3', block: 'Titre de niveau 1'},
-        {title: 'h4', block: 'Titre de niveau 2'},
-        {title: 'h5', block: 'Titre de niveau 3'},
-        {title: 'p', block: 'Paragraphe'}
+        {block: 'h3', title: 'Titre de niveau 1'},
+        {block: 'h4', title: 'Titre de niveau 2'},
+        {block: 'h5', title: 'Titre de niveau 3'},
+        {block: 'p', title: 'Paragraphe'}
     ],
     external_filemanager_path: getDomain() + "/admin/tinymceBrowser/",
     filemanager_title: "Gestionnaire de fichier",
