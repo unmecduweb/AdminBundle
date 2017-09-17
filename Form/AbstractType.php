@@ -28,6 +28,7 @@ class AbstractType extends SfAbstractType
                 if (preg_match('#^2#', Kernel::VERSION)) {
                         $gotoChoices['seeList'] = "admin.edit.goto.seeList";
                         $gotoChoices['stayHere'] = "admin.edit.goto.stayHere";
+                        $gotoChoices['addAnother'] = "admin.edit.goto.addAnother";
                         foreach ($options['attr']['locales'] as $locale) {
                                 $gotoChoices['otherLanguages-' . $locale] = 'admin.edit.goto.otherLanguages.' . $locale;
                         }
@@ -45,13 +46,10 @@ class AbstractType extends SfAbstractType
                                 ->add('goTo', ChoiceType::class, [
                                         'label' => 'admin.edit.goto',
                                         'mapped' => false,
+                                        'expanded' => true,
+                                        'data'=> 'seeList',
                                         'choices' => $gotoChoices
                                 ]);
-                        if($options['attr']['displayPosition']){
-                                $builder->add('position', NumberType::class, [
-                                        'label' => 'admin.edit.position'
-                                ]);
-                        }
                         
                 } else {
                         $gotoChoices['seeList'] = "Retour à la liste";
@@ -74,14 +72,10 @@ class AbstractType extends SfAbstractType
                                 ->add('goTo', ChoiceType::class, [
                                         'label' => 'admin.edit.goto',
                                         'mapped' => false,
+                                        'expanded' => true,
                                         'choices' => array_flip($gotoChoices)
                                 ]);
-        
-                        if($options['attr']['displayPosition']){
-                                $builder->add('position', NumberType::class, [
-                                        'label' => 'admin.edit.position'
-                                ]);
-                        }
+                        
                 }
         }
         

@@ -19,8 +19,31 @@ class ManageController extends Controller
         
         public function indexAction(Request $request)
         {
+                $langs = explode('|', $this->container->getParameter('locales'));
+        
+                //Appel entityManager
+                $em = $this->getDoctrine()->getManager();
+        
+                //Appel les paramètes du bundle présent ds config.yml
+                $adminParams = $this->container->getParameter('mweb_admin.entities');
+                //Récupère le tableau de valeur correspondant à l'entité listé
+                $entities = [];
+                foreach ($adminParams as $entityName=>$entityParams){
+                        if($entityParams['showOnHome'] === true) {
+                                //Appel le repository de l'entité visionné
+                                $entityRepo = $em->getRepository($entityParams['class']);
+                                //Appel la liste des items qui compose cette entité
+                                $entities[$entityName] = $entityRepo->findBy(array('status' => array(0, 1)), array('updated' => 'DESC'), 4);
+                        }
+                }
+        
+        
+                return $this->render('MwebAdminBundle::index.html.twig', [
+                        'entities' => $entities,
+                        'entitiesParams' => $adminParams,
+                        'langs' => $langs
+                ]);
                 
-                return $this->render('MwebAdminBundle::index.html.twig');
         }
         
         public function viewAction(Request $request, $entityAlias, $id)
@@ -54,11 +77,6 @@ class ManageController extends Controller
         {
                 
                 $langs = explode('|', $this->container->getParameter('locales'));
-
-
-//        if (class_exists('LE\\AdminBundle\\Controller\\' . ucfirst($entity) . 'Controller') && method_exists('LE\\AdminBundle\\Controller\\' . ucfirst($entity) . 'Controller', 'listAction')) {
-//            return $this->forward('MwebAdminBundle:' . ucfirst($entity) . ':list', ['entity' => $entity, 'request' => $request]);
-//        }
                 
                 //Appel les paramètes du bundle présent ds config.yml
                 $adminParams = $this->container->getParameter('mweb_admin.entities');
@@ -72,18 +90,6 @@ class ManageController extends Controller
                 $entityRepo = $em->getRepository($entityParams['class']);
                 //Appel la liste des items qui compose cette entité
                 $entities = $entityRepo->findBy(array('status' => array(0, 1)));
-                
-                
-                
-                //C'est quoi ça?????????????????????????
-               /* if (null === $entities || !count($entities) && (isset($entityParams['unique']) && $entityParams['unique'] == true)) {
-                        $entity = new $entityParams['class'];
-                        $em->persist($entity);
-                        $em->flush();
-                        
-                        $entities = new \Doctrine\Common\Collections\ArrayCollection();
-                        $entities->add($entity);
-                }*/
                 
                 return $this->render('MwebAdminBundle:' . $entityParams['views'] . ':list.html.twig', [
                         'entityAlias' => $entityAlias,
@@ -177,14 +183,14 @@ class ManageController extends Controller
                 
                 
                 $locales = explode('|', $this->getParameter('locales'));
-                unset($locales[$_locale]);
+                if(($key = array_search($_locale, $locales)) !== false) {
+                        unset($locales[$key]);
+                }
                 
-                $displayPositionField = false;
-                if($entityParams['orderBy'] == 'position')$displayPositionField = true;
                 
                 $form = $this->createForm($entityParams['form'], $entityEdit, array(
                         'action' => $this->generateUrl('mweb_admin_edit_entity', ['entityAlias' => $entityAlias, 'id' => $id, '_locale' => $_locale]),
-                        'attr' => array('locales' => $locales, 'displayPosition'=> $displayPositionField)
+                        'attr' => array('locales' => $locales)
                         
                         
                 ));
@@ -236,7 +242,10 @@ class ManageController extends Controller
                                         return $this->redirect($this->generateUrl('mweb_admin_edit_entity', ['entityAlias' => $entityAlias, 'id' => $id, '_locale' => $lang]));
                                         break;
                                 case 'stayHere':
-                                        return $this->redirect($this->generateUrl('mweb_admin_edit_entity', ['entityAlias' => $entityAlias, 'id' => $id, '_locale' => $_locale]));
+                                        return $this->redirect($this->generateUrl('mweb_admin_edit_entity', ['entityAlias' => $entityAlias, 'id' => $entityEdit->getId(), '_locale' => $_locale]));
+                                        break;
+                                case 'addAnother':
+                                        return $this->redirect($this->generateUrl('mweb_admin_edit_entity', ['entityAlias' => $entityAlias, 'id' => 'new', '_locale' => $_locale]));
                                         break;
                                 case 'seeList':
                                         return $this->redirect($this->generateUrl('mweb_admin_list_entity', ['entityAlias' => $entityAlias]));

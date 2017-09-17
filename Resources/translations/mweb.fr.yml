@@ -16,6 +16,7 @@ admin:
       title: Liste des utilisateurs
   main:
     hello: Bonjour %name%, et bienvenue sur l'espace d'administration du projet
+    help: Pour toute précision et demande d'information, vous pouvez contacter l'équipe SKINsoft aux numéros suivants :<br/>Hotline fonctionnelle : 09 72 13 27 61<br/>Hotline technique : 01 83 62 07 60
     madeBy: Système d'administration développé par
     company: SkinSoft
     companyLink: http://skinsoft.org
@@ -53,9 +54,10 @@ admin:
     goto:
       seeList: Retour à liste
       stayHere: Rester sur cette page
+      addAnother: Nouveau document
       otherLanguages:
-        fr: Editer cette page en français
-        en: Editer cette page en anglais
+        fr: Editer en français
+        en: Editer en anglais
         de: Editer cette page en allemand
         es: Editer cette page en espagnol
     deleteConfirm: Cochez la case pour confirmer la suppresion de cet élément

@@ -38,7 +38,7 @@ class AdminMenu
                         if ($token->getUser()->hasRole('ROLE_ADMIN')) {
 
                                 $response = $event->getResponse();
-                                $menu = $this->twig->render('MwebAdminBundle::menu.html.twig', ['adminEntities' => $this->adminEntities, 'adminMenu' => $this->adminMenu]);
+                                $menu = $this->twig->render('MwebAdminBundle:menu:menu.html.twig', ['adminEntities' => $this->adminEntities, 'adminMenu' => $this->adminMenu]);
 
                                 if (preg_match('#<html#', $response->getContent())) {
                                         $response->setContent(preg_replace('#(<body[ a-zA-Z0-9\"\'=_-]*>)#', '$1' . $menu, $response->getContent()));

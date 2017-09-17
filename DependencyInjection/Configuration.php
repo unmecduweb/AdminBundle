@@ -36,6 +36,7 @@ class Configuration implements ConfigurationInterface
                         ->prototype('array')
                             ->children()
                                 ->scalarNode('beautyName')->end()
+                                ->scalarNode('showOnHome')->defaultValue('false')->end()
                                 ->scalarNode('menu')->end()
                                 ->scalarNode('class')->end()
                                 ->scalarNode('form')->end()

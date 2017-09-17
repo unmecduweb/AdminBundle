@@ -107,8 +107,9 @@
         {% set transHelp = label~"Help" %}
 
         {% if transHelp|trans({}, 'mweb') != transHelp %}
-            <span class="glyphicon glyphicon-info-sign info-tooltip" data-toggle="tooltip" data-position="bottom"
-                  title="{{ transHelp|trans({}, 'mweb') }}"></span>
+            <span class="mweb-edit-help-block"><span class="glyphicon glyphicon-info-sign"></span>{{ transHelp|trans({}, 'mweb') }}</span>
+            {#<span class="glyphicon glyphicon-info-sign info-tooltip" data-toggle="tooltip" data-position="bottom"
+                  title=""></span>#}
         {% endif %}
 
 

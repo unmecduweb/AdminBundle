@@ -59,7 +59,7 @@ THE SOFTWARE.
 .hide {visibility: hidden; }
 
 html {height:101%;}
-body {font-family:'open-sans-semi-bold', Arial,sans-serif; font-size: 16px; background: #f1f1f1; position: relative;}
+body {font-family:'open-sans-semi-bold', Arial,sans-serif; font-size: 16px; background: #f1f1f1; position: relative; min-height: 100%;}
 
 .container, .container-fluid{position: relative; z-index: 2;}
 .container-fluid{position: relative; z-index: 2; max-width: 1300px;}
@@ -160,7 +160,7 @@ a.button:focus{color: #fff; text-decoration: none; opacity: 1;  background-posit
 .edit-button.edit-lang-style .glyphicon{position: absolute; top: 15px; right: 5px; font-size: 12px; line-height: 12px;}
 #mweb-container .mw-table { border: 0; width: 100%; font-size: 17px; color: #4A4A49; border-bottom:none; }
 
-.mw-table-action-col{min-width: 140px;}
+.mw-table thead tr th.mw-table-action-col{min-width: 140px; text-align: right;}
 
 .mw-table thead tr th{padding: 12px 15px; font-weight: 600; text-align: inherit; font-size: 14px; border: none; border-bottom: 3px solid #ddd;}
 .mw-table thead tr th .glyphicon{ }
@@ -196,6 +196,9 @@ input[type="search"]{border: 1px solid #222;}
 .mweb-fieldset{ margin: 25px 0; padding-bottom: 20px;}
 .mweb-fieldset .content{padding: 0 15px;}
 .mweb-fieldset .content label{font-size: 14px; font-weight: 400;  vertical-align: bottom; color: #333}
+.mweb-fieldset .content .mweb-edit-help-block{background: #e5e5e5; font-family: 'raleway-medium'; display: block; padding: 7px; font-size: 12px; font-weight: 100;  vertical-align: bottom; color: #333}
+.mweb-fieldset .content .mweb-edit-help-block .glyphicon{margin-right: 8px}
+
 .mweb-fieldset .content .info-tooltip{margin: 0 0 0 5px; vertical-align: baseline; font-size: 17px; }
 .mweb-fieldset .content .info-tooltip:hover{color: #ff005a;}
 .mweb-fieldset .content input[type=radio]{margin: 0 3px 0 10px;}
@@ -203,8 +206,18 @@ input[type="search"]{border: 1px solid #222;}
 .mweb-fieldset legend{text-transform: uppercase; font-size: 16px; color: #4A4A49;}
 .mweb-fieldset legend .glyphicon{vertical-align: middle; margin:  0 10px 0 0;}
 .mweb-vich-illu{margin: 20px 0 10px;}
+#mweb-goto-fieldset{margin: 25px 0 75px;}
 #mweb-goto-fieldset select{width: 100%}
 #mweb-goto-fieldset .button{width: 150px; margin:auto; display: block}
+
+#mweb-goto-field input{display: none;}
+/*#mweb-goto-field input+label{padding: 5px; cursor: pointer; font-weight: 100}*/
+#mweb-goto-field label{background: none; border: none; position: relative; display: inline-block; color: #4A4A49; text-transform: uppercase; padding: 5px 12px 5px 8px; font-size: 14px; font-family: 'raleway-medium'; border-left:4px solid #4A4A49; transition: 0.3s; cursor: pointer; margin-right: 5px;}
+#mweb-goto-field label::after{content: ''; height: 100%; position: absolute; top: 0;  left:0; width: 0%; background: #4A4A49; display: inline-block; transition: width 0.3s; z-index: -1;}
+#mweb-goto-field label:hover::after{width: 100%;}
+#mweb-goto-field label:hover{color: #fff;}
+#mweb-goto-field input:checked+label{background: #ff1e7d; color: #fff; border-left:4px solid #ff1e7d; }
+#mweb-goto-fieldset .button.mweb-edit-save{width: 100%;}
 
 .mw-gallery-widget{margin: 0px -15px 20px; padding: 0; list-style: none; }
 .mw-gallery-item, .mw-gallery-item-add{margin: 15px 0;}
@@ -248,7 +261,7 @@ input[type="search"]{border: 1px solid #222;}
 
 .mweb-noty{display: none;}
 
-footer{position: absolute; bottom: 0px; width: 100%; height: 50px; }
+footer{position: absolute; bottom: 0px; width: 100%; height: 50px; z-index: 3;}
 footer p{font-size: 10px; text-align: center; margin: 0; line-height: 50px;}
 footer p a{color: #333;}
 footer p a:hover{color: #333; text-decoration: underline;}
