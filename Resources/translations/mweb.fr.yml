@@ -20,6 +20,7 @@ admin:
     madeBy: Système d'administration développé par
     company: SkinSoft
     companyLink: http://skinsoft.org
+    logo: logo-skin.png
   menu:
     logout: Déconnexion
     gotoWebsite: Afficher le portail

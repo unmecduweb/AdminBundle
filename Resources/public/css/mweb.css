@@ -122,7 +122,9 @@ a.button:focus{color: #fff; text-decoration: none; opacity: 1;  background-posit
 
 
 /*----------------------------------- NAVBAR  -----------------------------------*/
-.navbar{background-color: #292929;}
+.navbar{background-color: #333; border-radius:0;}
+#mweb-menu-logo{margin:5px 0 0 10px;}
+#mweb-menu-logo img{height: 44px;}
 .navbar-inverse .navbar-nav > li > a{color: #eee; font-size: 13px}
 .navbar-inverse .navbar-nav > li > a:hover{color:#ff005a;}
 
