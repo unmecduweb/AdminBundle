@@ -8,7 +8,9 @@
         $(document).ready(function () {
             orderBy = [];
             if($('#orderFromHere').length>0){
-                orderBy = [$('.mw-table th').index($('#orderFromHere')), 'asc'];
+                order = 'asc';
+                if($('#orderFromHere').data('name') =='created' || $('#orderFromHere').data('name') =='updated')order = 'desc';
+                orderBy = [$('.mw-table th').index($('#orderFromHere')), order];
             }
             var mwTable = $('#table_list_entity').dataTable({
                 "language": {
@@ -45,7 +47,7 @@
                     <th>ID <span class="glyphicon glyphicon-menu-down"></span></th>
 
                     {% for params in entityParams.listProperties %}
-                        <th id="{{ params.dataName == entityParams.orderBy ? 'orderFromHere' :'' }}">{{ params.beautyName }} <span class="glyphicon glyphicon-menu-down"></span></th>
+                        <th data-name="{{ params.dataName }}" id="{{ params.dataName == entityParams.orderBy ? 'orderFromHere' :'' }}">{{ params.beautyName }} <span class="glyphicon glyphicon-menu-down"></span></th>
                     {% endfor %}
                     <th class="mw-table-action-col">{{ 'admin.edit.actions'|trans }}</th>
 
