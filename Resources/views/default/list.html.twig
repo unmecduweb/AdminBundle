@@ -1,7 +1,7 @@
 {% extends "MwebAdminBundle::layout.html.twig" %}
 {% trans_default_domain 'mweb' %}
 
-
+{%  block containerClass  %}container-fluid container-large{% endblock %}
 {% block js %}
     {{ parent() }}
     <script type="text/javascript">
