@@ -52,8 +52,9 @@ class AbstractType extends SfAbstractType
                                 ]);
                         
                 } else {
-                        $gotoChoices['seeList'] = "Retour à la liste";
-                        $gotoChoices['stayHere'] = "Rester ici";
+                        $gotoChoices['seeList'] = "admin.edit.goto.seeList";
+                        $gotoChoices['stayHere'] = "admin.edit.goto.stayHere";
+                        $gotoChoices['addAnother'] = "admin.edit.goto.addAnother";
                         foreach ($options['attr']['locales'] as $locale) {
                                 $gotoChoices['otherLanguages-' . $locale] = 'Editer le document en ' . $locale;
                         }
@@ -73,6 +74,7 @@ class AbstractType extends SfAbstractType
                                         'label' => 'admin.edit.goto',
                                         'mapped' => false,
                                         'expanded' => true,
+                                        'data'=> 'seeList',
                                         'choices' => array_flip($gotoChoices)
                                 ]);
                         

@@ -95,9 +95,9 @@ tinymce.init({
     image_advtab: true,
     menubar: false,
     style_formats: [
-        {block: 'h3', title: 'Titre de niveau 1'},
-        {block: 'h4', title: 'Titre de niveau 2'},
-        {block: 'h5', title: 'Titre de niveau 3'},
+        {block: 'h3', title: 'Titre de niveau 3'},
+        {block: 'h4', title: 'Titre de niveau 4'},
+        {block: 'h5', title: 'Titre de niveau 5'},
         {block: 'p', title: 'Paragraphe'}
     ],
     external_filemanager_path: getDomain() + "/admin/tinymceBrowser/",
