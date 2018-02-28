@@ -184,7 +184,7 @@ a.button:focus{color: #fff; text-decoration: none; opacity: 1;  background-posit
 .mw-table.stripped tbody tr:nth-child(even){background:#DBDBDB;}
 input[type="search"]{border: 1px solid #222;}
 
-.form-control {box-shadow: none; border: 1px solid #e5e5e5; padding: 10px 15px; height: 45px; line-height: 25px; color: #6a6c6f; background: white; -webkit-appearance: none; -moz-appearance: none; -ms-appearance: none; -o-appearance: none; appearance: none; -webkit-border-radius: 0px; -moz-border-radius: 0px; border-radius: 0px;}
+.form-control {box-shadow: none; border: 1px solid #e5e5e5; padding: 10px 15px; height: auto; min-height: 45px; line-height: 25px; color: #6a6c6f; background: white; -webkit-appearance: none; -moz-appearance: none; -ms-appearance: none; -o-appearance: none; appearance: none; -webkit-border-radius: 0px; -moz-border-radius: 0px; border-radius: 0px;}
 
 #mw-sortable-list{margin-bottom: 20px;}
 #mw-sortable-list tr>div{display: none;}

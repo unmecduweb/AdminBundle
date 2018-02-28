@@ -40,7 +40,3 @@ mweb_admin_user_edit:
 mweb_admin_user_list:
     path:  /user/list
     defaults: { _controller: MwebAdminBundle:User:list}
-
-lexik_translation_edition:
-    resource: "@LexikTranslationBundle/Resources/config/routing.yml"
-    prefix:   /trans
