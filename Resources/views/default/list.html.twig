@@ -31,7 +31,7 @@
     <div class="list-head-button">
         <a class="button right " href="{{ path('mweb_admin_edit_entity', {'_locale': 'fr',"entityAlias" :entityAlias, 'id':'new'}) }}">{{ 'admin.add'|trans({}, 'mweb') }}</a>
 
-        {% if entityParams.orderBy == 'position' %}<a class="button right" href="{{ path('mweb_admin_edit_position_entity', {"entityAlias" :entityAlias}) }}">{{ 'admin.edit.manageOrder'|trans({}, 'mweb') }}</a>{% endif %}
+        {% if entityParams.orderBy == 'position' %}<a class="button right" href="{{ path('mweb_admin_edit_position_entity', {"entityAlias" :entityAlias}) }}">{{ 'admin.manageOrder'|trans({}, 'mweb') }}</a>{% endif %}
 
     </div>
 

@@ -1,7 +1,7 @@
 {% extends "MwebAdminBundle::layout.html.twig" %}
 {% trans_default_domain 'mweb' %}
 
-{% block pageH1 %}Editions des positions des {{ entityParams.beautyName }}{% endblock %}
+{% block pageH1 %}{{ 'admin.edit.positionTitle'|trans({'%name%' :  entityParams.beautyName}, 'mweb') }}{% endblock %}
 
 {% block admin_container %}
     {#    <a href="{{path('le_admin_entity_edit',{entity: entityName is defined ? entityName : app.request.get('_route_params').entity}) }}" class="btn btn-default">Créer</a>#}
