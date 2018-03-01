@@ -56,7 +56,7 @@ class AbstractType extends SfAbstractType
                         $gotoChoices['stayHere'] = "admin.edit.goto.stayHere";
                         $gotoChoices['addAnother'] = "admin.edit.goto.addAnother";
                         foreach ($options['attr']['locales'] as $locale) {
-                                $gotoChoices['otherLanguages-' . $locale] = 'Editer le document en ' . $locale;
+                                $gotoChoices['otherLanguages-' . $locale] = 'admin.edit.goto.otherLanguages.' . $locale;
                         }
                         
                         $builder

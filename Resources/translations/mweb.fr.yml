@@ -40,6 +40,7 @@ admin:
     listUsers: Liste des utilisateurs
     myAccount: Mon compte
   edit:
+    title: Édition en %lang%
     helpPosition: Cliquez sur les flèches de position et déplacez le contenu à l'emplacement souhaité. N'oubliez pas d'enregistrer.
     editions: Editer
     position: Position
