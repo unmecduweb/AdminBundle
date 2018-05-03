@@ -33,7 +33,7 @@ class AdminMenu
 
 
                 $token = $this->token_storage->getToken();
-                if ($event->isMasterRequest() && $token && is_object($token->getUser()) && (substr($_route,0,8)=='fos_user' || substr($_route,0,10)=='mweb_admin') && $_route!='mweb_admin_tinymce_browser') {
+                if ($event->isMasterRequest() && $token && is_object($token->getUser()) && (substr($_route,0,6)=='lexik_' || substr($_route,0,8)=='fos_user' || substr($_route,0,10)=='mweb_admin') && $_route!='mweb_admin_tinymce_browser') {
 
                         if ($token->getUser()->hasRole('ROLE_ADMIN')) {
 

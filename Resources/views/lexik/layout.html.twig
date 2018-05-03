@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>{% block lexik_title %}{% endblock %}</title>
+        {% block lexik_stylesheets %}
+            <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+            <link rel="stylesheet" href="{{ asset('bundles/lexiktranslation/ng-table/ng-table.min.css') }}">
+            <link rel="stylesheet" href="{{ asset('bundles/mwebadmin/css/mweb.css') }}">
+        {% endblock %}
+    </head>
+    <body>
+        {% block lexik_flash_message %}
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        {% set flashes = app.session.flashbag.all() %}
+                        {% if flashes | length > 0 %}
+                            {% for type, messages in flashes %}
+                                {% for message in messages %}
+                                    <div class="alert alert-{{ type }}">{{ message }}</div>
+                                {% endfor %}
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        {% endblock lexik_flash_message %}
+
+        {% block lexik_content '' %}
+
+        {% block lexik_javascript_footer %}
+            <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+            <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.9/angular.min.js"></script>
+            <script src="{{ asset('bundles/lexiktranslation/ng-table/ng-table.min.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('bundles/mwebadmin/js/plugin/bootstrap.min.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('bundles/mwebadmin/js/script/script.js') }}"></script>
+        {% endblock %}
+    </body>
+</html>

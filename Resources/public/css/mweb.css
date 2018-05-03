@@ -60,7 +60,7 @@ THE SOFTWARE.
 
 html {height:101%;}
 body {font-family:'open-sans-semi-bold', Arial,sans-serif; font-size: 16px; background: #f1f1f1; position: relative; min-height: 100%;}
-
+body {padding-top:90px;}
 .container, .container-fluid{position: relative; z-index: 2;}
 .container-fluid{position: relative; z-index: 2; max-width: 1200px;}
 .container-fluid.container-large{position: relative; z-index: 2; max-width: 1600px;}
