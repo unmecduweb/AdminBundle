@@ -36,7 +36,7 @@
 {% block body %}
     <body>
     {% block container %}
-        <div class="container-fluid" id="mweb-container">
+        <div class="{% block containerClass %}container-fluid{% endblock %}" id="mweb-container">
             <div class="col-xs-12">
                 <h1>{% block pageH1 %}{% endblock %}<span class="pink">.</span></h1>
             </div>

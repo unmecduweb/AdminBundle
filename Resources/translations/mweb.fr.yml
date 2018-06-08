@@ -1,3 +1,8 @@
+fr: français
+en: anglais
+de: allemand
+es: espagnol
+it: italien
 form:
   email: Email
   username: Nom d'utilisateur
@@ -8,6 +13,11 @@ form:
   new_password_confirmation: Confirmation du nouveau mot de passe
 admin:
   title: MWEB - Administration
+  seeList: Voir la liste
+  manageOrder: Gérer l'ordre
+  add: Ajouter
+  list:
+    title: Liste des %name%
   user:
     username: Nom d'utilisateur
     email: Adresse Email
@@ -16,7 +26,7 @@ admin:
       title: Liste des utilisateurs
   main:
     hello: Bonjour %name%, et bienvenue sur l'espace d'administration du projet
-    help: Pour toute précision et demande d'information, vous pouvez contacter l'équipe SKINsoft aux numéros suivants :<br/>Hotline fonctionnelle : 09 72 13 27 61<br/>Hotline technique : 01 83 62 07 60
+    help: "Pour toute précision et demande d'information, vous pouvez contacter l'équipe SKINsoft aux numéros suivants :<br/>Hotline fonctionnelle : 09 72 13 27 61<br/>Hotline technique : 01 83 62 07 60"
     madeBy: Système d'administration développé par
     company: SkinSoft
     companyLink: http://skinsoft.org
@@ -30,11 +40,13 @@ admin:
     listUsers: Liste des utilisateurs
     myAccount: Mon compte
   edit:
+    title: Édition en %lang%
     helpPosition: Cliquez sur les flèches de position et déplacez le contenu à l'emplacement souhaité. N'oubliez pas d'enregistrer.
     editions: Editer
     position: Position
     actions: Actions
     cancel: Annuler
+    positionTitle: Gestion de l’ordre des %name%
     positionSuccess: L'ordre des éléments a bien été modifié
     delete: Archiver
     user: Modification de votre compte utilisateur
@@ -47,13 +59,13 @@ admin:
     metaLegend: Informations complémentaires
     saveLegend: Poursuivre vers
     save: Enregistrer
-    status: Plublier le document
+    status: Publier le document
     statusOn: Oui
     statusOff: Non
     metaDesc: Meta Description
     metaDescHelp: La balise meta description permet d’ajouter une description d'une page affichée, ainsi que des mots-clés pour lesquels on souhaite optimiser une page.
     goto:
-      seeList: Retour à liste
+      seeList: Retour à la liste
       stayHere: Rester sur cette page
       addAnother: Nouveau document
       otherLanguages:
@@ -86,6 +98,7 @@ admin:
     dateStart: Date de début de l'actu
     dateEnd: Date de fin de l'actu
     type: Type de l'actualité
+    content: Contenu de l'acutalité
     link: Type d'exposition
     illu: Illustration de l'actu
     olympe: Actualité d'olympe

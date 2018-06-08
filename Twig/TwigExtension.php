@@ -15,7 +15,6 @@ class TwigExtension extends \Twig_Extension
         
         
         private $container;
-        private $request =false;
         private $vichHelper;
         private $liipCacheHelper;
         private $requestStack = false;
@@ -25,16 +24,8 @@ class TwigExtension extends \Twig_Extension
         {
                 $this->container = $container;
                 $this->em = $em;
-                if (preg_match('#^2#', Kernel::VERSION)) {
-                        if($this->container->isScopeActive('request')) {
-                                $this->request = $this->container->get('request');
-                        }
-                }else{
-                        $this->requestStack = $requestStack->getCurrentRequest();
-                }
-                if($this->container->has('vich_uploader.templating.helper.uploader_helper')){
-                        $this->vichHelper = $this->container->get('vich_uploader.templating.helper.uploader_helper');
-                }
+                $this->requestStack = $requestStack->getCurrentRequest();
+                
                 $this->liipCacheHelper = $this->container->get('liip_imagine.cache.manager');
 
                 
@@ -73,8 +64,8 @@ class TwigExtension extends \Twig_Extension
         {
                 $ret = array();
                 $langs = explode('|',$this->container->getParameter('locales'));
-                $currentRoute = $this->request->attributes->get('_route');
-                $params = array_merge((array)$this->request->attributes->get('_route_params'), $_GET);
+                $currentRoute = $this->requestStack->attributes->get('_route');
+                $params = array_merge((array)$this->requestStack->attributes->get('_route_params'), $_GET);
 
 //                $curLocale = $this->getLocale();
                 if ($currentRoute) {

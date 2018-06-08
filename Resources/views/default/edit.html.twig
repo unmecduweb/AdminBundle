@@ -1,7 +1,8 @@
 {% extends "MwebAdminBundle::layout.html.twig" %}
 
 {% block pageH1 %}
-    Edition de {{ entityAlias }} en {{ lang|trans }}
+    {% set lg = lang|trans({}, "mweb") %}
+    {{ 'admin.edit.title'|trans({'%lang%' : lg}, "mweb") }}
 {% endblock %}
 {% block admin_container %}
 

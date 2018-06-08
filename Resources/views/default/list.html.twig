@@ -1,14 +1,16 @@
 {% extends "MwebAdminBundle::layout.html.twig" %}
 {% trans_default_domain 'mweb' %}
 
-
+{%  block containerClass  %}container-fluid container-large{% endblock %}
 {% block js %}
     {{ parent() }}
     <script type="text/javascript">
         $(document).ready(function () {
             orderBy = [];
             if($('#orderFromHere').length>0){
-                orderBy = [$('.mw-table th').index($('#orderFromHere')), 'asc'];
+                order = 'asc';
+                if($('#orderFromHere').data('name') =='created' || $('#orderFromHere').data('name') =='updated')order = 'desc';
+                orderBy = [$('.mw-table th').index($('#orderFromHere')), order];
             }
             var mwTable = $('#table_list_entity').dataTable({
                 "language": {
@@ -23,13 +25,13 @@
     </script>
 {% endblock %}
 
-{% block pageH1 %}Liste des {{ entityParams.beautyName }}{% endblock %}
+{% block pageH1 %}{{ 'admin.list.title'|trans({'%name%' : entityParams.beautyName}, "mweb") }}{% endblock %}
 
 {% block admin_container %}
     <div class="list-head-button">
-        <a class="button right " href="{{ path('mweb_admin_edit_entity', {'_locale': 'fr',"entityAlias" :entityAlias, 'id':'new'}) }}">Ajouter {{ entityParams.beautyName }}</a>
+        <a class="button right " href="{{ path('mweb_admin_edit_entity', {'_locale': 'fr',"entityAlias" :entityAlias, 'id':'new'}) }}">{{ 'admin.add'|trans({}, 'mweb') }}</a>
 
-        {% if entityParams.orderBy == 'position' %}<a class="button right" href="{{ path('mweb_admin_edit_position_entity', {"entityAlias" :entityAlias}) }}">Gèrer l'ordre des {{ entityParams.beautyName }}</a>{% endif %}
+        {% if entityParams.orderBy == 'position' %}<a class="button right" href="{{ path('mweb_admin_edit_position_entity', {"entityAlias" :entityAlias}) }}">{{ 'admin.manageOrder'|trans({}, 'mweb') }}</a>{% endif %}
 
     </div>
 
@@ -45,7 +47,7 @@
                     <th>ID <span class="glyphicon glyphicon-menu-down"></span></th>
 
                     {% for params in entityParams.listProperties %}
-                        <th id="{{ params.dataName == entityParams.orderBy ? 'orderFromHere' :'' }}">{{ params.beautyName }} <span class="glyphicon glyphicon-menu-down"></span></th>
+                        <th data-name="{{ params.dataName }}" id="{{ params.dataName == entityParams.orderBy ? 'orderFromHere' :'' }}">{{ params.beautyName }} <span class="glyphicon glyphicon-menu-down"></span></th>
                     {% endfor %}
                     <th class="mw-table-action-col">{{ 'admin.edit.actions'|trans }}</th>
 
