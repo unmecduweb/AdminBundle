@@ -19,12 +19,12 @@ class TwigExtension extends \Twig_Extension
         private $vichHelper;
         private $liipCacheHelper;
         private $requestStack = false;
+        private $em;
         
-        
-        public function __construct($container, RequestStack $requestStack)
+        public function __construct($container, RequestStack $requestStack,  $em)
         {
                 $this->container = $container;
-                
+                $this->em = $em;
                 if (preg_match('#^2#', Kernel::VERSION)) {
                         if($this->container->isScopeActive('request')) {
                                 $this->request = $this->container->get('request');
@@ -32,11 +32,11 @@ class TwigExtension extends \Twig_Extension
                 }else{
                         $this->requestStack = $requestStack->getCurrentRequest();
                 }
-                $this->vichHelper = $this->container->get('vich_uploader.templating.helper.uploader_helper');
+                if($this->container->has('vich_uploader.templating.helper.uploader_helper')){
+                        $this->vichHelper = $this->container->get('vich_uploader.templating.helper.uploader_helper');
+                }
                 $this->liipCacheHelper = $this->container->get('liip_imagine.cache.manager');
-//                if ($this->container->get('router.request_context')->get('_route') !== null) {
-//                        $this->locale = $this->container->get('request')->getLocale();
-//                }
+
                 
         }
 
@@ -63,6 +63,7 @@ class TwigExtension extends \Twig_Extension
                         new \Twig_SimpleFunction('isSelected', [$this, 'isSelected']),
                         new \Twig_SimpleFunction('isAjax', [$this, 'isAjax']),
                         new \Twig_SimpleFunction('array_unset', array($this, 'arrayUnset')),
+                        new \Twig_SimpleFunction('getFileManagerFolder', array($this, 'getFileManagerFolder')),
                         new \Twig_SimpleFunction('getFileManagerFolder', array($this, 'getFileManagerFolder')),
                 );
         }
@@ -206,6 +207,17 @@ class TwigExtension extends \Twig_Extension
          */
         public function getFileManagerFolder(){
                 return $this->container->getParameter('mweb_admin.fileManagerFolder').'/';
+        }
+        
+        public function getPagesNav()
+        {
+                $entites = $this->container->getParameter('mweb_admin.entities');
+                if(isset($entites['page']['class'])){
+                        $repo = $this->em->getRepository($entites['page']['class']);
+                        $pages = $repo->findAll();
+                }
+                
+                return $pages;
         }
         
         
