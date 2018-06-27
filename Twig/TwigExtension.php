@@ -55,7 +55,7 @@ class TwigExtension extends \Twig_Extension
                         new \Twig_SimpleFunction('isAjax', [$this, 'isAjax']),
                         new \Twig_SimpleFunction('array_unset', array($this, 'arrayUnset')),
                         new \Twig_SimpleFunction('getFileManagerFolder', array($this, 'getFileManagerFolder')),
-                        new \Twig_SimpleFunction('getFileManagerFolder', array($this, 'getFileManagerFolder')),
+                        new \Twig_SimpleFunction('getElementByDevAlias', array($this, 'getElementByDevAlias')),
                 );
         }
 
@@ -211,5 +211,16 @@ class TwigExtension extends \Twig_Extension
                 return $pages;
         }
         
+        public function getElementByDevAlias($devAlias, $entity = 'page'){
+                $entites = $this->container->getParameter('mweb_admin.entities');
+                if(isset($entites[$entity]['class'])){
+                        $repo = $this->em->getRepository($entites[$entity]['class']);
+                        $object = $repo->findOneByDevAlias($devAlias);
+                        return $object;
+                }else{
+                        return false;
+                }
+                
+        }
         
 }
