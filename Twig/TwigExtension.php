@@ -56,6 +56,7 @@ class TwigExtension extends \Twig_Extension
                         new \Twig_SimpleFunction('array_unset', array($this, 'arrayUnset')),
                         new \Twig_SimpleFunction('getFileManagerFolder', array($this, 'getFileManagerFolder')),
                         new \Twig_SimpleFunction('getElementByDevAlias', array($this, 'getElementByDevAlias')),
+                        new \Twig_SimpleFunction('getPagesNav', array($this, 'getPagesNav')),
                 );
         }
 
