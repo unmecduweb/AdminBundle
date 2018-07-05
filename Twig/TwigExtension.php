@@ -206,7 +206,7 @@ class TwigExtension extends \Twig_Extension
                 $entites = $this->container->getParameter('mweb_admin.entities');
                 if(isset($entites['page']['class'])){
                         $repo = $this->em->getRepository($entites['page']['class']);
-                        $pages = $repo->findByShowInMenu(1);
+                        $pages = $repo->findByShowInMenu(1, array('position' => 'asc'));
                 }
                 
                 return $pages;
