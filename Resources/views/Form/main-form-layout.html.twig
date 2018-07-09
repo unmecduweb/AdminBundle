@@ -183,7 +183,7 @@
 
                         {% if form.vars.attr.fileType == "image" %}
                             <div class="illu mw-gallery-item-row"
-                                 style="background-image:url({{ asset(getFileManagerFolder()~galleryField.vars.value)|imagine_filter('mw_thumb') }})"></div>
+                                 style="background-image:url('{{ asset(getFileManagerFolder()~galleryField.vars.value)|imagine_filter('mw_thumb') }}')"></div>
                         {% elseif form.vars.attr.fileType == "file" %}
                             <div class="file mw-gallery-item-row">
                                 <span class="glyphicon glyphicon-file"></span>
