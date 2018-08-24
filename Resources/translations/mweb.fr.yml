@@ -80,6 +80,7 @@ admin:
     success: L'élément a bien été modifié
   gallery:
     label: Galerie
+    add: Ajouter
     labelHelp: Pour ajouter une image cliquer sur le bouton ajouter.
   page:
     title: Titre de la page
