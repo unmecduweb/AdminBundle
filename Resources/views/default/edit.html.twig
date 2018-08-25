@@ -8,7 +8,7 @@
 
 
 
-    {% set fieldToExclude = ['status', 'metaDesc', 'goTo', 'position'] %}
+    {% set fieldToExclude = ['status', 'metaDesc', 'goTo', 'position', 'devAlias'] %}
 
 
     <form action="" method="post" enctype="multipart/form-data">
@@ -47,6 +47,16 @@
                 {% if form.showInMenu is defined %}
                     {{ form_errors(form.showInMenu) }}
                     {{ form_row(form.showInMenu) }}
+                {% endif %}
+                {% if form.devAlias is defined %}
+                    {% if is_granted('ROLE_SUPER_ADMIN') == false %}
+                        <div style="display: none">
+                    {% endif %}
+                    {{ form_errors(form.devAlias) }}
+                    {{ form_row(form.devAlias) }}
+                    {% if is_granted('ROLE_SUPER_ADMIN') == false %}
+                        </div>
+                    {% endif %}
                 {% endif %}
                 {% if form.metaDesc is defined %}
                     {{ form_errors(form.metaDesc) }}

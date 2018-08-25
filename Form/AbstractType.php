@@ -60,6 +60,11 @@ class AbstractType extends SfAbstractType
                         }
                         
                         $builder
+                                ->add('devAlias', TextType::class, [
+                                        'label' => 'Dev alias',
+                                        'required' => false
+
+                                ])
                                 ->add('status', ChoiceType::class, [
                                         'label' => 'admin.edit.status',
                                         'expanded' => true,
