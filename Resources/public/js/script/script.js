@@ -110,6 +110,30 @@ tinymce.init({
     }
 });
 
+tinymce.init({
+    selector: '.tinymce-small',  // change this value according to your HTML
+    height: 150,
+    plugins: [
+        "advlist autolink link image lists charmap print preview hr anchor pagebreak",
+        "searchreplace wordcount visualblocks visualchars insertdatetime media nonbreaking",
+        "table contextmenu directionality emoticons paste textcolor responsivefilemanager code"
+    ],
+    toolbar1: "undo redo | bold italic underline ",
+    image_advtab: true,
+    menubar: false,
+    style_formats: [
+        {block: 'p', title: 'Paragraphe'}
+    ],
+    external_filemanager_path: getDomain() + "/admin/tinymceBrowser/",
+    filemanager_title: "Gestionnaire de fichier",
+    external_plugins: {"filemanager": "plugins/responsivefilemanager/plugin.min.js"},
+    setup: function (editor) {
+        editor.on('change', function () {
+            tinymce.triggerSave();
+        });
+    }
+});
+
 
 /*********************************************************************/
 /****************************  WIDGET  *******************************/
