@@ -3,6 +3,8 @@ $(document).ready(function () {
     setMwGalleryWidget();
     setMwFileWidget();
 
+    setMwCollectionField();
+
     $('form').bind('form-pre-serialize', function (e) {
         tinymce.triggerSave();
     });
@@ -291,4 +293,39 @@ function setMwFileWidgetDeleteItemButton($item) {
         $item.find('input:first').val('');
         $btnDelete.remove();
     });
+}
+
+function setMwCollectionField() {
+    setMwDeleteCollectionField();
+    $('.mw-collections').each(function (i, collection) {
+        $(collection).find('.mw-add-collection-field').on('click', function () {
+            var $list = $(collection).find('.mw-collections-list');
+            // Try to find the counter of the list
+            var counter = $list.children().length;
+            // If the counter does not exist, use the length of the list
+
+            // grab the prototype template
+            var newWidget = $list.attr('data-prototype');
+            // replace the "__name__" used in the id and name of the prototype
+            // with a number that's unique to your emails
+            // end name attribute looks like name="contact[emails][2]"
+            newWidget = newWidget.replace(/__name__/g, counter);
+            // Increase the counter
+            counter++;
+            // And store it, the length cannot be used if deleting widgets is allowed
+            $list.data(' widget-counter', counter);
+
+            // create a new list element and add it to the list
+            var newElem = $($list.attr('data-widget-tags')).html(newWidget+' <button type="button" class="mw-delete-collection-field"><span class="glyphicon glyphicon-remove"></span> </button>');
+            newElem.appendTo($list);
+            setMwDeleteCollectionField();
+        });
+    });
+}
+
+function setMwDeleteCollectionField(){
+    $('.mw-delete-collection-field').off('click')
+    $('.mw-delete-collection-field').on('click', function () {
+        $(this).parents('li').remove();
+    })
 }

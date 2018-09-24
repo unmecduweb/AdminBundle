@@ -8,7 +8,7 @@
 
 
 
-    {% set fieldToExclude = ['status', 'metaDesc', 'goTo', 'position', 'devAlias'] %}
+    {% set fieldToExclude = ['status', 'metaDesc', 'goTo', 'position', 'devAlias', 'oldUrl'] %}
 
 
     <form action="" method="post" enctype="multipart/form-data">
@@ -57,6 +57,9 @@
                     {% if is_granted('ROLE_SUPER_ADMIN') == false %}
                         </div>
                     {% endif %}
+                {% endif %}
+                {% if form.oldUrl is defined %}
+                    {{ form_row(form.oldUrl) }}
                 {% endif %}
                 {% if form.metaDesc is defined %}
                     {{ form_errors(form.metaDesc) }}

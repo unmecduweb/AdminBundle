@@ -249,9 +249,12 @@ input[type="search"]{border: 1px solid #222;}
 .mw-file-add .glyphicon{color: #ff1e7d; font-size: 60px; }
 .mw-file-add .text{text-transform: uppercase; color: #ff1e7d; text-align: center; margin: 15px 0; display: inline-block;}
 
-
-
-
+.mw-collections-list{list-style: none; padding: 0; margin: 0;}
+.mw-collections-list li{clear: both; margin: 15px 0;}
+.mw-collections-list input{width:90%; font-size:14px; box-shadow: none; border: 1px solid #e5e5e5; padding: 10px 15px; height: auto; min-height: 45px; line-height: 25px; color: #6a6c6f; background: white; -webkit-appearance: none; -moz-appearance: none; -ms-appearance: none; -o-appearance: none; appearance: none; -webkit-border-radius: 0px; -moz-border-radius: 0px; border-radius: 0px;}
+.mw-collections-list .mw-delete-collection-field{font-size: 28px; padding: 7px 0; width:9%;float: right; display: inline-block; color: #ff1e7d; background: none; border: none;}
+.mw-add-collection-field{ padding: 7px 0; display: inline-block; color: #ff1e7d; background: none; border: none;}
+.mw-add-collection-field .glyphicon{font-size: 17px; vertical-align: baseline; }
 
 .form-error{font-family: 'open-sans-regular'; font-size: 14px; margin: 10px 0; border-left: 4px solid #c9302c; padding: 0 0 0 10px; color: #c9302c}
 .form-error:last-of-type{margin-bottom: 10px;}

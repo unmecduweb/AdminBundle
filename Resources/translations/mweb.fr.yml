@@ -78,6 +78,8 @@ admin:
     deleteElm: Supprimer un élément
     successDelete: L'élément a été supprimé
     success: L'élément a bien été modifié
+    oldUrl: Anciennes Url du document
+    oldUrlHelp: Utilisez pour créer des redirections et ne pas perdre le référencement des pages dans les moteurs de recherche
   gallery:
     label: Galerie
     add: Ajouter

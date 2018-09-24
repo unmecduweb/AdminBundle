@@ -301,3 +301,22 @@
 
     {#{% do captionField.setRendered %}#}
 {% endblock %}
+
+{% block collection_widget %}
+    {% spaceless %}
+        <div class="mw-collections">
+            {{ form_errors(form) }}
+            <ul class="mw-collections-list"
+                data-prototype="{{ form_widget(form.vars.prototype)|e }}"
+                data-widget-tags="{{ '<li></li>'|e }}" >
+                {% for item in form %}
+                    <li>
+                        {{ form_widget(item) }}
+                        <button type="button" class="mw-delete-collection-field"><span class="glyphicon glyphicon-remove"></span> </button>
+                    </li>
+                {% endfor %}
+            </ul>
+            <button type="button" class="mw-add-collection-field" ><span class="glyphicon glyphicon-plus"></span> Ajouter</button>
+        </div>
+    {% endspaceless %}
+{% endblock collection_widget %}

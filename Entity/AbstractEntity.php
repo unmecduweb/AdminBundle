@@ -91,6 +91,13 @@ class AbstractEntity implements Translatable
          * @Gedmo\SortablePosition
          */
         private $position;
+
+        /**
+         * @var array
+         * @Gedmo\Translatable
+         * @ORM\Column(name="old_url", type="array", nullable=true)
+         */
+        private $oldUrl;
         
         public function __construct()
         {
@@ -348,5 +355,29 @@ class AbstractEntity implements Translatable
         public function getUpdatedBy()
         {
                 return $this->updatedBy;
+        }
+
+        /**
+         * Set oldUrl
+         *
+         * @param array $oldUrl
+         *
+         * @return AbstractEntity
+         */
+        public function setOldUrl($oldUrl)
+        {
+                $this->oldUrl = $oldUrl;
+
+                return $this;
+        }
+
+        /**
+         * Get oldUrl
+         *
+         * @return array
+         */
+        public function getOldUrl()
+        {
+                return $this->oldUrl;
         }
 }
