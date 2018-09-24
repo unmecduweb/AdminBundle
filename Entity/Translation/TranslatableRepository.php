@@ -186,5 +186,23 @@ class TranslatableRepository extends SortableRepository
                 
                 return parent::findOneBy($criteria, $orderBy);
         }
-        
+
+
+        public function findOldUrl($url, $locales)
+        {
+                $qb = $this->createQueryBuilder('entity')
+                        ->select('entity')
+                        ->where('entity.oldUrl LIKE :oldUrl')
+                        ->andWhere('entity.status = 1')
+                        ->setParameter(':oldUrl', '%'.$url.'%');
+
+                foreach ($locales as $locale) {
+                        $query[$locale] = $qb->getQuery();
+                        $query[$locale]->setHint(Query::HINT_CUSTOM_OUTPUT_WALKER, 'Gedmo\\Translatable\\Query\\TreeWalker\\TranslationWalker');
+                        $query[$locale]->setHint(TranslatableListener::HINT_TRANSLATABLE_LOCALE, $locale);
+                        $results[$locale]  = $query[$locale]->getResult();
+                }
+
+                return $results;
+        }
 }
