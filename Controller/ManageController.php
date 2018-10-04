@@ -171,10 +171,10 @@ class ManageController extends Controller
                 
                 if ($id != "undefined" && $id !== null && $id !== 'new') {
                         $entityEdit = $entityRepo->find($id);
+                        $cloneEntityEdit = clone($entityEdit);
                         $entityEdit->setTranslatableLocale($_locale);
                         $em->refresh($entityEdit);
-                        /*var_dump($entityEdit->getGalleryCaption());
-                        die();*/
+
         
                 } else {
                         $entityEdit = new $entityParams['class'];
@@ -225,11 +225,35 @@ class ManageController extends Controller
                         $entityEdit->setTranslatableLocale($_locale);
         
                         $entityEdit->setUpdatedBy($user);
-        
-                        
+
+                        if(count($entityEdit->getOldUrl() )) {
+                                //parcours le champ oldURL pour supprimer les valeurs vides
+                                foreach ($entityEdit->getOldUrl() as $url) {
+                                        if (trim($url)) $oldsUrls[] = $url;
+                                }
+                                $entityEdit->setOldUrl($oldsUrls);
+                        }
+
+
                         $em->persist($entityEdit);
                         $em->flush();
-                        
+
+                        //Si le slug a changé, on ajoute l'ancienne URL dans le champ oldUrl
+                        if(isset($cloneEntityEdit) && $cloneEntityEdit->getSlug() !== $entityEdit->getSlug()){
+                                $oldUrl = $entityEdit->getOldUrl();
+
+                                foreach ($entityParams['pathProperties'] as $key=>$pathProperty){
+                                        $method = 'get'.ucfirst($pathProperty);
+                                        $param[$key] = $cloneEntityEdit->$method();
+                                }
+
+                                $oldUrl[] = $this->generateUrl($entityParams['path'], $param, UrlGeneratorInterface::ABSOLUTE_URL);
+                                $entityEdit->setOldUrl($oldUrl);
+                                $em->persist($entityEdit);
+                                $em->flush();
+
+                        }
+
                         $this->addFlash('success', $this->get('translator')->trans('admin.edit.success', array(), 'mweb'));
                         
                         switch ($form["goTo"]->getData()) {
