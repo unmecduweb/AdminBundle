@@ -187,6 +187,31 @@ class TranslatableRepository extends SortableRepository
                 return parent::findOneBy($criteria, $orderBy);
         }
 
+        /**
+         * Find an entry by criteria
+         * Need this special function, because of translatable
+         * https://github.com/stof/StofDoctrineExtensionsBundle/issues/232
+         *
+         * @param $params
+         * @return mixed
+         */
+        public function findOneBySlug($params)
+        {
+                if(is_array($params)){
+                        $slug = $params['slug'];
+                }else{
+                        $slug = $params;
+                }
+
+                $query = $this->createQueryBuilder('object')
+                        ->where('object.slug = :slug')
+                        ->setParameter('slug', $slug)
+                        ->getQuery();
+
+                $query->setHint(\Doctrine\ORM\Query::HINT_CUSTOM_OUTPUT_WALKER, 'Gedmo\\Translatable\\Query\\TreeWalker\\TranslationWalker');
+
+                return $query->getOneOrNullResult();
+        }
 
         public function findOldUrl($url, $locales)
         {
