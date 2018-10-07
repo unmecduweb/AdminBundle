@@ -40,6 +40,10 @@ admin:
     listUsers: Liste des utilisateurs
     myAccount: Mon compte
   edit:
+    localesEnabled: Publier le document dans les langues
+    localesEnabledHelp: Si aucune langue n'est coché, le document est actif dans toutes les langues
+    statusTransOn: Oui
+    statusTransOff: Non
     title: Édition en %lang%
     helpPosition: Cliquez sur les flèches de position et déplacez le contenu à l'emplacement souhaité. N'oubliez pas d'enregistrer.
     editions: Editer

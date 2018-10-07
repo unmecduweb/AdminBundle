@@ -21,14 +21,12 @@ class AbstractEntity implements Translatable
          * @Gedmo\Locale
          */
         protected $locale;
-        
+
         /**
          * @var integer
-         * @Gedmo\Translatable
-         * @ORM\Column(name="status_trans", type="smallint", options={"default" = 1})
+         * @ORM\Column(name="locales_enabled", type="array",nullable=true)
          */
-        private $statusTrans = true;
-        
+        private $localesEnabled;
         
         /**
          * @var integer
@@ -114,31 +112,7 @@ class AbstractEntity implements Translatable
         {
                 $this->locale = $locale;
         }
-        
-        
-        /**
-         * Set statusTrans
-         *
-         * @param integer $statusTrans
-         *
-         * @return AbstractEntity
-         */
-        public function setStatusTrans($statusTrans)
-        {
-                $this->statusTrans = $statusTrans;
-                
-                return $this;
-        }
-        
-        /**
-         * Get statusTrans
-         *
-         * @return integer
-         */
-        public function getStatusTrans()
-        {
-                return $this->statusTrans;
-        }
+
         
         /**
          * Set created
@@ -379,5 +353,30 @@ class AbstractEntity implements Translatable
         public function getOldUrl()
         {
                 return $this->oldUrl;
+        }
+
+
+        /**
+         * Set localesEnabled
+         *
+         * @param array $localesEnabled
+         *
+         * @return AbstractEntity
+         */
+        public function setLocalesEnabled($localesEnabled)
+        {
+                $this->localesEnabled = $localesEnabled;
+
+                return $this;
+        }
+
+        /**
+         * Get localesEnabled
+         *
+         * @return array
+         */
+        public function getLocalesEnabled()
+        {
+                return $this->localesEnabled;
         }
 }

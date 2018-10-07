@@ -213,6 +213,31 @@ class TranslatableRepository extends SortableRepository
                 return $query->getOneOrNullResult();
         }
 
+
+        /**
+         * Find an entry by criteria
+         * Need this special function, because of translatable
+         * https://github.com/stof/StofDoctrineExtensionsBundle/issues/232
+         *
+         * @param $params
+         * @return mixed
+         */
+        public function findOneByDevAlias($devAlias, $locale)
+        {
+
+                $query = $this->createQueryBuilder('object')
+                        ->where('object.devAlias = :devAlias')
+                        ->andWhere('object.status = 1')
+                        ->andWhere('object.localesEnabled LIKE :locale')
+                        ->setParameter(':locale', '%' . $locale . '%')
+                        ->setParameter('devAlias', $devAlias)
+                        ->getQuery();
+
+                $query->setHint(\Doctrine\ORM\Query::HINT_CUSTOM_OUTPUT_WALKER, 'Gedmo\\Translatable\\Query\\TreeWalker\\TranslationWalker');
+
+                return $query->getOneOrNullResult();
+        }
+
         public function findOldUrl($url, $locales)
         {
                 $qb = $this->createQueryBuilder('entity')
@@ -229,5 +254,41 @@ class TranslatableRepository extends SortableRepository
                 }
 
                 return $results;
+        }
+
+        public function mwFindBy($criteria, $_locale, array $orderBy = null, $limit = null, $offset = null)
+        {
+
+                $qb = $this->createQueryBuilder('object');
+                $qb->where('object.status = 1');
+                $qb->andWhere('object.localesEnabled LIKE :locale OR object.localesEnabled is null OR object.localesEnabled = :empty');
+
+
+                $i=0;
+                foreach ($criteria as $key => $criterion) {
+                        if($criterion == null) $condition = 'object.' . $key . ' is null';
+                        else if($criterion == "not null") $condition = 'object.' . $key . ' is not null';
+                        else $condition = 'object.' . $key . ' = :param' . $i;
+
+                        $qb->andWhere($condition);
+                        $i++;
+                }
+                $i=0;
+                foreach ($criteria as $key => $criterion) {
+                        if($criterion != null && $criterion != 'not null')$qb->setParameter('param' . $i, $criterion);
+                        $i++;
+                }
+
+                $qb->setParameter(':locale', '%'.$_locale.'%');
+                $qb->setParameter(':empty', serialize([]));
+
+                if($orderBy)$qb->orderBy('object.'.key($orderBy),$orderBy[key($orderBy)]);
+                else $qb->orderBy('object.created','DESC');
+                if($limit)$qb->setMaxResults($limit);
+                if($offset)$qb->setFirstResult($offset);
+
+                $query = $qb->getQuery();
+
+                return $query->getResult();
         }
 }
