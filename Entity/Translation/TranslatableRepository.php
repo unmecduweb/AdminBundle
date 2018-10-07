@@ -195,7 +195,7 @@ class TranslatableRepository extends SortableRepository
          * @param $params
          * @return mixed
          */
-        public function findOneBySlug($params)
+        public function findOneBySlug($params, $locale)
         {
                 if(is_array($params)){
                         $slug = $params['slug'];
@@ -205,7 +205,11 @@ class TranslatableRepository extends SortableRepository
 
                 $query = $this->createQueryBuilder('object')
                         ->where('object.slug = :slug')
+                        ->andWhere('object.status = 1')
+                        ->andWhere('object.localesEnabled LIKE :locale OR object.localesEnabled is null OR object.localesEnabled = :empty')
                         ->setParameter('slug', $slug)
+                        ->setParameter(':locale', '%' . $locale . '%')
+                        ->setParameter(':empty', serialize([]))
                         ->getQuery();
 
                 $query->setHint(\Doctrine\ORM\Query::HINT_CUSTOM_OUTPUT_WALKER, 'Gedmo\\Translatable\\Query\\TreeWalker\\TranslationWalker');
@@ -228,15 +232,17 @@ class TranslatableRepository extends SortableRepository
                 $query = $this->createQueryBuilder('object')
                         ->where('object.devAlias = :devAlias')
                         ->andWhere('object.status = 1')
-                        ->andWhere('object.localesEnabled LIKE :locale')
+                        ->andWhere('object.localesEnabled LIKE :locale OR object.localesEnabled is null OR object.localesEnabled = :empty')
                         ->setParameter(':locale', '%' . $locale . '%')
                         ->setParameter('devAlias', $devAlias)
+                        ->setParameter(':empty', serialize([]))
                         ->getQuery();
 
                 $query->setHint(\Doctrine\ORM\Query::HINT_CUSTOM_OUTPUT_WALKER, 'Gedmo\\Translatable\\Query\\TreeWalker\\TranslationWalker');
 
                 return $query->getOneOrNullResult();
         }
+
 
         public function findOldUrl($url, $locales)
         {

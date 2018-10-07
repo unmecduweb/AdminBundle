@@ -216,7 +216,7 @@ class TwigExtension extends \Twig_Extension
                 $entites = $this->container->getParameter('mweb_admin.entities');
                 if(isset($entites[$entity]['class'])){
                         $repo = $this->em->getRepository($entites[$entity]['class']);
-                        $object = $repo->findOneByDevAlias($devAlias);
+                        $object = $repo->findOneByDevAlias($devAlias, $this->requestStack->getLocale());
                         return $object;
                 }else{
                         return false;
