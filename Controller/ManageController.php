@@ -228,6 +228,7 @@ class ManageController extends Controller
                         $entityEdit->setUpdatedBy($user);
 
                         if(count($entityEdit->getOldUrl() )) {
+                                $oldsUrls = array();
                                 //parcours le champ oldURL pour supprimer les valeurs vides
                                 foreach ($entityEdit->getOldUrl() as $url) {
                                         if (trim($url)) $oldsUrls[] = $url;
