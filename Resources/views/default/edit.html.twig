@@ -21,10 +21,15 @@
             </legend>
             <div class="content col-xs-12">
                 {% for key,field in form %}
+                    {% if field.vars['attr']['data-role'] is defined and field.vars['attr']['data-role'] == "mw-superadmin" and is_granted('ROLE_SUPER_ADMIN') == false %}
+                        <div style="display: none">
+                    {% endif %}
                     {% if  key not in fieldToExclude %}
                         {{ form_errors(field) }}
                         {{ form_row(field) }}
-
+                    {% endif %}
+                    {% if field.vars['attr']['data-role'] is defined and field.vars['attr']['data-role'] == "mw-superadmin" and is_granted('ROLE_SUPER_ADMIN') == false %}
+                        </div>
                     {% endif %}
                 {% endfor %}
             </div>

@@ -39,3 +39,14 @@ Require : <br />
     - FosUserBundle<br />
     - LexikTranslationBundle<br />
     - LiipImagineBundle
+    
+    
+#Features : 
+    Cacher un champ dans l'édition pour les non super-admin
+    Exemple :
+     ->add('color', TextType::class, [
+            'label' => 'admin.museum.color',
+            'attr' => array('data-role' => 'mw-superadmin'),
+            'required' => false
+    ])
+    Ne pas oublier le required false ou les admin ne pourront pas créer un nouveau document.
