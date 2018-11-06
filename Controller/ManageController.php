@@ -5,6 +5,7 @@ namespace Mweb\AdminBundle\Controller;
 use Doctrine\Common\Annotations\AnnotationReader;
 use Mweb\AdminBundle\Form\ConfirmDeleteType;
 use Mweb\CoreBundle\Entity\Content;
+use Mweb\AdminBundle\Entity\Config;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
@@ -391,5 +392,29 @@ class ManageController extends Controller
                         
                         
                 }
+        }
+
+        public function updateCacheAction(){
+                $user = $this->get('security.token_storage')->getToken()->getUser();
+
+                $em = $this->getDoctrine()->getManager();
+
+
+                $mw_cache = $em->getRepository('MwebAdminBundle:Config')->findOneByConfName('mw_cache');
+                if($mw_cache) {
+                        $mw_cache->setConfValue(uniqid());
+                        $em->persist($mw_cache);
+                        $em->flush();
+                }else{
+                        $mw_cache = new Config();
+                        $mw_cache->setConfName('mw_cache');
+                        $mw_cache->setConfValue(uniqid());
+                        $em->persist($mw_cache);
+                        $em->flush();
+                }
+
+                $this->addFlash('success', $this->get('translator')->trans('admin.updateCache', array(), 'mweb'));
+
+                return $this->redirect($this->generateUrl('mweb_admin'));
         }
 }

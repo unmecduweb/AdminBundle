@@ -19,9 +19,11 @@ class TwigExtension extends \Twig_Extension
         private $liipCacheHelper;
         private $requestStack = false;
         private $em;
+        private $mwCache;
         
         public function __construct($container, RequestStack $requestStack,  $em)
         {
+                $this->mwCache = null;
                 $this->container = $container;
                 $this->em = $em;
                 $this->requestStack = $requestStack->getCurrentRequest();
@@ -57,6 +59,7 @@ class TwigExtension extends \Twig_Extension
                         new \Twig_SimpleFunction('getFileManagerFolder', array($this, 'getFileManagerFolder')),
                         new \Twig_SimpleFunction('getElementByDevAlias', array($this, 'getElementByDevAlias')),
                         new \Twig_SimpleFunction('getPagesNav', array($this, 'getPagesNav')),
+                        new \Twig_SimpleFunction('mw_cache', array($this, 'mw_cache'))
                 );
         }
 
@@ -222,6 +225,21 @@ class TwigExtension extends \Twig_Extension
                         return false;
                 }
                 
+        }
+
+        /**
+         * Apllique un paramètre aux URLs de CSS ET DE JS pour supprimer la cache quand il y a besoin
+         *
+         * @return string
+         */
+        public function mw_cache()
+        {
+
+                if(!$this->mwCache) {
+                        $this->mwCache = $this->em->getRepository('MwebAdminBundle:Config')->findOneByConfName('mw_cache')->getConfValue();
+                        if($this->mwCache === null) $this->mwCache= '0';
+                }
+                return '?mwc=' .$this->mwCache;
         }
         
 }

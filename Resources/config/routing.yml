@@ -41,6 +41,9 @@ mweb_admin_user_list:
     path:  /user/list
     defaults: { _controller: MwebAdminBundle:User:list}
 
+mweb_admin_update_cache:
+    path: /updatecache
+    defaults: {_controller: MwebAdminBundle:Manage:updateCache}
 
 lexik_translation_edition:
     resource: "@LexikTranslationBundle/Resources/config/routing.yml"
