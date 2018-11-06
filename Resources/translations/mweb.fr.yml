@@ -16,6 +16,7 @@ admin:
   seeList: Voir la liste
   manageOrder: Gérer l'ordre
   add: Ajouter
+  updateCache: La cache a bien été mis à jour
   list:
     title: Liste des %name%
   user:

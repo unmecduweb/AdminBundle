@@ -234,10 +234,11 @@ class TwigExtension extends \Twig_Extension
          */
         public function mw_cache()
         {
-
                 if(!$this->mwCache) {
-                        $this->mwCache = $this->em->getRepository('MwebAdminBundle:Config')->findOneByConfName('mw_cache')->getConfValue();
-                        if($this->mwCache === null) $this->mwCache= '0';
+                        $mw_conf_cache = $this->em->getRepository('MwebAdminBundle:Config')->findOneByConfName('mw_cache');
+                        if($mw_conf_cache === null) $this->mwCache= '0';
+                        else $this->mwCache = $mw_conf_cache->getConfValue();
+
                 }
                 return '?mwc=' .$this->mwCache;
         }
