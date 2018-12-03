@@ -42,6 +42,7 @@ class TwigExtension extends \Twig_Extension
         {
                 return array(
                         new \Twig_SimpleFilter('stripAccents', [$this, 'stripAccents']),
+                        new \Twig_SimpleFilter('summary', [$this, 'summary']),
                 );
         
         }
