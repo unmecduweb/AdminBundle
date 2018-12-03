@@ -242,5 +242,16 @@ class TwigExtension extends \Twig_Extension
                 }
                 return '?mwc=' .$this->mwCache;
         }
-        
+
+        /**
+         * Limiter la taille dun string
+         * @param $str
+         * @param int $limit
+         * @return string
+         */
+        public function summary($str, $limit = 180)
+        {
+                $text = strip_tags($str);
+                return substr($text, 0, $limit) . '[...]';
+        }
 }
