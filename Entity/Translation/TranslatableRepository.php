@@ -206,9 +206,10 @@ class TranslatableRepository extends SortableRepository
                 $query = $this->createQueryBuilder('object')
                         ->where('object.slug = :slug')
                         ->andWhere('object.status = 1')
-                        ->andWhere('object.localesEnabled LIKE :locale OR object.localesEnabled is null OR object.localesEnabled = :empty')
+                        ->andWhere('object.localesEnabled LIKE :locale OR object.localesEnabled is null OR object.localesEnabled = :empty OR object.localesEnabled = :null')
                         ->setParameter('slug', $slug)
                         ->setParameter(':locale', '%' . $locale . '%')
+                        ->setParameter(':null', 'N;')
                         ->setParameter(':empty', serialize([]))
                         ->getQuery();
 
@@ -232,9 +233,10 @@ class TranslatableRepository extends SortableRepository
                 $query = $this->createQueryBuilder('object')
                         ->where('object.devAlias = :devAlias')
                         ->andWhere('object.status = 1')
-                        ->andWhere('object.localesEnabled LIKE :locale OR object.localesEnabled is null OR object.localesEnabled = :empty')
+                        ->andWhere('object.localesEnabled LIKE :locale OR object.localesEnabled is null OR object.localesEnabled = :empty OR object.localesEnabled = :null')
                         ->setParameter(':locale', '%' . $locale . '%')
                         ->setParameter('devAlias', $devAlias)
+                        ->setParameter(':null', 'N;')
                         ->setParameter(':empty', serialize([]))
                         ->getQuery();
 
@@ -267,7 +269,7 @@ class TranslatableRepository extends SortableRepository
 
                 $qb = $this->createQueryBuilder('object');
                 $qb->where('object.status = 1');
-                $qb->andWhere('object.localesEnabled LIKE :locale OR object.localesEnabled is null OR object.localesEnabled = :empty');
+                $qb->andWhere('object.localesEnabled LIKE :locale OR object.localesEnabled is null OR object.localesEnabled = :empty OR object.localesEnabled = :null');
 
 
                 $i=0;
@@ -287,6 +289,7 @@ class TranslatableRepository extends SortableRepository
 
                 $qb->setParameter(':locale', '%'.$_locale.'%');
                 $qb->setParameter(':empty', serialize([]));
+                $qb->setParameter(':null', 'N;');
 
                 if($orderBy)$qb->orderBy('object.'.key($orderBy),$orderBy[key($orderBy)]);
                 else $qb->orderBy('object.created','DESC');
