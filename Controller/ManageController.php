@@ -209,10 +209,12 @@ class ManageController extends Controller
 
                                 // Si ReindexField existe on reindex le champ ;)
                                 if ($annotation = $reader->getPropertyAnnotation($reflectionProperty, 'Mweb\AdminBundle\Mapping\Annotation\ReindexField')) {
-                                        
+
                                         $requestData = $request->request->get($form->getName());
-                                        $requestData[$reflectionProperty->getName()] = array_values($requestData[$reflectionProperty->getName()]);
-                                        $request->request->set($form->getName(), $requestData);
+                                        if (isset($requestData[$reflectionProperty->getName()])) {
+                                                $requestData[$reflectionProperty->getName()] = array_values($requestData[$reflectionProperty->getName()]);
+                                                $request->request->set($form->getName(), $requestData);
+                                        }
                                 }
                         }
                         
