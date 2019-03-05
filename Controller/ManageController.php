@@ -244,7 +244,7 @@ class ManageController extends Controller
                         $em->flush();
 
                         //Si le slug a changé, on ajoute l'ancienne URL dans le champ oldUrl
-                        if(isset($cloneEntityEdit) && $cloneEntityEdit->getSlug() !== $entityEdit->getSlug()){
+                        if($entityParams['path'] && isset($cloneEntityEdit) && $cloneEntityEdit->getSlug() !== $entityEdit->getSlug()){
                                 $oldUrl = $entityEdit->getOldUrl();
 
                                 foreach ($entityParams['pathProperties'] as $key=>$pathProperty){
