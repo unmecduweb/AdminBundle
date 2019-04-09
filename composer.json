@@ -12,7 +12,7 @@
         "twig/twig": "*",
         "doctrine/doctrine-bundle": "*",
         "friendsofsymfony/user-bundle":"~2.0",
-        "liip/imagine-bundle":"1.*"
+        "liip/imagine-bundle":"*"
     },
     "autoload": {
         "psr-0": {
