@@ -17,11 +17,16 @@ admin:
   manageOrder: Gérer l'ordre
   add: Ajouter
   updateCache: La cache a bien été mis à jour
+  websiteStatus:
+    online: Le site est maintenant en ligne
+    offline: Le site est maintenant hors ligne
+    offlineTitle: Site en cours de maintenance
   list:
     title: Liste des %name%
   user:
     username: Nom d'utilisateur
     email: Adresse Email
+    connect: Connectez-vous
     successCreation: L'utilisateur a bien été créé
     list:
       title: Liste des utilisateurs

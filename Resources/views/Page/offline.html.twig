@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <title>{% block title %}{% endblock %} {{ 'meta.title'|trans }} </title>
+
+    <meta name="description" content="{% block metaDescription %} {{ 'meta.description'|trans }} {% endblock %} "/>
+
+    <link rel="stylesheet" type="text/css" media="screen" href="{{ asset('bundles/mwebcore/css/style.css') }}"/>
+    <link rel="stylesheet" type="text/css" media="screen" href="{{ asset('bundles/mwebcore/css/bootstrap.min.css') }}"/>
+
+    <link rel="stylesheet" type="text/css" media="all and (min-width: 768px)"
+          href="{{ asset('bundles/mwebcore/css/responsive/responsiveDesk.css') }}"/>
+
+    <meta property="og:title" content="{% block ogTitle %}{{ 'meta.title'|trans }}{% endblock %}" />
+    <meta property="og:type" content="{% block ogType %}website{% endblock %}" />
+    <meta property="og:image" content="{% block ogImage %}{{ asset('bundles/mwebcore/img/facebook-banner.jpg', null, true) }}{% endblock %}"/>
+    <meta property="og:description" content="{% block ogDesciption %}{{ 'meta.description'|trans }}{% endblock %}"/>
+    <meta property="og:url" content="{{ app.request.uri }}"/>
+    <link rel="icon" href="{{ asset('favicon.ico') }}"/>
+
+    <script type="text/javascript" src="{{ asset('bundles/mwebcore/js/a_jquery.3.1.1.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/mwebcore/js/a_mw-library.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/mwebcore/js/bootstrap.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/mwebcore/js/zzz.js') }}"></script>
+
+</head>
+
+
+<body style="background: #444444; padding-top: 20%;">
+<div class="container">
+    <div class="col-xs-12" style="text-align: center;">
+        {% set logo = "admin.main.logo"|trans({}, 'mweb') %}
+        {% set logoName = "bundles/mwebadmin/img/"~logo %}
+
+        <a id="mweb-menu-logo" target="_blank" class="no-padding" href="{{ "admin.main.companyLink"|trans({}, 'mweb') }}" ><img src="{{ asset(logoName) }} "/>  </a>
+        <h1 style="color: #fff; font-weight: 100; font-size: 3rem; text-align: center;">{{ "admin.websiteStatus.offlineTitle"|trans({}, 'mweb') }}</h1>
+        <a style="text-align: center; font-size: 1.2rem; color: #fff;" href="{{ path('mweb_admin') }}">{{ "admin.user.connect"|trans({}, 'mweb') }}</a>
+    </div>
+</div>
+</body>
+

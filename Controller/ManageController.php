@@ -419,4 +419,37 @@ class ManageController extends Controller
 
                 return $this->redirect($this->generateUrl('mweb_admin'));
         }
+
+        public function updateStatusWebsiteAction(){
+                $user = $this->get('security.token_storage')->getToken()->getUser();
+
+                $em = $this->getDoctrine()->getManager();
+
+                $this->getUser();
+
+                if($user->hasRole('ROLE_SUPER_ADMIN')) {
+                        $mw_status = $em->getRepository('MwebAdminBundle:Config')->findOneByConfName('mw_status_website');
+                        if ($mw_status) {
+                                if($mw_status->getConfValue() == 'online'){
+                                        $mw_status->setConfValue('offline');
+                                        $this->addFlash('error', $this->get('translator')->trans('admin.websiteStatus.offline', array(), 'mweb'));
+                                }else{
+                                        $mw_status->setConfValue('online');
+                                        $this->addFlash('success', $this->get('translator')->trans('admin.websiteStatus.online', array(), 'mweb'));
+
+                                }
+                                $em->persist($mw_status);
+                                $em->flush();
+                        } else {
+                                $mw_status = new Config();
+                                $mw_status->setConfName('mw_status_website');
+                                $mw_status->setConfValue('offline');
+                                $em->persist($mw_status);
+                                $em->flush();
+                                $this->addFlash('error', $this->get('translator')->trans('admin.websiteStatus.offline', array(), 'mweb'));
+
+                        }
+                }
+                return $this->redirect($this->generateUrl('mweb_admin'));
+        }
 }

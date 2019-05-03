@@ -1,23 +1,24 @@
 services:
-    app.twig_extension:
-        class: Mweb\AdminBundle\Twig\TwigExtension
-        arguments: ["@service_container", "@request_stack", "@doctrine.orm.entity_manager"]
-        public: false
-        tags:
-            - { name: twig.extension }
+  app.twig_extension:
+    class: Mweb\AdminBundle\Twig\TwigExtension
+    arguments: ["@service_container", "@request_stack", "@doctrine.orm.entity_manager"]
+    public: false
+    tags:
+      - { name: twig.extension }
 
-    mweb.admin.adminMenu:
-        class: Mweb\AdminBundle\Listener\AdminMenu
-        arguments: ["@security.token_storage" ,"@twig","%mweb_admin.entities%","%mweb_admin.menus%"]
-        tags:
-            - { name: kernel.event_listener, event: kernel.response, method: showMenu }
+  mweb.admin.init:
+    class: Mweb\AdminBundle\Listener\MwebListener
+    arguments: ["@security.token_storage" ,"@twig","%mweb_admin.entities%","%mweb_admin.menus%", '@doctrine.orm.entity_manager']
+    tags:
+      - { name: kernel.event_listener, event: kernel.response, method: showMenu }
+      - { name: kernel.event_listener, event: kernel.request, method: startWebsite }
 
-    mweb.brute_force_listener:
-          class: Mweb\AdminBundle\Listener\BruteForceAttemptListener
-          tags:
-              - { name: kernel.event_listener, event: security.brute_force_attempt, method: onBruteForceAttempt }
+  mweb.brute_force_listener:
+    class: Mweb\AdminBundle\Listener\BruteForceAttemptListener
+    tags:
+      - { name: kernel.event_listener, event: security.brute_force_attempt, method: onBruteForceAttempt }
 
-    mweb.user.form.change_password:
-          class: Mweb\AdminBundle\Form\ChangePasswordType
-          tags:
-                - { name: form.type, alias: mweb_user_form_change_password }
+  mweb.user.form.change_password:
+    class: Mweb\AdminBundle\Form\ChangePasswordType
+    tags:
+      - { name: form.type, alias: mweb_user_form_change_password }
