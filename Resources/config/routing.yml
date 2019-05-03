@@ -45,6 +45,10 @@ mweb_admin_update_cache:
     path: /updatecache
     defaults: {_controller: MwebAdminBundle:Manage:updateCache}
 
+mweb_admin_update_status_website:
+    path: /updatestatuswebsite
+    defaults: {_controller: MwebAdminBundle:Manage:updateStatusWebsite}
+
 lexik_translation_edition:
     resource: "@LexikTranslationBundle/Resources/config/routing.yml"
     prefix: /trans
