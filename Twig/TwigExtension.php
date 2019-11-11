@@ -60,6 +60,7 @@ class TwigExtension extends \Twig_Extension
                         new \Twig_SimpleFunction('getFileManagerFolder', array($this, 'getFileManagerFolder')),
                         new \Twig_SimpleFunction('getElementByDevAlias', array($this, 'getElementByDevAlias')),
                         new \Twig_SimpleFunction('getPagesNav', array($this, 'getPagesNav')),
+                        new \Twig_SimpleFunction('getEntitiesNav', array($this, 'getEntitiesNav')),
                         new \Twig_SimpleFunction('mw_cache', array($this, 'mw_cache'))
                 );
         }
@@ -215,7 +216,18 @@ class TwigExtension extends \Twig_Extension
                 
                 return $pages;
         }
-        
+
+        public function getEntitiesNav($entityAlias)
+        {
+                $entites = $this->container->getParameter('mweb_admin.entities');
+                if(isset($entites[$entityAlias]['class'])){
+                        $repo = $this->em->getRepository($entites[$entityAlias]['class']);
+                        $entities = $repo->findByShowInMenu(1, array('position' => 'asc'));
+                }
+
+                return $entities;
+        }
+
         public function getElementByDevAlias($devAlias, $entity = 'page'){
                 $entites = $this->container->getParameter('mweb_admin.entities');
                 if(isset($entites[$entity]['class'])){
