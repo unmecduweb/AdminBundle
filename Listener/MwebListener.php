@@ -81,7 +81,7 @@ class MwebListener
                 if ($event->isMasterRequest()) {
                         $request = $event->getRequest();
                         $_route = $request->attributes->get('_route');
-
+                        $this->checkConfValueIsset();
                         $mw_status = $this->em->getRepository('MwebAdminBundle:Config')->findOneByConfName('mw_status_website');
                         $token = $this->token_storage->getToken();
 
@@ -110,6 +110,18 @@ class MwebListener
 
                                 }
                         }
+                }
+        }
+        private function checkConfValueIsset()
+        {
+                $mw_status = $this->em->getRepository('MwebAdminBundle:Config')->findOneByConfName('mw_status_website');
+
+                if ($mw_status == null) {
+                        $mw_status = new Config();
+                        $mw_status->setConfName('mw_status_website');
+                        $mw_status->setConfValue('online');
+                        $this->em->persist($mw_status);
+                        $this->em->flush();
                 }
         }
 }
