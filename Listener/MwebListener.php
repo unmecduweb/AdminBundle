@@ -3,6 +3,7 @@ namespace Mweb\AdminBundle\Listener;
 
 use Doctrine\ORM\EntityManager;
 
+use Mweb\AdminBundle\Entity\Config;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\FinishRequestEvent;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
