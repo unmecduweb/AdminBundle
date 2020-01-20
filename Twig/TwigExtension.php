@@ -62,7 +62,7 @@ class TwigExtension extends \Twig_Extension
                         new \Twig_SimpleFunction('getPagesNav', array($this, 'getPagesNav')),
                         new \Twig_SimpleFunction('getEntitiesNav', array($this, 'getEntitiesNav')),
                         new \Twig_SimpleFunction('mw_cache', array($this, 'mw_cache')),
-                        new \Twig_SimpleFunction('getDefaultLocal', array($this, 'getDefaultLocal()'))
+                        new \Twig_SimpleFunction('getDefaultLocal', array($this, 'getDefaultLocal'))
                 );
         }
 
