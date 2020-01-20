@@ -109,7 +109,7 @@
                            href="{{ path('mweb_admin_list_entity',{'entityAlias': entityAlias}) }}">Liste
                             des {{ entitiesParams[entityAlias].beautyName }}</a>
                         <a class="button  right"
-                           href="{{ path('mweb_admin_edit_entity', {'_locale': 'fr',"entityAlias" :entityAlias, 'id':'new'}) }}">Ajouter {{ entitiesParams[entityAlias].beautyName }}</a>
+                           href="{{ path('mweb_admin_edit_entity', {'_locale': app.request.attributes.get('_locale') ,"entityAlias" :entityAlias, 'id':'new'}) }}">Ajouter {{ entitiesParams[entityAlias].beautyName }}</a>
                     </div>
                 </div>
                 {% if k%3 == 0 %}
