@@ -5,11 +5,11 @@
 
 {% endblock %}
 
-{% block pageH1 %}Administration du site {{ 'admin.project'|trans({}, "mweb") }}{% endblock %}
+{% block pageH1 %}{{ 'admin.projectOf'|trans({}, "mweb")}}{{ 'admin.project'|trans({}, "mweb") }}{% endblock %}
 
 {% block admin_container %}
 
-
+s
     <div id="mweb-home" class="col-xs-12">
         <h3>{{ 'admin.main.hello'|trans({'%name%':  app.user.username}, "mweb") }} {{ 'admin.project'|trans({}, "mweb") }}
             .</h3>
