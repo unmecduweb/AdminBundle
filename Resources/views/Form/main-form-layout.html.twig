@@ -163,7 +163,7 @@
             {% set  captionField =  form.parent.children[captionFieldName] %}
         {% endif %}
         {# store the prototype on the data-prototype attribute#}
-        <ul class="mw-gallery-widget" data-lang="{{ app.request.locale }}" data-defaultlocale="{{ defaultLocale }}"
+        <ul class="mw-gallery-widget" data-lang="{{ getDefaultLocal() }}" data-defaultlocale="{{ defaultLocale }}"
                 {% if form.vars.attr.fileType == "image" %}
                     data-type="1"
                 {% elseif form.vars.attr.fileType == "file" %}
@@ -238,7 +238,7 @@
         {% endif %}
 
         {# store the prototype on the data-prototype attribute#}{#
-        <ul id="mw-gallery-list" data-lang="{{ app.request.locale }}" data-defaultlocale="{{ defaultLocale }}"
+        <ul id="mw-gallery-list" data-lang="{{ getDefaultLocal() }}" data-defaultlocale="{{ defaultLocale }}"
 
             data-uploads-folder="/{{ getFileManagerFolder() }}"
             data-filemanager="{{ path('mweb_admin_tinymce_browser', {file : "dialog.php"}) }}"
@@ -251,7 +251,7 @@
         <div class="mw-file-widget col-xs-6 col-sm-3 col-lg-2"
              data-uploads-folder="/{{ getFileManagerFolder() }}"
              data-filemanager="{{ path('mweb_admin_tinymce_browser', {file : "dialog.php"}) }}"
-             data-lang="{{ app.request.locale }}"
+             data-lang="{{ getDefaultLocal() }}"
              data-defaultlocale="{{ defaultLocale }}"
 
             {% if form.vars.attr.fileType == "image" %}

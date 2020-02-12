@@ -5,11 +5,11 @@
 
 {% endblock %}
 
-{% block pageH1 %}Administration du site {{ 'admin.project'|trans({}, "mweb") }}{% endblock %}
+{% block pageH1 %}{{ 'admin.projectOf'|trans({}, "mweb")}} {{ 'admin.project'|trans({}, "mweb") }}{% endblock %}
 
 {% block admin_container %}
 
-
+s
     <div id="mweb-home" class="col-xs-12">
         <h3>{{ 'admin.main.hello'|trans({'%name%':  app.user.username}, "mweb") }} {{ 'admin.project'|trans({}, "mweb") }}
             .</h3>
@@ -109,7 +109,7 @@
                            href="{{ path('mweb_admin_list_entity',{'entityAlias': entityAlias}) }}">Liste
                             des {{ entitiesParams[entityAlias].beautyName }}</a>
                         <a class="button  right"
-                           href="{{ path('mweb_admin_edit_entity', {'_locale': 'fr',"entityAlias" :entityAlias, 'id':'new'}) }}">Ajouter {{ entitiesParams[entityAlias].beautyName }}</a>
+                           href="{{ path('mweb_admin_edit_entity', {'_locale': app.request.attributes.get('_locale') ,"entityAlias" :entityAlias, 'id':'new'}) }}">Ajouter {{ entitiesParams[entityAlias].beautyName }}</a>
                     </div>
                 </div>
                 {% if k%3 == 0 %}

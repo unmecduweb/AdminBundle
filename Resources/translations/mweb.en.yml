@@ -1,18 +1,98 @@
-en: Anglais
-fr: Français
+fr: français
+en: anglais
+de: allemand
+es: espagnol
+it: italien
+form:
+  email: Email
+  username: Username
+  current_password: Main password
+  password: Password
+  password_confirmation: Password confirmation
+  new_password: New password
+  new_password_confirmation: New password confirmation
 admin:
-  title: Administration
-  content:
-    title: Titre de la section
-    subTitle: Titre court
-    menuTitle: Titre du menu
-    illu: Illustration
-    content: Contenu
-  news:
-    title: Titre de l'actualité
-    menuTitle: Titre du menu
-    illu: Illustration
-    content: Contenu
-  paralax:
-    title: Titre de l'illustration
-    illu: Illustration
+  title: MWEB - Administration
+  seeList: See list
+  manageOrder: Manage order
+  add: Add
+  updateCache: cache as been updated
+  websiteStatus:
+    online: Website is online
+    offline: Website is offline
+    offlineTitle: Website under maintenance
+  list:
+    title: List of %name%
+  user:
+    username: Username
+    email: Email adddress
+    connect: Sign-in
+    successCreation: User has been created
+    list:
+      title: Users list
+  main:
+    hello: Hello %name% and welcome to administration of
+    help: "For any question contact SKINsoft team :<br/> Commercial: 09 72 13 27 61<br/>Technical : 01 83 62 07 60"
+    madeBy: Administration system powered
+    company: SkinSoft
+    companyLink: http://skinsoft.org
+    logo: logo-skin.png
+  menu:
+    logout: Logout
+    gotoWebsite: Display website
+    trad: Translations
+    users: Users
+    addUser: Add user
+    listUsers: Users list
+    myAccount: My account
+  edit:
+    localesEnabled: Publish document in langauges
+    localesEnabledHelp: If nothing is check, document is available in all languages
+    statusTransOn: Yes
+    statusTransOff: No
+    title: Edit in %lang%
+    helpPosition: Click to postion arrow and move content to the place you want.
+    editions: Edit
+    position: Position
+    actions: Actions
+    cancel: cancel
+    positionTitle: Manage order of %name%
+    positionSuccess: Elements order has been modified
+    delete: Archive
+    user: Edit your user account
+    userPass: Edit your password
+    showInMenu: Display in the menu
+    showInMenuOn: Yes
+    showInMenuOff: No
+    mainLegend: General informations
+    metaLegend: Complementary informations
+    saveLegend: Go to
+    save: Save
+    status: Publish the document
+    statusOn: Yes
+    statusOff: No
+    metaDesc: Meta Description
+    metaDescHelp: La balise meta description permet d’ajouter une description d'une page affichée, ainsi que des mots-clés pour lesquels on souhaite optimiser une page.
+    goto:
+      seeList: Back to the list
+      stayHere: Stay on this page
+      addAnother: New document
+      otherLanguages:
+        fr: Edit in french
+        en: Edit in english
+    deleteConfirm: Check this case to confirm document's delete
+    deleteConfirmMiss: Please check the case
+    deleteElm: Delete an alement
+    successDelete: Element has been deleted
+    success: Element has been modified
+    oldUrl: Anciennes Url du document
+    oldUrlHelp: Utilisez pour créer des redirections et ne pas perdre le référencement des pages dans les moteurs de recherche
+  gallery:
+    label: Galerie
+    add: Ajouter
+    labelHelp: Pour ajouter une image cliquer sur le bouton ajouter.
+  page:
+    title: Page title
+    subTitle: Page subtitle
+    content: Page content
+
