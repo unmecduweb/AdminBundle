@@ -53,6 +53,7 @@ THE SOFTWARE.
 
 #loading-wrap{display: none;}
 .mweb-container{background: #fff; box-shadow: 0 5px 5px #aaa; padding-top: 20px; padding-bottom: 20px;}
+#mweb-container{padding-bottom: 65px;}
 .clear{clear:both; }
 .none {display:none;}
 .no-padding{padding: 0 !important;}
