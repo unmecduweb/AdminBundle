@@ -51,13 +51,13 @@ class AbstractEntity implements Translatable
 
 
         /**
-         * @ORM\ManyToOne(targetEntity="Mweb\AdminBundle\Entity\User")
+         * @ORM\ManyToOne(targetEntity="Mweb\AdminBundle\Entity\UserInterface")
          * @ORM\JoinColumn(name="created_by", referencedColumnName="id")
          */
         private $createdBy;
 
         /**
-         * @ORM\ManyToOne(targetEntity="Mweb\AdminBundle\Entity\User")
+         * @ORM\ManyToOne(targetEntity="Mweb\AdminBundle\Entity\UserInterface")
          * @ORM\JoinColumn(name="updated_by", referencedColumnName="id")
          */
         private $updatedBy;
@@ -287,11 +287,11 @@ class AbstractEntity implements Translatable
         /**
          * Set createdBy
          *
-         * @param \Mweb\AdminBundle\Entity\User $createdBy
+         * @param \Mweb\AdminBundle\Entity\UserInterface $createdBy
          *
          * @return AbstractEntity
          */
-        public function setCreatedBy(\Mweb\AdminBundle\Entity\User $createdBy = null)
+        public function setCreatedBy($createdBy = null)
         {
                 $this->createdBy = $createdBy;
 
@@ -301,7 +301,7 @@ class AbstractEntity implements Translatable
         /**
          * Get createdBy
          *
-         * @return \Mweb\AdminBundle\Entity\User
+         * @return \Mweb\AdminBundle\Entity\UserInterface
          */
         public function getCreatedBy()
         {
@@ -311,11 +311,11 @@ class AbstractEntity implements Translatable
         /**
          * Set updatedBy
          *
-         * @param \Mweb\AdminBundle\Entity\User $updatedBy
+         * @param \Mweb\AdminBundle\Entity\UserInterface $updatedBy
          *
          * @return AbstractEntity
          */
-        public function setUpdatedBy(\Mweb\AdminBundle\Entity\User $updatedBy = null)
+        public function setUpdatedBy($updatedBy = null)
         {
                 $this->updatedBy = $updatedBy;
 
@@ -325,7 +325,7 @@ class AbstractEntity implements Translatable
         /**
          * Get updatedBy
          *
-         * @return \Mweb\AdminBundle\Entity\User
+         * @return \Mweb\AdminBundle\Entity\UserInterface
          */
         public function getUpdatedBy()
         {
