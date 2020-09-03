@@ -14,7 +14,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  */
 class AbstractEntity implements Translatable
 {
-        
+
         /**
          * Post locale
          * Used locale to override Translation listener's locale
@@ -27,62 +27,62 @@ class AbstractEntity implements Translatable
          * @ORM\Column(name="locales_enabled", type="array",nullable=true)
          */
         private $localesEnabled;
-        
+
         /**
          * @var integer
          * @ORM\Column(name="show_in_menu", type="smallint", options={"default" = 1})
          */
         private $showInMenu = 1;
-        
-        
+
+
         /**
          * @var \DateTime
          * @ORM\Column(name="inserted", type="datetime", nullable=false)
          * @Gedmo\Timestampable(on="create")
          */
         private $created;
-        
+
         /**
          * @var \DateTime
          * @ORM\Column(name="updated", type="datetime", nullable=false)
          * @Gedmo\Timestampable(on="update")
          */
         private $updated;
-        
-        
+
+
         /**
          * @ORM\ManyToOne(targetEntity="Mweb\AdminBundle\Entity\User")
          * @ORM\JoinColumn(name="created_by", referencedColumnName="id")
          */
         private $createdBy;
-        
+
         /**
          * @ORM\ManyToOne(targetEntity="Mweb\AdminBundle\Entity\User")
          * @ORM\JoinColumn(name="updated_by", referencedColumnName="id")
          */
         private $updatedBy;
-        
-        
+
+
         /**
          * @var string
          *
          * @ORM\Column(name="dev_alias", type="string", length=250, nullable=true)
          */
         private $devAlias;
-        
-        
+
+
         /**
          * @var integer
          * @ORM\Column(name="status", type="smallint", options={"default" = 1})
          */
         private $status = 1;
-        
+
         /**
          * @ORM\Column(name="meta_desc", type="text", nullable=true)
          * @Gedmo\Translatable
          */
         private $metaDesc;
-        
+
         /**
          * @var integer
          * @ORM\Column(name="position", type="smallint", nullable=true)
@@ -96,13 +96,14 @@ class AbstractEntity implements Translatable
          * @ORM\Column(name="old_url", type="array", nullable=true)
          */
         private $oldUrl;
-        
+
         public function __construct()
         {
+                $this->oldUrl = array();
                 $this->statusTrans = true;
                 $this->status = 1;
         }
-        
+
         /**
          * Sets translatable locale
          *
@@ -113,7 +114,7 @@ class AbstractEntity implements Translatable
                 $this->locale = $locale;
         }
 
-        
+
         /**
          * Set created
          *
@@ -124,10 +125,10 @@ class AbstractEntity implements Translatable
         public function setCreated($created)
         {
                 $this->created = $created;
-                
+
                 return $this;
         }
-        
+
         /**
          * Get created
          *
@@ -137,7 +138,7 @@ class AbstractEntity implements Translatable
         {
                 return $this->created;
         }
-        
+
         /**
          * Set updated
          *
@@ -148,10 +149,10 @@ class AbstractEntity implements Translatable
         public function setUpdated($updated)
         {
                 $this->updated = $updated;
-                
+
                 return $this;
         }
-        
+
         /**
          * Get updated
          *
@@ -161,7 +162,7 @@ class AbstractEntity implements Translatable
         {
                 return $this->updated;
         }
-        
+
         /**
          * Set status
          *
@@ -172,10 +173,10 @@ class AbstractEntity implements Translatable
         public function setStatus($status)
         {
                 $this->status = $status;
-                
+
                 return $this;
         }
-        
+
         /**
          * Get status
          *
@@ -185,7 +186,7 @@ class AbstractEntity implements Translatable
         {
                 return $this->status;
         }
-        
+
         /**
          * Set devAlias
          *
@@ -196,10 +197,10 @@ class AbstractEntity implements Translatable
         public function setDevAlias($devAlias)
         {
                 $this->devAlias = $devAlias;
-                
+
                 return $this;
         }
-        
+
         /**
          * Get devAlias
          *
@@ -209,7 +210,7 @@ class AbstractEntity implements Translatable
         {
                 return $this->devAlias;
         }
-        
+
         /**
          * Set metaDesc
          *
@@ -220,10 +221,10 @@ class AbstractEntity implements Translatable
         public function setMetaDesc($metaDesc)
         {
                 $this->metaDesc = $metaDesc;
-                
+
                 return $this;
         }
-        
+
         /**
          * Get metaDesc
          *
@@ -233,7 +234,7 @@ class AbstractEntity implements Translatable
         {
                 return $this->metaDesc;
         }
-        
+
         /**
          * Set showInMenu
          *
@@ -244,10 +245,10 @@ class AbstractEntity implements Translatable
         public function setShowInMenu($showInMenu)
         {
                 $this->showInMenu = $showInMenu;
-                
+
                 return $this;
         }
-        
+
         /**
          * Get showInMenu
          *
@@ -257,8 +258,8 @@ class AbstractEntity implements Translatable
         {
                 return $this->showInMenu;
         }
-        
-        
+
+
         /**
          * Set position
          *
@@ -269,10 +270,10 @@ class AbstractEntity implements Translatable
         public function setPosition($position)
         {
                 $this->position = $position;
-                
+
                 return $this;
         }
-        
+
         /**
          * Get position
          *
@@ -282,7 +283,7 @@ class AbstractEntity implements Translatable
         {
                 return $this->position;
         }
-        
+
         /**
          * Set createdBy
          *
@@ -293,10 +294,10 @@ class AbstractEntity implements Translatable
         public function setCreatedBy(\Mweb\AdminBundle\Entity\User $createdBy = null)
         {
                 $this->createdBy = $createdBy;
-                
+
                 return $this;
         }
-        
+
         /**
          * Get createdBy
          *
@@ -306,7 +307,7 @@ class AbstractEntity implements Translatable
         {
                 return $this->createdBy;
         }
-        
+
         /**
          * Set updatedBy
          *
@@ -317,10 +318,10 @@ class AbstractEntity implements Translatable
         public function setUpdatedBy(\Mweb\AdminBundle\Entity\User $updatedBy = null)
         {
                 $this->updatedBy = $updatedBy;
-                
+
                 return $this;
         }
-        
+
         /**
          * Get updatedBy
          *
